@@ -1,0 +1,17 @@
+<h2>You're logged in as John Doe</h2>
+<p>
+  <b>Teams you're in:</b> Colossus, TeamKotlin
+</p>
+<p>
+  <b>Assigned rooms:</b> 14.02
+</p>
+
+<h2>My Raspberry Pi's</h2>
+<div id="pis">
+  <app-pi-card [name]="'Pi: 13.06:02'" [status]="'🟢 online'" [dashboard]="'Awesome Dashboard'"></app-pi-card>
+  <app-pi-card [name]="'Pi: 15.02:01'" [status]="'⚪ offline'" [dashboard]="'Just memes'"></app-pi-card>
+  <app-pi-card [name]="'Pi: 14.02:01'" [status]="'🔴 error'" [dashboard]="'serious stuff'"></app-pi-card>
+</div>
+
+
+<!--🟢,⚪, 🔴 -->

@@ -1,0 +1,13 @@
+mat-card {
+  background-color: #19b;
+  color: white;
+}
+
+mat-card {
+  margin: 10px;
+}
+
+mat-divider {
+  margin: 0 16px;
+  border-top-color: white;
+}
