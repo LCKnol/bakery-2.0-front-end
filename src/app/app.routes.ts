@@ -1,3 +1,12 @@
 import { Routes } from '@angular/router';
+import {ViewdashboardsComponent} from './viewdashboards/viewdashboards.component';
 
-export const routes: Routes = [];
+const routeConfig: Routes = [
+  {
+    path: 'viewdashboards',
+    component: ViewdashboardsComponent,
+    title: 'viewdashboards'
+  }
+];
+
+export default routeConfig;

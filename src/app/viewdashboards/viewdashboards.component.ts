@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {DashboardCardComponent} from '../dashboard-card/dashboard-card.component'
 import {NavbarComponent} from '../navbar/navbar.component'
-import {DashboardDto} from '../dto/dashboard-dto'
+import {DashboardsDto} from '../dto/DashboardsDto'
+import  {DashboardService} from  "../services/dashboard.service";
 
 
 @Component({
@@ -12,6 +13,10 @@ import {DashboardDto} from '../dto/dashboard-dto'
   styleUrl: './viewdashboards.component.css'
 })
 export class ViewdashboardsComponent {
-constructor() {
-}
+  item: DashboardsDto;
+
+
+  constructor(private  dashboardService: DashboardService)  {
+   this.item = dashboardService.getDashboards()
+  }
 }
