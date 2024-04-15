@@ -1,18 +1,16 @@
 import { Routes } from '@angular/router';
-import {AppComponent} from './app.component';
 import {LoginComponent} from "./login/login.component";
+import {ViewdashboardsComponent} from "./viewdashboards/viewdashboards.component";
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
-    component: AppComponent,
-    title: 'Home'
+    component: LoginComponent,
+    title: 'Login'
   },
   {
-    path: 'login',
-    component: LoginComponent,
-    title: 'login'
-  }
+    path: 'dashboards',
+    component: ViewdashboardsComponent,
+    title: 'dashboards'
+  },
 ];
-
-export default routes;
