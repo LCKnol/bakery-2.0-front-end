@@ -4,7 +4,7 @@ import { MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import {DashboardDto} from '../dto/dashboard-dto'
+import {DashboardDto} from '../dto/dashboardDto'
 import { CommonModule } from '@angular/common';
 import {RouterLink} from "@angular/router";
 import {RouterOutlet} from "@angular/router";
@@ -21,7 +21,7 @@ import {RouterOutlet} from "@angular/router";
       <mat-card-title>{{dashboard.name}} </mat-card-title>
       <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <img mat-card-image src="../../assets/defaultDashboardImage.jpg" alt="dashboardPhoto">
     <mat-card-content>
       <p>
       </p>

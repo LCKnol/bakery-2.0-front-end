@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {DashboardsDto} from '../dto/DashboardsDto';
+import {DashboardsDto} from '../dto/dashboardsDto';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Injectable({

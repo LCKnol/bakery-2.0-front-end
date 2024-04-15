@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
 <section class="results">
-<!--  <app-dashboard-card  *ngFor="let dashboard of filteredLocationList"-->
-<!--                       [housingLocation]="housingLocation"></app-dashboard-card>-->
+  <app-dashboard-card  *ngFor="let dashboard of dashboards?.dashboards"
+                       [dashboard]="dashboard"></app-dashboard-card>
 </section>

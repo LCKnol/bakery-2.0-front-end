@@ -1,5 +1,6 @@
 export interface DashboardDto {
-  id:  number;
+  Id:  number;
+  URL: string;
   name: string;
-  password: string;
+
 }
