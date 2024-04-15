@@ -1,19 +1,19 @@
 <mat-card>
   <mat-card-header>
     <div mat-card-avatar></div>
-    <mat-card-title>{{ name }}</mat-card-title>
+    <mat-card-title>{{ pi.name }}</mat-card-title>
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-card-content>
     <p>
-      <b>status:</b> {{ status }}
+      <b>status:</b> {{ pi.status }}
     </p>
     <p>
-      <b>displaying:</b> {{ dashboard }}
+      <b>displaying:</b> {{ pi.display }}
     </p>
 
   </mat-card-content>
   <mat-card-actions align="end">
-    <button mat-button style="color: white">></button>
+    <button mat-button style="color: white">...</button>
   </mat-card-actions>
 </mat-card>

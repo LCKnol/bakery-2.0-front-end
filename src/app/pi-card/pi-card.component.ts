@@ -9,6 +9,7 @@ import {
 } from "@angular/material/card";
 import {MatDivider} from "@angular/material/divider";
 import {MatButton} from "@angular/material/button";
+import {Pi} from "../dto/pi";
 
 @Component({
   selector: 'app-pi-card',
@@ -27,7 +28,5 @@ import {MatButton} from "@angular/material/button";
   styleUrl: './pi-card.component.css'
 })
 export class PiCardComponent {
-  @Input() name!: string;
-  @Input() status: string = '-';
-  @Input() dashboard: string = '-';
+  @Input() pi!: Pi;
 }
