@@ -15,6 +15,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Token} from "../dto/token";
 import {NgForOf} from "@angular/common";
 import {PiCollection} from "../dto/pi-collection";
+import {User} from "../dto/user";
 
 @Component({
   selector: 'app-home',
@@ -44,9 +45,11 @@ export class HomeComponent {
   piCollection: PiCollection = {
     pis: []
   };
-  
+  user: User | undefined;
+
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({'Content-Type': 'application/json'});
+    this.http.post<User>  ("http://localhost:8080/user", this.token, {headers: this.headers}).subscribe(res => this.user = res);
     this.http.post<PiCollection>("http://localhost:8080/pis", this.token, {headers: this.headers}).subscribe(res => this.piCollection = res);
   }
 
