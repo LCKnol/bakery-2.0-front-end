@@ -15,7 +15,7 @@ import {RouterOutlet} from "@angular/router";
   imports: [MatButtonModule,MatCardModule,MatButtonModule,MatMenuModule,MatToolbarModule,MatIconModule,  RouterOutlet,
     RouterLink],
   styleUrl: './dashboard-card.component.css',
-  template :`<mat-card class="dashboard-card">
+  template :`<mat-card class="dashboard-card" >
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>{{dashboard.name}} </mat-card-title>
@@ -27,7 +27,7 @@ import {RouterOutlet} from "@angular/router";
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-flat-button color="primary" >View dashboard</button>
+      <button  mat-flat-button color="primary" routerLink="/dashboards" >View dashboard</button>
     </mat-card-actions>
   </mat-card>`
 })
