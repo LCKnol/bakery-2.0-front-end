@@ -1,9 +1,11 @@
 <h2>You're logged in as {{ user?.name }}</h2>
 <p>
-    <b>Teams you're in:</b> <ng-container *ngFor="let team of user?.teams"> {{ team.name }}, </ng-container>
+    <b>Teams you're in:</b>
+    <ng-container *ngFor="let team of user?.teams"> {{ team.name }},</ng-container>
 </p>
 <p>
-    <b>Assigned rooms:</b> <ng-container *ngFor="let room of user?.rooms"> {{ room.roomNo }}, </ng-container>
+    <b>Assigned rooms:</b>
+    <ng-container *ngFor="let room of user?.rooms"> {{ room.roomNo }},</ng-container>
 </p>
 
 <h2>My Raspberry Pi's</h2>

@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 import {LoginComponent} from "./login/login.component";
 import {HomeComponent} from "./home/home.component";
+import {ViewdashboardsComponent} from "./viewdashboards/viewdashboards.component";
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
@@ -11,8 +12,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    title: 'login'
-  }
+    title: 'Login'
+  },
+  {
+    path: 'dashboards',
+    component: ViewdashboardsComponent,
+    title: 'Dashboards'
+  },
 ];
-
-export default routes;
