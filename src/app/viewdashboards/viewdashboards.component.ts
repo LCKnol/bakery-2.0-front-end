@@ -16,7 +16,6 @@ import {CommonModule} from '@angular/common';
 export class ViewdashboardsComponent {
   dashboards?: DashboardsDto;
 
-
   constructor(private  dashboardService: DashboardService)  {
      dashboardService.getDashboards().then((dashboard: DashboardsDto) => {
       this.dashboards = dashboard;
