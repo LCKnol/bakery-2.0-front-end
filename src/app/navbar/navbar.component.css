@@ -1,0 +1,13 @@
+mat-toolbar{
+  background-color: #003345;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+mat-toolbar button{
+  color: white;
+  background-color: #19b;
+}
+h1{
+  font-family: SansSerif;
+}
