@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {DashboardsDto} from '../dto/dashboardsDto';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {firstValueFrom} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,10 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/c
     const params = new HttpParams().set('token', "test");
 
     try {
-      const data : DashboardsDto = await this.httpClient.get<DashboardsDto>(endpointUrl, {params: params}).toPromise() as DashboardsDto;
-      return data;
+      return await firstValueFrom(this.httpClient.get<DashboardsDto>(endpointUrl, {params: params})) as DashboardsDto;
     } catch (err) {
       return Promise.reject(err);
     }
-  };
-};
+  }
+}
 
