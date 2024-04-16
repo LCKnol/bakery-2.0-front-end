@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {NgIf, NgOptimizedImage} from "@angular/common";
 import {
   MatCard,
   MatCardActions,
@@ -22,7 +23,9 @@ import {Pi} from "../dto/pi";
     MatCardActions,
     MatButton,
     MatCardSubtitle,
-    MatCardTitle
+    MatCardTitle,
+    NgIf,
+    NgOptimizedImage
   ],
   templateUrl: './pi-card.component.html',
   styleUrl: './pi-card.component.css'
