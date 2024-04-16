@@ -27,6 +27,10 @@
 
   </mat-card-content>
   <mat-card-actions align="end">
-    <button mat-button>...</button>
+    <a [routerLink]="['/pis', pi.name]">
+      <button mat-button>
+        ...
+      </button>
+    </a>
   </mat-card-actions>
 </mat-card>
