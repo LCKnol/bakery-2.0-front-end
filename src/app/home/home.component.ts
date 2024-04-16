@@ -11,11 +11,11 @@ import {
 import {MatButton} from "@angular/material/button";
 import {MatDivider} from "@angular/material/divider";
 import {PiCardComponent} from "../pi-card/pi-card.component";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Token} from "../dto/token";
 import {NgForOf, NgIf} from "@angular/common";
 import {PiCollection} from "../dto/pi-collection";
 import {User} from "../dto/user";
+import {HomeScreenService} from "../services/home-screen.service";
 
 @Component({
   selector: 'app-home',
@@ -39,7 +39,6 @@ import {User} from "../dto/user";
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  private headers: HttpHeaders;
   private token: Token = {
     "token": "1234-1234-1234"
   };
@@ -48,10 +47,8 @@ export class HomeComponent {
   };
   user: User | undefined;
 
-  constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders({'Content-Type': 'application/json'});
-    this.http.post<User>("http://localhost:8080/user", this.token, {headers: this.headers}).subscribe(res => this.user = res);
-    this.http.post<PiCollection>("http://localhost:8080/pis", this.token, {headers: this.headers}).subscribe(res => this.piCollection = res);
+  constructor(private homeScreenService: HomeScreenService) {
+    this.homeScreenService.getUser(this.token).then(res => this.user = res)
+    this.homeScreenService.getPis(this.token).then(res => this.piCollection = res);
   }
-
 }
