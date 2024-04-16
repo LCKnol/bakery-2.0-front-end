@@ -17,7 +17,7 @@ import {firstValueFrom} from "rxjs";
     const params = new HttpParams().set('token', "test");
 
     try {
-      return await firstValueFrom(this.httpClient.get<DashboardsDto>(endpointUrl, {params: params})) as DashboardsDto;
+      return await firstValueFrom(this.httpClient.get<DashboardsDto>(endpointUrl, {params: params}));
     } catch (err) {
       return Promise.reject(err);
     }

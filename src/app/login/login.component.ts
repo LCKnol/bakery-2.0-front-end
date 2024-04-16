@@ -3,9 +3,10 @@ import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { MatButton, MatFabButton, MatMiniFabButton } from "@angular/material/button";
 import { LoginRequest } from "../dto/loginRequest";
-import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {AppConstants} from "../app.constants";
-import {Token} from "../dto/token";
+import {LoginService} from "../services/login.service";
+import {Router} from "@angular/router";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -28,26 +29,24 @@ export class LoginComponent {
   });
 
   private url: string;
-  private headers: HttpHeaders;
 
-  constructor(private http: HttpClient) {
+  constructor(private loginService : LoginService, private router: Router, private snackbar: MatSnackBar) {
   this.url = AppConstants.API_LOGIN_URL;
-  this.headers = new HttpHeaders({ 'Content-Type': 'application/json'});
   }
 
-  submitLoginForm() {
+  submitLoginForm() : void {
     const loginRequest: LoginRequest = {
       email: this.loginForm.value.email ?? '',
       password: this.loginForm.value.password ?? ''
     };
 
-    console.log(this.loginForm.value.email ?? '', this.loginForm.value.password ?? '');
-
-    this.http.post<Token>("http://localhost:8080/login", loginRequest, { headers: this.headers })
-      .subscribe(data => this.handleResponse(data))
-  }
-
-  handleResponse(data: Token) {
-    console.log(data.token)
+    this.loginService.login(loginRequest)
+      .then(token => {
+        this.loginService.setToken(token);
+        this.router.navigate(['/']).catch(_ => {console.log('no homepage found');});
+      })
+      .catch(_ => {this.snackbar.open('Invalid login credentails', 'ok', {
+        verticalPosition: 'bottom'
+      });})
   }
 }
