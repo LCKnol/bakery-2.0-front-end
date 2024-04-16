@@ -13,7 +13,7 @@ import {MatDivider} from "@angular/material/divider";
 import {PiCardComponent} from "../pi-card/pi-card.component";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Token} from "../dto/token";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {PiCollection} from "../dto/pi-collection";
 import {User} from "../dto/user";
 
@@ -32,7 +32,8 @@ import {User} from "../dto/user";
     MatCardSubtitle,
     MatDivider,
     PiCardComponent,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
