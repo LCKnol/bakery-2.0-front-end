@@ -8,6 +8,7 @@ mat-toolbar{
   display: flex;
   flex-direction: row;
   gap: 20px;
+  justify-content: center;
 }
 mat-toolbar button{
   color: white;
