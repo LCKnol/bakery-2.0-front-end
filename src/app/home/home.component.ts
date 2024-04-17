@@ -48,7 +48,7 @@ export class HomeComponent {
   user: User | undefined;
 
   constructor(private homeScreenService: HomeScreenService) {
-    this.homeScreenService.getUser(this.token).then(res => this.user = res)
-    this.homeScreenService.getPis(this.token).then(res => this.piCollection = res);
+    this.homeScreenService.getUser().then(res => this.user = res)
+    this.homeScreenService.getPis().then(res => this.piCollection = res);
   }
 }

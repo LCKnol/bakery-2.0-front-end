@@ -15,6 +15,6 @@ import {GeneralService} from "./general.service";
   public async getDashboards(): Promise<DashboardCollection> {
 
     const endpointUrl = 'http://localhost:8080/dashboards';
-    return firstValueFrom(this.generalService.get(endpointUrl));
+    return firstValueFrom(await this.generalService.get(endpointUrl));
   }
 }
