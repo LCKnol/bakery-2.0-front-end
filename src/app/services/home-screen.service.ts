@@ -4,6 +4,7 @@ import {PiCollection} from "../dto/pi-collection";
 import {Token} from "../dto/token";
 import {firstValueFrom} from "rxjs";
 import {User} from "../dto/user";
+import {GeneralService} from "./general.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,14 @@ import {User} from "../dto/user";
 export class HomeScreenService {
   private headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
-  constructor(private http: HttpClient) {
+  constructor(private generalService: GeneralService) {
   }
 
-  public getUser(token: Token): Promise<User> {
-    return firstValueFrom(this.http.post<User>("http://localhost:8080/user", token, {headers: this.headers}))
+  async getUser(): Promise<User> {
+    return firstValueFrom(await this.generalService.get("http://localhost:8080/user"));
   }
 
-  public getPis(token: Token): Promise<PiCollection> {
-    return firstValueFrom(this.http.post<PiCollection>("http://localhost:8080/pis", token, {headers: this.headers}));
+  async getPis(): Promise<PiCollection> {
+    return firstValueFrom(await this.generalService.get("http://localhost:8080/user"));
   }
 }
