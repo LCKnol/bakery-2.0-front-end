@@ -1,6 +1,5 @@
-import { TestBed } from '@angular/core/testing';
-
-import { HomeScreenService } from './home-screen.service';
+import {TestBed} from '@angular/core/testing';
+import {HomeScreenService} from './home-screen.service';
 
 describe('HomeScreenService', () => {
   let service: HomeScreenService;
