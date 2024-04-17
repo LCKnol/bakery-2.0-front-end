@@ -47,7 +47,10 @@ export class HomeComponent {
   };
   user: User | undefined;
 
+
   constructor(private homeScreenService: HomeScreenService) {
+
+    console.log("constructor called")
     this.homeScreenService.getUser().then(res => this.user = res)
     this.homeScreenService.getPis().then(res => this.piCollection = res);
   }

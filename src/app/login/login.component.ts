@@ -10,6 +10,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatLabel} from "@angular/material/form-field";
+import {HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-login',
@@ -36,10 +37,7 @@ export class LoginComponent {
     password: new FormControl('')
   });
 
-  private url: string;
-
   constructor(private loginService : LoginService, private router: Router, private snackbar: MatSnackBar) {
-  this.url = AppConstants.API_LOGIN_URL;
   }
 
   submitLoginForm() : void {
