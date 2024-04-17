@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import {DashboardCardComponent} from '../dashboard-card/dashboard-card.component'
 import {NavbarComponent} from '../navbar/navbar.component'
-import {DashboardsDto} from '../dto/dashboardsDto'
+import {DashboardCollection} from '../dto/dashboardCollection'
 import  {DashboardService} from  "../services/dashboard.service";
 import {CommonModule} from '@angular/common';
 
@@ -14,10 +14,10 @@ import {CommonModule} from '@angular/common';
   styleUrl: './viewdashboards.component.css'
 })
 export class ViewdashboardsComponent {
-  dashboards?: DashboardsDto;
+  dashboards?: DashboardCollection;
 
   constructor(private  dashboardService: DashboardService)  {
-     dashboardService.getDashboards().then((dashboard: DashboardsDto) => {
+     dashboardService.getDashboards().then((dashboard: DashboardCollection) => {
       this.dashboards = dashboard;
     });
   }
