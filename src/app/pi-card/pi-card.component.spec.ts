@@ -1,6 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { PiCardComponent } from './pi-card.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {PiCardComponent} from './pi-card.component';
 
 describe('PiCardComponent', () => {
   let component: PiCardComponent;
@@ -10,8 +9,8 @@ describe('PiCardComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PiCardComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(PiCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

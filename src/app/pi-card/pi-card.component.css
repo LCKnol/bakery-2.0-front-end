@@ -11,3 +11,20 @@ mat-divider {
   margin: 0 16px;
   border-top-color: white;
 }
+
+mat-card-title {
+  display: flex;
+  align-items: center;
+}
+
+mat-card-title > img {
+  padding-right: 16px;
+}
+
+mat-card-header {
+  padding: 16px;
+}
+
+mat-card-actions button {
+  color: white;
+}

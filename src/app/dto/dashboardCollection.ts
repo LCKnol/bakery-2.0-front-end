@@ -1,5 +1,5 @@
 import {DashboardDto} from './dashboardDto';
 
-export interface DashboardsDto {
+export interface DashboardCollection {
   dashboards : DashboardDto[];
 }
