@@ -4,24 +4,20 @@ import {firstValueFrom} from "rxjs";
 import {Token} from "../dto/token";
 import {LoginRequest} from "../dto/loginRequest";
 import { CookieService } from 'ngx-cookie-service';
+import {GeneralService} from "./general.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private httpClient: HttpClient, private cookieService: CookieService) {
+  constructor(private cookieService: CookieService, private generalService: GeneralService) {
   }
 
   public async login(loginRequst : LoginRequest): Promise<Token> {
 
     const endpointUrl = 'http://localhost:8080/login';
-
-    try {
-      return await firstValueFrom(this.httpClient.post<Token>(endpointUrl, loginRequst));
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return firstValueFrom(this.generalService.post(endpointUrl, loginRequst));
   }
 
   public setToken(token: Token) : void {
