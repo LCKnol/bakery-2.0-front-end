@@ -27,7 +27,7 @@ export class GeneralService {
         catchError((error: HttpErrorResponse) => this.handleHttpError(error)))
   }
 
-  delete(url: string, params? : HttpParams): Observable<any> {
+  async delete(url: string, params? : HttpParams): Promise<any> {
     const headers = this.setHeaders()
     console.log(url)
     return this.http.delete<any>(url, {headers: headers, params: params})
@@ -35,7 +35,7 @@ export class GeneralService {
         catchError((error: HttpErrorResponse) => this.handleHttpError(error)))
   }
 
-  put(url: string, body: any, params? : HttpParams): Observable<any> {
+  async put(url: string, body: any, params? : HttpParams): Promise<any> {
     const headers = this.setHeaders()
     return this.http.put<any>(url, body, {headers: headers, params: params})
       .pipe(

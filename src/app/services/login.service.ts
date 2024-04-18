@@ -28,6 +28,6 @@ export class LoginService {
 
   public async logout(): Promise<void> {
     const endpointUrl = Url.authentication;
-    return firstValueFrom(this.generalService.delete(endpointUrl));
+    return firstValueFrom(await this.generalService.delete(endpointUrl));
   }
 }
