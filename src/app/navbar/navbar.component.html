@@ -1,5 +1,6 @@
 <mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" >
   <img ngSrc="assets/bakeryLogo/BakeryLogoWhite.png" alt="Bakery logo" class="logo" width="40" height="47">
-  <button mat-flat-button routerLink="/home" >Home</button>
+  <button mat-flat-button routerLink="/" >Home</button>
   <button mat-flat-button routerLink="/dashboards" >Dashboards</button>
+  <button mat-flat-button (click)="logout()">Logout</button>
 </mat-toolbar>

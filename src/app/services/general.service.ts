@@ -29,6 +29,7 @@ export class GeneralService {
 
   delete(url: string, params? : HttpParams): Observable<any> {
     const headers = this.setHeaders()
+    console.log(url)
     return this.http.delete<any>(url, {headers: headers, params: params})
       .pipe(
         catchError((error: HttpErrorResponse) => this.handleHttpError(error)))
@@ -50,7 +51,6 @@ export class GeneralService {
   private handleHttpError(error: HttpErrorResponse) {
     if (error.status === 401) {
       // If 401 received, redirect to /login
-      console.log("error flagged! FINALLY WA N KUTZOOI JONGE")
       this.cookieService.delete('token')
       this.router.navigate(['/login']);
     }
