@@ -1,0 +1,24 @@
+<mat-card class="login-card">
+  <mat-card-header>
+    <div class="login-header">
+      <img src="../../assets/avisi_logo.png" alt="Avisi Logo" class="logo">
+      <span class="title">Bakery 2.0</span>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="addDashboardForm" (ngSubmit)="submitAddDashboardForm()" class="login-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Dashboard naam</mat-label>
+        <input matInput type="text" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>URL</mat-label>
+        <input matInput type="text" formControlName="dashboardUrl">
+      </mat-form-field>
+
+      <button mat-flat-button type="submit" color="primary" class="login-button">Dashboard aanmaken</button>
+    </form>
+  </mat-card-content>
+</mat-card>
