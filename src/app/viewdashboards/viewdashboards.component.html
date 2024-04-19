@@ -1,4 +1,17 @@
+<mat-card class="container-card">
 <section class="results">
-  <app-dashboard-card  *ngFor="let dashboard of dashboards?.dashboards"
+  <mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" >
+    <img ngSrc="assets/bakeryLogo/BakeryLogoWhite.png" alt="Bakery logo" class="logo" width="40" height="47">
+    <button mat-icon-button color="primary" routerLink="/addDashboards">
+      <mat-icon>add</mat-icon>
+    </button>
+    <form>
+      <input  type="text" placeholder="Filter by city" #filter>
+      <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
+    </form>
+  </mat-toolbar>
+  <app-dashboard-card  *ngFor="let dashboard of filteredDashboards"
                        [dashboard]="dashboard"></app-dashboard-card>
+
 </section>
+</mat-card>
