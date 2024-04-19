@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton, MatFabButton, MatMiniFabButton } from "@angular/material/button";
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import {NgOptimizedImage} from "@angular/common";
+import {LoginService} from "../services/login.service";
+import {CookieService} from "ngx-cookie-service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -12,4 +15,18 @@ import {NgOptimizedImage} from "@angular/common";
 })
 export class NavbarComponent {
 
+  constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService, private snackbar: MatSnackBar) {
+  }
+
+
+  logout(): void {
+    this.loginService.logout()
+      .then(() => {
+        this.cookieService.delete("token")
+        this.router.navigate(['/login'])
+      })
+      .catch(_ => {this.snackbar.open('An error occurred while logging out', 'ok', {
+        verticalPosition: 'bottom'
+      });});
+  }
 }

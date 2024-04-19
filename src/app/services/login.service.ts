@@ -5,6 +5,7 @@ import {Token} from "../dto/token";
 import {LoginRequest} from "../dto/loginRequest";
 import { CookieService } from 'ngx-cookie-service';
 import {GeneralService} from "./general.service";
+import {Url} from "./api-endpoints";
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,17 @@ export class LoginService {
 
   public async login(loginRequst : LoginRequest): Promise<Token> {
 
-    const endpointUrl = 'http://localhost:8080/login';
+    const endpointUrl = Url.authentication;
     return firstValueFrom(this.generalService.post(endpointUrl, loginRequst));
   }
 
   public setToken(token: Token) : void {
     this.cookieService.set('token', token.token)
+    console.log(this.cookieService.get('token'));
+  }
+
+  public async logout(): Promise<void> {
+    const endpointUrl = Url.authentication;
+    return firstValueFrom(await this.generalService.delete(endpointUrl));
   }
 }

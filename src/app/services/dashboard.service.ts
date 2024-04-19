@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {DashboardCollection} from '../dto/dashboardCollection';
 import {firstValueFrom} from "rxjs";
-import {CookieService} from "ngx-cookie-service";
 import {GeneralService} from "./general.service";
+import {Url} from "./api-endpoints";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ import {GeneralService} from "./general.service";
 
   public async getDashboards(): Promise<DashboardCollection> {
 
-    const endpointUrl = 'http://localhost:8080/dashboards';
+    const endpointUrl = Url.dashboards;
     return firstValueFrom(await this.generalService.get(endpointUrl));
   }
 }

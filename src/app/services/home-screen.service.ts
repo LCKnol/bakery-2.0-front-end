@@ -5,6 +5,7 @@ import {Token} from "../dto/token";
 import {firstValueFrom} from "rxjs";
 import {User} from "../dto/user";
 import {GeneralService} from "./general.service";
+import {Url} from "./api-endpoints";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,10 @@ export class HomeScreenService {
   }
 
   async getUser(): Promise<User> {
-    return firstValueFrom(await this.generalService.get("http://localhost:8080/user"));
+    return firstValueFrom(await this.generalService.get(Url.user));
   }
 
   async getPis(): Promise<PiCollection> {
-    return firstValueFrom(await this.generalService.get("http://localhost:8080/user"));
+    return firstValueFrom(await this.generalService.get(Url.user));
   }
 }
