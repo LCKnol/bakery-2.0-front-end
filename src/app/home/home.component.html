@@ -1,4 +1,4 @@
-<h2>You're logged in as {{ user?.name }}</h2>
+<h2>You're logged in as {{ user?.firstname + ' ' + user?.lastname }}</h2>
 <p>
   <b>Teams you're in:</b>
   <ng-container *ngFor="let team of user?.teams; let isLast=last">

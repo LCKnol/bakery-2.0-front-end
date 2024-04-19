@@ -21,6 +21,6 @@ export class HomeScreenService {
   }
 
   async getPis(): Promise<PiCollection> {
-    return firstValueFrom(await this.generalService.get(Url.user));
+    return firstValueFrom(await this.generalService.get(Url.pi));
   }
 }
