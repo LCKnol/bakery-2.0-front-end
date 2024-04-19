@@ -2,5 +2,5 @@
   <img ngSrc="assets/bakeryLogo/BakeryLogoWhite.png" alt="Bakery logo" class="logo" width="40" height="47">
   <button mat-flat-button routerLink="/" >Home</button>
   <button mat-flat-button routerLink="/dashboards" >Dashboards</button>
-  <button mat-flat-button (click)="logout()">Logout</button>
+  <button mat-flat-button (click)="logout()" *ngIf="loggedIn()">Logout</button>
 </mat-toolbar>
