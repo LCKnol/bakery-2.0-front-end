@@ -22,14 +22,11 @@ export const routes: Routes = [
     path: 'dashboards',
     component: ViewdashboardsComponent,
     title: 'Dashboards',
-    children: [
-      {
-        path: 'edit',
-        component: EditdashboardComponent,
-        title: 'Edit Dashboard'
-      }
-    ]
-
+  },
+  {
+    path: 'dashboards/edit/:dashboardId',
+    component: EditdashboardComponent,
+    title: 'Edit Dashboard'
   },
   {
     path: 'addDashboards',

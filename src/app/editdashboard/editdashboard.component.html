@@ -1,1 +1,29 @@
-<p>editdashboard works!</p>
+<mat-card class="dashboard-card">
+  <mat-card-header>
+    <div class="dasbhoard-header">
+      <span class="title">edit dashboard</span>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="dashboardEditForm" (ngSubmit)="submitEditDashboardForm()" class="dashboard-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="name" formControlName="name" value="{{dashboard?.name}}">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Dashboard url</mat-label>
+        <input matInput type="dashboardUrl" formControlName="dashboardUrl" value="{{dashboard?.dashboardUrl}}">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Image url</mat-label>
+        <input matInput type="imageUrl" formControlName="imageUrl" value="{{dashboard?.imageUrl}}">
+      </mat-form-field>
+
+      <button mat-flat-button type="submit" color="primary" class="dashboard-button">Confirm</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+

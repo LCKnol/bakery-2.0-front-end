@@ -18,7 +18,7 @@ export class LoginService {
   public async login(loginRequst : LoginRequest): Promise<Token> {
 
     const endpointUrl = Url.authentication;
-    return firstValueFrom(this.generalService.post(endpointUrl, loginRequst));
+    return firstValueFrom(await this.generalService.post(endpointUrl, loginRequst));
   }
 
   public setToken(token: Token) : void {
