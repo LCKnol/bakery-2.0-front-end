@@ -44,17 +44,15 @@ mat-form-field {
   width: 100%; /* Full width of form fields */
 }
 
-/* Additional styles for button */
-.login-button {
-  margin-top: 16px; /* Adjust space between fields and button */
-  width: 100%; /* Make button full width */
-}
-
 /* Use the colors provided in the style guide for button */
 .login-button {
   background-color: #19b;
   color: #fff;
+  margin-top: 16px; /* Adjust space between fields and button */
+  width: 100%; /* Make button full width */
 }
+
+
 
 .login-button:hover {
   background-color: #10839f;

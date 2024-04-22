@@ -46,7 +46,6 @@ mat-form-field {
 
 /* Additional styles for button */
 .dashboard-button {
-  margin-top: 16px; /* Adjust space between fields and button */
   width: 100%; /* Make button full width */
 }
 
@@ -58,4 +57,11 @@ mat-form-field {
 
 .dashboard-button:hover {
   background-color: #10839f;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 8px;
 }

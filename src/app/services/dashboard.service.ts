@@ -20,7 +20,7 @@ import {DashboardDto} from "../dto/dashboardDto";
   }
   public async addDashboard(dashboard :DashboardDto) {
     const endpointUrl = Url.dashboards;
-    await this.generalService.post(endpointUrl, dashboard)
+    await firstValueFrom(await this.generalService.post(endpointUrl, dashboard))
   }
 
   public async getDashboard(dashboardId : number): Promise<DashboardDto> {
@@ -30,7 +30,11 @@ import {DashboardDto} from "../dto/dashboardDto";
 
   public async editDashboard(dashboard: DashboardDto) {
     const endpointUrl = Url.dashboards;
-    await this.generalService.put(endpointUrl, dashboard)
+    await firstValueFrom(await this.generalService.put(endpointUrl, dashboard))
   }
 
+  public async deleteDashboard(dashboardId: number) {
+    const endpointUrl = Url.dashboards + '/' + dashboardId;
+    await firstValueFrom(await this.generalService.delete(endpointUrl));
+  }
 }

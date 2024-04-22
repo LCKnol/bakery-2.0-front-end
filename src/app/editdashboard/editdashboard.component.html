@@ -21,8 +21,10 @@
         <mat-label>Image url</mat-label>
         <input matInput type="imageUrl" formControlName="imageUrl" value="{{dashboard?.imageUrl}}">
       </mat-form-field>
-
-      <button mat-flat-button type="submit" color="primary" class="dashboard-button">Confirm</button>
+      <div class="button-container">
+        <button mat-flat-button type="submit" color="primary" class="dashboard-button">Confirm</button>
+        <button mat-mini-fab color="warn" (click)="deleteDashboard()"><mat-icon>delete</mat-icon></button>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>

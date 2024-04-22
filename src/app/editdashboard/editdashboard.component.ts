@@ -3,12 +3,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {DashboardDto} from "../dto/dashboardDto";
 import {DashboardService} from "../services/dashboard.service";
 import {GeneralService} from "../services/general.service";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatMiniFabButton} from "@angular/material/button";
 import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {executeKarmaBuilder} from "@angular-devkit/build-angular";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-editdashboard',
@@ -21,7 +22,9 @@ import {executeKarmaBuilder} from "@angular-devkit/build-angular";
     MatFormField,
     MatInput,
     MatLabel,
-    ReactiveFormsModule
+    MatIcon,
+    ReactiveFormsModule,
+    MatMiniFabButton
   ],
   templateUrl: './editdashboard.component.html',
   styleUrl: './editdashboard.component.css'
@@ -48,7 +51,7 @@ export class EditdashboardComponent {
       })
   }
 
-  submitEditDashboardForm() {
+  async submitEditDashboardForm() {
     var editDashboard: DashboardDto = {
       id: this.dashboard?.id!!,
       name: this.dashboardEditForm.value.name ?? this.dashboard?.name,
@@ -57,18 +60,21 @@ export class EditdashboardComponent {
       userId: -1,
     }
 
-    console.log("submitted form started")
-    console.log(editDashboard)
-
-    this.dashboardService.editDashboard(editDashboard)
+    await this.dashboardService.editDashboard(editDashboard)
       .then(_ => {
-        this.generalService.showSnackbar("Dashboard succesfully updated", "OK", {duration: 5})
+        this.generalService.showSnackbar("Dashboard succesfully updated", "OK", {duration: 3000})
       }).catch(_ => {this.generalService.showSnackbar("Error while updating dashboard", "OK")})
 
-    // this.router.navigate(["/dashboards"])
+    this.router.navigate(["/dashboards"])
   }
 
+  async deleteDashboard() {
+    await this.dashboardService.deleteDashboard(this.dashboardId!!)
+      .then(_ => {
+        this.generalService.showSnackbar("Dashboard succesfully deleted", "OK", {duration: 3000})
+      }).catch(_ => {this.generalService.showSnackbar("Error while deleting dashboard", "OK")})
 
-
+    this.router.navigate(["/dashboards"])
+  }
 }
 

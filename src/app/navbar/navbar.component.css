@@ -8,3 +8,7 @@ mat-toolbar button{
   color: white;
   background-color: #19b;
 }
+
+.empty-button {
+  display: none;
+}
