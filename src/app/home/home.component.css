@@ -1,13 +1,30 @@
-h1, h2, h3, h4, h5, h6, p {
-  font-family: SansSerif, sans-serif;
-  margin: 10px;
+/* home.component.css */
+mat-card {
+  width: 75%; /* Set the card width to 75% of the screen width */
+  max-width: 1200px; /* Optional: to prevent the card from being too wide on large screens */
+}
+vvv
+.details-card {
+  background-color: #fff;
+}
+.details-card{
+  margin: 5% auto auto;
+  width: 80%;
 }
 
-h2:nth-of-type(2) {
-  margin-top: 3%;
-}
-
-#pis {
+.pi-cards-container {
   display: flex;
-  justify-content: left;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust as needed */
+  justify-content: flex-start; /* Aligns cards to the start of the container */
+}
+
+app-pi-card {
+  flex: 0 0 auto; /* Do not grow, do not shrink, be auto width based on content */
+  width: 240px; /* Fixed width, adjust this to match the dashboard cards */
+  margin-bottom: 20px; /* To provide some spacing between the rows */
+}
+
+app-pi-card .mat-card-content {
+  flex-grow: 1;
 }
