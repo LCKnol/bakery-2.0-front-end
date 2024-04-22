@@ -3,6 +3,7 @@ import {LoginComponent} from "./login/login.component";
 import {HomeComponent} from "./home/home.component";
 import {ViewdashboardsComponent} from "./viewdashboards/viewdashboards.component";
 import {authGuard} from "./guards/auth";
+import {EditdashboardComponent} from "./editdashboard/editdashboard.component";
 
 export const routes: Routes = [
   {
@@ -19,6 +20,14 @@ export const routes: Routes = [
   {
     path: 'dashboards',
     component: ViewdashboardsComponent,
-    title: 'Dashboards'
+    title: 'Dashboards',
+    children: [
+      {
+        path: 'edit',
+        component: EditdashboardComponent,
+        title: 'Edit Dashboard'
+      }
+    ]
+
   },
 ];

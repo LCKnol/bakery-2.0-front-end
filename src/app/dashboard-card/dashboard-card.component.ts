@@ -14,22 +14,8 @@ import {RouterOutlet} from "@angular/router";
   standalone: true,
   imports: [MatButtonModule,MatCardModule,MatButtonModule,MatMenuModule,MatToolbarModule,MatIconModule,  RouterOutlet,
     RouterLink],
-  styleUrl: './dashboard-card.component.css',
-  template :`<mat-card class="dashboard-card" >
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{dashboard.name}} </mat-card-title>
-      <mat-card-subtitle></mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="../../assets/defaultDashboardImage.jpg" alt="dashboardPhoto">
-    <mat-card-content>
-      <p>
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button  mat-flat-button color="primary" routerLink="/dashboards" >View dashboard</button>
-    </mat-card-actions>
-  </mat-card>`
+  templateUrl: './dashboard-card.component.html',
+  styleUrls: ['./dashboard-card.component.css']
 })
 export class DashboardCardComponent {
   @Input() dashboard!: DashboardDto;
