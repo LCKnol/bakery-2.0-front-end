@@ -37,8 +37,6 @@ export class GeneralService {
   }
 
   async put(url: string, body: any, params? : HttpParams): Promise<any> {
-    console.log(url)
-    console.log(body)
     const headers = this.setHeaders()
     return this.http.put<any>(url, body, {headers: headers, params: params})
       .pipe(

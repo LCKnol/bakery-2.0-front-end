@@ -23,7 +23,6 @@ export class LoginService {
 
   public setToken(token: Token) : void {
     this.cookieService.set('token', token.token)
-    console.log(this.cookieService.get('token'));
   }
 
   public async logout(): Promise<void> {
