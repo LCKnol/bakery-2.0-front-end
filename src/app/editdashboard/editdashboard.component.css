@@ -12,7 +12,7 @@
 }
 
 /* Style the card to center the content */
-.login-card {
+.dashboard-card {
   width: 100%;
   max-width: 400px;
   margin: auto;
@@ -21,7 +21,7 @@
 }
 
 /* Additional styles for header with logo */
-.login-header {
+.dashboard-header {
   display: flex;
   align-items: center;
   justify-content: center; /* Center logo horizontally */
@@ -44,16 +44,24 @@ mat-form-field {
   width: 100%; /* Full width of form fields */
 }
 
-/* Use the colors provided in the style guide for button */
-.login-button {
-  background-color: #19b;
-  color: #fff;
-  margin-top: 16px; /* Adjust space between fields and button */
+/* Additional styles for button */
+.dashboard-button {
   width: 100%; /* Make button full width */
 }
 
+/* Use the colors provided in the style guide for button */
+.dashboard-button {
+  background-color: #19b;
+  color: #fff;
+}
 
-
-.login-button:hover {
+.dashboard-button:hover {
   background-color: #10839f;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 8px;
 }

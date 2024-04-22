@@ -14,8 +14,8 @@ import {RouterOutlet} from "@angular/router";
   standalone: true,
   imports: [MatButtonModule,MatCardModule,MatButtonModule,MatMenuModule,MatToolbarModule,MatIconModule,  RouterOutlet,
     RouterLink],
-  styleUrl: './dashboard-card.component.css',
-  templateUrl:'./dashboard-card.component.html',
+  templateUrl: './dashboard-card.component.html',
+  styleUrls: ['./dashboard-card.component.css']
 })
 export class DashboardCardComponent {
   @Input() dashboard!: DashboardDto;

@@ -3,7 +3,6 @@ import {DashboardCollection} from '../dto/dashboardCollection';
 import {firstValueFrom} from "rxjs";
 import {GeneralService} from "./general.service";
 import {Url} from "./api-endpoints";
-import {LoginRequest} from "../dto/loginRequest";
 import {DashboardDto} from "../dto/dashboardDto";
 
 @Injectable({
@@ -19,9 +18,23 @@ import {DashboardDto} from "../dto/dashboardDto";
     const endpointUrl = Url.dashboards;
     return firstValueFrom(await this.generalService.get(endpointUrl));
   }
-  public async addDashboard(dashboard :DashboardDto): Promise<DashboardDto> {
+  public async addDashboard(dashboard :DashboardDto) {
     const endpointUrl = Url.dashboards;
-    return firstValueFrom(await this.generalService.post(endpointUrl,dashboard));
+    await firstValueFrom(await this.generalService.post(endpointUrl, dashboard))
   }
 
+  public async getDashboard(dashboardId : number): Promise<DashboardDto> {
+    const endpointUrl = Url.dashboards + '/' + dashboardId;
+    return firstValueFrom(await this.generalService.get(endpointUrl));
+  }
+
+  public async editDashboard(dashboard: DashboardDto) {
+    const endpointUrl = Url.dashboards;
+    await firstValueFrom(await this.generalService.put(endpointUrl, dashboard))
+  }
+
+  public async deleteDashboard(dashboardId: number) {
+    const endpointUrl = Url.dashboards + '/' + dashboardId;
+    await firstValueFrom(await this.generalService.delete(endpointUrl));
+  }
 }

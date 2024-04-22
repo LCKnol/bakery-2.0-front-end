@@ -3,17 +3,18 @@ import {catchError, Observable, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
+import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralService {
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router, private snackbar: MatSnackBar) {
 
   }
 
-  post(url: string, body: any, params? : HttpParams): Observable<any> {
+  async post(url: string, body: any, params? : HttpParams): Promise<any> {
     const headers = this.setHeaders()
     return this.http.post<any>(url, body, {headers: headers, params: params})
       .pipe(
@@ -40,6 +41,10 @@ export class GeneralService {
     return this.http.put<any>(url, body, {headers: headers, params: params})
       .pipe(
         catchError((error: HttpErrorResponse) => this.handleHttpError(error)))
+  }
+
+  showSnackbar(message: string, action: string, config?: MatSnackBarConfig) {
+    this.snackbar.open(message, action, config)
   }
 
   private setHeaders(): HttpHeaders {
