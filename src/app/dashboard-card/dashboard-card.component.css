@@ -1,7 +1,7 @@
 mat-card img{
-  object-fit: cover; /*this makes the image in src fit to the size specified below*/
-  width: 75%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
-  height: 50%;
+  object-fit: contain;
+  height: 45%;
+  width: 45%;
   align-self: center;
 }
 .dashboard-card {
@@ -10,7 +10,7 @@ mat-card img{
   text-align: center;
 }
 .dashboard-card button {
-  margin-left: 25%;
+  width: 100%;
   background-color: #19b;
 }
 
