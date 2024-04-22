@@ -1,7 +1,5 @@
 .results {
   display: flex;
-  justify-content: center;
-  height: 50vh;
   flex-wrap: wrap;
   max-width: 100%;
 }

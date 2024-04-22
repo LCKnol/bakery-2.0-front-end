@@ -9,6 +9,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-add-dashboard',
@@ -23,6 +24,7 @@ import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
     MatCard,
     MatCardContent,
     MatCardHeader,
+    MatIcon,
   ],
   templateUrl: './add-dashboard.component.html',
   styleUrl: './add-dashboard.component.css'
@@ -47,7 +49,7 @@ export class AddDashboardComponent {
     };
     this.dashboardService.addDashboard(dashboardDto)
       .then(token => {
-        this.router.navigate(['/dashboard']).catch(_ => {console.log('no page found');});
+        this.router.navigate(['/dashboards']).catch(_ => {console.log('no page found');});
       })
       .catch(_ => {this.snackbar.open('Adding dashboard failed', 'ok', {
         verticalPosition: 'bottom'
