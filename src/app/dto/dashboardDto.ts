@@ -1,6 +1,7 @@
 export interface DashboardDto {
   id:  number;
-  url: string;
+  dashboardUrl: string;
   name: string;
   imageUrl: string;
+  userId: number;
 }

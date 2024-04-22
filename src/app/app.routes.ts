@@ -4,6 +4,7 @@ import {HomeComponent} from "./home/home.component";
 import {ViewdashboardsComponent} from "./viewdashboards/viewdashboards.component";
 import {authGuard} from "./guards/auth";
 import {EditdashboardComponent} from "./editdashboard/editdashboard.component";
+import {AddDashboardComponent} from "./add-dashboard/add-dashboard.component";
 
 export const routes: Routes = [
   {
@@ -29,5 +30,10 @@ export const routes: Routes = [
       }
     ]
 
+  },
+  {
+    path: 'addDashboards',
+    component: AddDashboardComponent,
+    title: 'addDashboards'
   },
 ];
