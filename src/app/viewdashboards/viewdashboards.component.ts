@@ -4,7 +4,7 @@ import {NavbarComponent} from '../navbar/navbar.component'
 import {DashboardCollection} from '../dto/dashboardCollection'
 import  {DashboardService} from  "../services/dashboard.service";
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatToolbar} from "@angular/material/toolbar";
 import {RouterLink} from "@angular/router";
 import {MatFormField} from "@angular/material/form-field";
@@ -19,7 +19,7 @@ import {MatCard} from "@angular/material/card";
 @Component({
   selector: 'app-viewdashboards',
   standalone: true,
-  imports: [DashboardCardComponent, NavbarComponent, CommonModule, MatButton, MatToolbar, NgOptimizedImage, RouterLink, MatFormField, MatInput, MatIcon, MatCard],
+  imports: [DashboardCardComponent, NavbarComponent, CommonModule, MatButton, MatToolbar, NgOptimizedImage, RouterLink, MatFormField, MatInput, MatIcon, MatCard, MatIconButton],
   templateUrl: './viewdashboards.component.html',
   styleUrl: './viewdashboards.component.css'
 })
