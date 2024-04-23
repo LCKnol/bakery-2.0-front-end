@@ -4,13 +4,10 @@ mat-card img{
   width: 45%;
   align-self: center;
 }
-.dashboard-card {
-}
-.dashboard-card mat-card-title{
-  text-align: center;
-}
 .dashboard-card button {
   width: 100%;
   background-color: #19b;
 }
-
+mat-card{
+  overflow: hidden;
+}
