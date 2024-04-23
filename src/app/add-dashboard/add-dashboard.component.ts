@@ -10,6 +10,7 @@ import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
+import {GeneralService} from "../services/general.service";
 
 @Component({
   selector: 'app-add-dashboard',
@@ -36,7 +37,7 @@ export class AddDashboardComponent {
     image: new FormControl('')
   });
 
-  constructor(private dashboardService: DashboardService,private router: Router, private snackbar: MatSnackBar) {
+  constructor(private dashboardService: DashboardService,private router: Router, private snackbar: MatSnackBar, private generalService: GeneralService) {
 
   }
   submitAddDashboardForm() : void {
@@ -50,10 +51,9 @@ export class AddDashboardComponent {
     this.dashboardService.addDashboard(dashboardDto)
       .then(token => {
         this.router.navigate(['/dashboards']).catch(_ => {console.log('no page found');});
+        this.generalService.showSnackbar("Dashboard added successfully", "ok", {})
       })
-      .catch(_ => {this.snackbar.open('Adding dashboard failed', 'ok', {
-        verticalPosition: 'bottom'
-      });})
+      .catch(_ => {this.generalService.showSnackbar("Dashboard added failed", "ok", {});})
   }
 
 }
