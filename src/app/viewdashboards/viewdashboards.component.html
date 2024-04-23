@@ -1,0 +1,13 @@
+<mat-card class="container-card">
+<section class="results">
+  <mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" >
+    <button mat-icon-button color="primary" routerLink="/addDashboards">
+      <mat-icon>add</mat-icon>
+    </button>
+      <input matInput  type="text" placeholder="Filter by name" #filter>
+      <button mat-button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
+  </mat-toolbar>
+  <app-dashboard-card  *ngFor="let dashboard of filteredDashboards"
+                       [dashboard]="dashboard"></app-dashboard-card>
+</section>
+</mat-card>

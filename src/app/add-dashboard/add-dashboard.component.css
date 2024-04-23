@@ -1,0 +1,61 @@
+/* Include the Poppins font */
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+/* Set the font family and background for the whole component */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  height: 85vh;
+  background-color: #fff; /* Set your background styling here */
+}
+
+/* Style the card to center the content */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  padding: 20px 40px; /* Adjust top and bottom padding as needed */
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Additional styles for header with logo */
+.login-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center logo horizontally */
+  gap: 10px;
+  margin-bottom: 20px; /* Adjust space between logo and form fields */
+}
+
+.logo {
+  height: 40px; /* Adjust the logo height as necessary */
+  width: auto;
+}
+
+.title {
+  font-size: 1.5rem;
+  color: #1a1919;
+}
+
+/* Style for form fields */
+mat-form-field {
+  width: 100%; /* Full width of form fields */
+}
+
+/* Additional styles for button */
+.login-button {
+  margin-top: 16px; /* Adjust space between fields and button */
+  width: 100%; /* Make button full width */
+}
+
+/* Use the colors provided in the style guide for button */
+.login-button {
+  background-color: #19b;
+  color: #fff;
+}
+
+.login-button:hover {
+  background-color: #10839f;
+}

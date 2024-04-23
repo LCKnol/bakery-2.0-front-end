@@ -1,0 +1,71 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+$avisi-palette: (
+  50: #003345,
+  100: #003345,
+  200: #003345,
+  300: #003345,
+  400: #003345,
+  500: #003345,
+  600: #003345,
+  700: #003345,
+  800: #003345,
+  900: #003345,
+  A100: #8c9eff,
+  A200: #536dfe,
+  A400: #3d5afe,
+  A700: #304ffe,
+  contrast: (
+    50: #FFFFFF,
+    100: #FFFFFF,
+    200: #FFFFFF,
+    300: #FFFFFF,
+    400: #FFFFFF,
+    500: #FFFFFF,
+    600: #FFFFFF,
+    700: #FFFFFF,
+    800: #FFFFFF,
+    900: #FFFFFF,
+    A100: #FFFFFF,
+    A200: #FFFFFF,
+    A400: #FFFFFF,
+    A700: #FFFFFF,
+  )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$BakeryFrontEnd-primary: mat.define-palette($avisi-palette,50);
+$BakeryFrontEnd-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$BakeryFrontEnd-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$BakeryFrontEnd-theme: mat.define-light-theme((
+  color: (
+    primary: $BakeryFrontEnd-primary,
+    accent: $BakeryFrontEnd-accent,
+    warn: $BakeryFrontEnd-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($BakeryFrontEnd-theme);
+

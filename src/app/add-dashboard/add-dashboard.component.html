@@ -1,0 +1,20 @@
+<mat-card class="login-card">
+  <mat-card-header>
+    <h1>Add dashboard</h1>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="addDashboardForm" (ngSubmit)="submitAddDashboardForm()" class="login-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Dashboard naam</mat-label>
+        <input matInput type="text" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>URL</mat-label>
+        <input matInput type="text" formControlName="dashboardUrl">
+      </mat-form-field>
+      <button mat-flat-button type="submit" color="primary" class="login-button">Dashboard aanmaken</button>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,13 @@
+<mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" >
+  <nav mat-tab-nav-bar [backgroundColor]="'primary'"  [tabPanel]="tabPanel">
+    <img ngSrc="assets/bakeryLogo/BakeryLogoWhite.png" alt="Bakery logo" class="logo" width="40" height="47">
+    @for (link of links; track link) {
+      <a  mat-tab-link *ngIf="loggedIn()" routerLink="{{link[1]}}"
+         (click)="activeLink = link"
+         [active]="activeLink == link"> {{link[0]}} </a>
+    }
+    <a mat-tab-link *ngIf="loggedIn()" (click)="logout()" > Logout </a>
+  </nav>
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+</mat-toolbar>
+
