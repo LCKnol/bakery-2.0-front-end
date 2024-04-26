@@ -1,0 +1,29 @@
+<mat-card class="dashboard-card">
+  <mat-card-header>
+    <div class="dasbhoard-header">
+      <span class="title">Pending request</span>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>MAC: A7:B1:3E:6F:8C:D2</p>
+    <form [formGroup]="addInitPiForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="name" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Room</mat-label>
+        <input matInput type="room" formControlName="room" value="room">
+      </mat-form-field>
+      <div class="button-container">
+        <button mat-flat-button type="submit" class="accept-button" color="light-blue">Accept</button>
+      </div>
+      <div class="button-container">
+        <button mat-flat-button type="submit" class="decline-button" color="warn">Block</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
