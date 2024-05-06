@@ -1,0 +1,25 @@
+<mat-card class="pi-card">
+  <mat-card-header>
+    <div class="pi-header">
+      <span class="title">Edit Pi</span>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="piEditForm" (ngSubmit)="submitEditPiForm()" class="pi-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name" value="{{ pi?.name }}">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Room Number</mat-label>
+        <input matInput type="text" formControlName="roomNo" value="{{pi?.roomNo}}" >
+      </mat-form-field>
+
+      <div class="button-container">
+        <button mat-flat-button type="submit" color="primary" class="pi-button">Confirm</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

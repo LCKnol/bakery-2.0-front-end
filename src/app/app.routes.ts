@@ -5,6 +5,7 @@ import {ViewdashboardsComponent} from "./viewdashboards/viewdashboards.component
 import {authGuard} from "./guards/auth";
 import {EditdashboardComponent} from "./editdashboard/editdashboard.component";
 import {AddDashboardComponent} from "./add-dashboard/add-dashboard.component";
+import {EditpiComponent} from "./editpi/editpi.component";
 
 export const routes: Routes = [
   {
@@ -33,4 +34,10 @@ export const routes: Routes = [
     component: AddDashboardComponent,
     title: 'addDashboards'
   },
+
+  {
+    path:'piManager/edit/:piId',
+    component: EditpiComponent,
+    title: 'Edit Pi'
+  }
 ];
