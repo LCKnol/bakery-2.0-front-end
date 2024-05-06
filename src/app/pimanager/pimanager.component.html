@@ -29,9 +29,9 @@
              </td>
         </ng-container>
 
-        <ng-container matColumnDef="macadress">
+        <ng-container matColumnDef="macaddress">
           <th mat-header-cell *matHeaderCellDef> Mac adress </th>
-          <td mat-cell *matCellDef="let element"> {{element.macAdress}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.macAddress}} </td>
         </ng-container>
 
         <ng-container matColumnDef="display">
@@ -54,9 +54,9 @@
     <div class="tablecontainer" *ngIf="!dataSwitch">
       <table mat-table [dataSource]="dataSource">
 
-        <ng-container matColumnDef="macadress">
+        <ng-container matColumnDef="macaddress">
           <th mat-header-cell *matHeaderCellDef> Mac adress </th>
-          <td mat-cell *matCellDef="let element"> {{element.macAdress}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.macAddress}} </td>
         </ng-container>
 
         <ng-container matColumnDef="requestedon">

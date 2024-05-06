@@ -77,7 +77,7 @@ export class PimanagerComponent implements AfterViewInit {
   showAllPis(){
     this.piService.getAllPis().then(res => {
       this.dataSource = new MatTableDataSource<Pi>(res.pis)
-      this.displayedColumns = ['name', 'status', 'macadress','display','action']
+      this.displayedColumns = ['name', 'status', 'macaddress','display','action']
       this.dataSource.paginator = this.paginator;
       this.dataSwitch = true
     });
@@ -86,7 +86,7 @@ export class PimanagerComponent implements AfterViewInit {
   showPiRequests(){
     this.piService.getPiRequests().then(res => {
       this.dataSource = new MatTableDataSource<any>(res.piRequests)
-      this.displayedColumns = ['requestedon','macadress','action']
+      this.displayedColumns = ['requestedon','macaddress','action']
       this.dataSource.paginator = this.paginator;
       this.dataSwitch = false
     });
