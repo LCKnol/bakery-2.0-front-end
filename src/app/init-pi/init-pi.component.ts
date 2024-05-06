@@ -8,6 +8,7 @@ import {MatInput} from "@angular/material/input";
 import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 import {GeneralService} from "../services/general.service";
+import {Pi} from "../dto/pi";
 
 
 @Component({
@@ -30,7 +31,14 @@ import {GeneralService} from "../services/general.service";
 export class InitPiComponent {
   addInitPiForm: FormGroup = new FormGroup({
     name: new FormControl(''),
-    room: new FormControl('')
+    roomno: new FormControl('')
   });
+
+  // submitInitPiForm() {
+  //   const pi: Pi {
+  //     name: this.addInitPiForm.name ?? ''
+  //     room: this.addInitPiForm.roomno ?? ''
+  //
+  // }
 
 }
