@@ -3,5 +3,5 @@ export interface Pi {
   name: string;
   status: string;
   display: string;
-  roomNo: number;
+  roomNo: string;
 }
