@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {Router} from "@angular/router";
@@ -9,6 +9,7 @@ import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 import {GeneralService} from "../services/general.service";
 import {Pi} from "../dto/pi";
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -29,6 +30,15 @@ import {Pi} from "../dto/pi";
   styleUrl: './init-pi.component.css'
 })
 export class InitPiComponent {
+
+  macAddress: string | null = null;
+
+  constructor(private route: ActivatedRoute, private router: Router) {
+    const navigation = this.router.getCurrentNavigation();
+    this.macAddress = navigation?.extras.state?.['data']
+  }
+
+
   addInitPiForm: FormGroup = new FormGroup({
     name: new FormControl(''),
     roomno: new FormControl('')

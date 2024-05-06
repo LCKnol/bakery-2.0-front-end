@@ -4,7 +4,7 @@
   </mat-card-header>
 
   <mat-card-content>
-    <p>MAC: A7:B1:3E:6F:8C:D2</p>
+    <p>MAC: {{ macAddress }}</p>
     <form [formGroup]="addInitPiForm">
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
@@ -13,7 +13,7 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Room</mat-label>
-        <input matInput type="room" formControlName="room" value="room">
+        <input matInput type="roomno" formControlName="roomno">
       </mat-form-field>
       <div class="button-container">
         <button mat-flat-button type="submit" class="accept-button" color="light-blue">Accept</button>
