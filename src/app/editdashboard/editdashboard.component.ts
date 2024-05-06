@@ -59,7 +59,6 @@ export class EditdashboardComponent {
       imageUrl: this.dashboardEditForm.value.imageUrl ?? this.dashboard?.imageUrl,
       userId: -1,
     }
-
     await this.dashboardService.editDashboard(editDashboard)
       .then(_ => {
         this.generalService.showSnackbar("Dashboard succesfully updated", "OK", {duration: 3000})
