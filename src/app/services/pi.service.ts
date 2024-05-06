@@ -6,11 +6,12 @@ import {firstValueFrom} from "rxjs";
 import {User} from "../dto/user";
 import {GeneralService} from "./general.service";
 import {Url} from "./api-endpoints";
+import {PiRequestCollection} from "../dto/piRequestCollection";
 
 @Injectable({
   providedIn: 'root'
 })
-export class HomeScreenService {
+export class PiService {
   private headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private generalService: GeneralService) {
@@ -23,4 +24,12 @@ export class HomeScreenService {
   async getPis(): Promise<PiCollection> {
     return firstValueFrom(await this.generalService.get(Url.pi));
   }
+  async getAllPis(): Promise<PiCollection> {
+    return firstValueFrom(await this.generalService.get(Url.pi+"/all"));
+  }
+
+  async getPiRequests(): Promise<PiRequestCollection> {
+    return firstValueFrom(await this.generalService.get(Url.pi+"/requests"));
+  }
+
 }

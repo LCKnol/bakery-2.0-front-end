@@ -15,7 +15,7 @@ import {Token} from "../dto/token";
 import {NgForOf, NgIf} from "@angular/common";
 import {PiCollection} from "../dto/pi-collection";
 import {User} from "../dto/user";
-import {HomeScreenService} from "../services/home-screen.service";
+import {PiService} from "../services/pi.service";
 
 @Component({
   selector: 'app-home',
@@ -48,8 +48,9 @@ export class HomeComponent {
   user: User | undefined;
 
 
-  constructor(private homeScreenService: HomeScreenService) {
-    this.homeScreenService.getUser().then(res => this.user = res)
-    this.homeScreenService.getPis().then(res => this.piCollection = res);
+  constructor(private piService: PiService) {
+    this.piService.getUser().then(res => this.user = res)
+    this.piService.getPis().then(res => this.piCollection = res);
   }
+
 }
