@@ -3,4 +3,5 @@ export interface Pi {
   status: string;
   display: string;
   macAddress: string;
+  roomNo: string;
 }

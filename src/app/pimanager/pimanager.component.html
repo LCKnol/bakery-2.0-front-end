@@ -34,6 +34,10 @@
           <td mat-cell *matCellDef="let element"> {{element.macAddress}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="room">
+          <th mat-header-cell *matHeaderCellDef> Room </th>
+          <td mat-cell *matCellDef="let element"> {{element.roomNo}} </td>
+        </ng-container>
         <ng-container matColumnDef="display">
           <th mat-header-cell *matHeaderCellDef> Display </th>
           <td mat-cell *matCellDef="let element"> {{element.display}} </td>
