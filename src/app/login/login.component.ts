@@ -47,9 +47,8 @@ export class LoginComponent {
     };
 
     this.loginService.login(loginRequest)
-      .then(token => {
-        this.loginService.setToken(token);
-        this.loginService.setAdmin("true")
+      .then(loginResponse => {
+        this.loginService.setCookies(loginResponse);
         this.router.navigate(['/']).catch(_ => {console.log('no homepage found');});
       })
       .catch(_ => {this.snackbar.open('Invalid login credentials', 'ok', {
