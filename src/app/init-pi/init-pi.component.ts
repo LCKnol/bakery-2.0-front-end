@@ -10,6 +10,7 @@ import {MatIcon} from "@angular/material/icon";
 import {GeneralService} from "../services/general.service";
 import {Pi} from "../dto/pi";
 import { ActivatedRoute } from '@angular/router';
+import {PiService} from "../services/pi.service";
 
 
 @Component({
@@ -30,25 +31,43 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './init-pi.component.css'
 })
 export class InitPiComponent {
-
-  macAddress: string | null = null;
-
-  constructor(private route: ActivatedRoute, private router: Router) {
-    const navigation = this.router.getCurrentNavigation();
-    this.macAddress = navigation?.extras.state?.['data']
-  }
-
-
   addInitPiForm: FormGroup = new FormGroup({
     name: new FormControl(''),
     roomno: new FormControl('')
   });
 
-  // submitInitPiForm() {
-  //   const pi: Pi {
-  //     name: this.addInitPiForm.name ?? ''
-  //     room: this.addInitPiForm.roomno ?? ''
-  //
-  // }
+  macAddress: string;
+
+  constructor(private router: Router, private piService: PiService, private generalService: GeneralService) {
+    const navigation = this.router.getCurrentNavigation();
+    this.macAddress = navigation?.extras.state?.['data']
+  }
+
+  submitInitPiForm() {
+    const pi: Pi = {
+      id: -1,
+      name: this.addInitPiForm.value.name ?? '',
+      macAddress: this.macAddress,
+      status: '',
+      dashboardName: '',
+      roomno: this.addInitPiForm.value.roomno ?? ''
+    };
+
+    this.piService.initPi(pi).then(_ => {
+      this.generalService.showSnackbar("Pi succesfully initialized", "OK")
+      this.router.navigate(['/piManager']);
+    }).catch(_ => {
+      this.generalService.showSnackbar("Error while initializing pi", "OK");
+    })
+  }
+
+  declinePiRequest() {
+    this.piService.declinePi(this.macAddress).then(_ => {
+      this.generalService.showSnackbar("Pi succesfully declined", "OK")
+      this.router.navigate(['/piManager']);
+    }).catch(_ => {
+      this.generalService.showSnackbar("Error while deleting pi", "OK");
+    })
+  }
 
 }

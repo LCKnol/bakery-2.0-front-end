@@ -38,8 +38,10 @@ export class PiService {
 
 
   async initPi(pi: Pi) {
-    await this.generalService.post(Url.pi + "/init", pi)
-    this.router.navigate(["/"])
-    this.generalService.showSnackbar("Pi initialized", "OK")
+    await firstValueFrom(await this.generalService.post(Url.pi + "/init", pi))
+  }
+
+  async declinePi(macAddress: string): Promise<void> {
+    await firstValueFrom(await this.generalService.delete(Url.pi + "/init/" + macAddress));
   }
 }
