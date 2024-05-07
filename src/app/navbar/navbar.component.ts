@@ -19,7 +19,7 @@ import {ThemePalette} from "@angular/material/core";
 export class NavbarComponent {
   links = [['Home', '/'],['Dashboard','dashboards']];
   activeLink = this.links[0];
-  adminLinks = [["PI's", 'pis'],['Users','users'], ['Teams','teams']];
+  adminLinks = [["PI's", 'piManager'],['Users','users'], ['Teams','teams']];
   activeAdminLink : String[] = this.adminLinks[0];
   adminMode: boolean = false;
   constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService, private snackbar: MatSnackBar) {}
@@ -47,5 +47,8 @@ export class NavbarComponent {
 
   switchToAdmin(): void {
     this.adminMode = !this.adminMode;
+    if (this.adminMode) {
+      this.router.navigate(['/piManager'])
+    }else{this.router.navigate(['/'])}
   }
 }
