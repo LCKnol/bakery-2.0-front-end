@@ -12,10 +12,10 @@
           (click)="activeAdminLink = link"
           [active]="activeAdminLink == link"> {{link[0]}} </a>
     }
-    <a mat-tab-link *ngIf="loggedIn()" (click)="logout()" > Logout </a>
     <a mat-tab-link *ngIf="isAdmin() && loggedIn()" (click)="switchToAdmin()">
       <span [innerText]="adminMode ? 'Exit Admin Mode' : 'Switch to Admin'"></span>
     </a>
+    <a mat-tab-link *ngIf="loggedIn()" (click)="logout()" > Logout </a>
   </nav>
   <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 </mat-toolbar>
