@@ -33,13 +33,15 @@ import {DashboardService} from "../services/dashboard.service";
   templateUrl: './editpi.component.html',
   styleUrl: './editpi.component.css'
 })
-export class EditpiComponent implements OnInit {
+export class EditpiComponent {
+  pi: Pi | undefined
+  private piId?: number
+
   piEditForm: FormGroup = new FormGroup({
     name: new FormControl(''),
     roomNo: new FormControl('')
   });
-  pi?: Pi;
-  private piId?: number;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -47,50 +49,37 @@ export class EditpiComponent implements OnInit {
     private router: Router,
     private generalService: GeneralService
   ) {
-  }
-
-  ngOnInit() {
-    this.route.params.subscribe((params) => {
-      this.piId = +params['piId']; // Convert to a number
+    this.route.params.subscribe(params=> {
+      this.piId =params['piId'];
     });
 
-    if (this.piId !== undefined) {
-      this.piService
-        .getPi(this.piId)
-        .then((pi: Pi) => {
-          this.pi = pi;
-          // Initialize form with Pi data and room info if available
-          this.piEditForm.setValue({
-            name: pi.name,
-            roomNo: pi.roomNo
-          });
-        })
-        .catch(() => {
-          this.generalService.showSnackbar('No Pi data available', 'OK');
-          this.router.navigate(['/pis']);
-        });
-    }
+    piService.getPi(this.piId!)
+      .then((pi: Pi) => {this.pi = pi;})
+      .catch(_ => {
+        generalService.showSnackbar("No pi available", "OK")
+        router.navigate(['/pis'])
+      })
   }
+
+
+
 
   async submitEditPiForm() {
     const editPi: Pi = {
-      id: this.piId!!, // Assumes piId is non-null
-      name: this.piEditForm.value.name,
-      roomNo: this.piEditForm.value.roomNo,
+      id: this.pi?.id!!, // Assumes piId is non-null
+      name: this.piEditForm.value.name?? this.pi?.name,
+      roomNo: this.piEditForm.value.roomNo??this.pi?.roomNo,
       status: this.pi?.status ?? "0",
       display: this.pi?.display ?? "0"
     };
-
-
     // Call the service to update the Pi data
     await this.piService.editPi(editPi)
-      .then(() => {
-        this.generalService.showSnackbar('Pi data successfully updated', 'OK', {duration: 3000});
+      .then(_ => {
+        this.generalService.showSnackbar('Pi data successfully updated', 'OK', {duration: 3000})
+      }).catch(_ => {
+        this.generalService.showSnackbar('Error while updating Pi', 'OK')
       })
-      .catch(() => {
-        this.generalService.showSnackbar('Error while updating Pi', 'OK');
-      });
 
-    this.router.navigate(['/pis']);
+    this.router.navigate(["/pis"]);
   }
 }
