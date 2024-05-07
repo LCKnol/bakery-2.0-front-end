@@ -58,7 +58,8 @@ export class GeneralService {
       // If 401 received, redirect to /login
       this.cookieService.delete('token')
       this.router.navigate(['/login']);
-    }
+    }else if (error.status === 403)
+      this.router.navigate(['/']);
     return throwError(() => error);
   }
 

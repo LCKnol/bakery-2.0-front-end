@@ -25,6 +25,10 @@ export class LoginService {
     this.cookieService.set('token', token.token)
   }
 
+  public setAdmin(admin : string) : void {
+    this.cookieService.set('admin', admin)
+  }
+
   public async logout(): Promise<void> {
     const endpointUrl = Url.authentication;
     return firstValueFrom(await this.generalService.delete(endpointUrl));

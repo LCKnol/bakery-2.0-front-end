@@ -2,11 +2,20 @@
   <nav mat-tab-nav-bar [backgroundColor]="'primary'"  [tabPanel]="tabPanel">
     <img ngSrc="assets/bakeryLogo/BakeryLogoWhite.png" alt="Bakery logo" class="logo" width="40" height="47">
     @for (link of links; track link) {
-      <a  mat-tab-link *ngIf="loggedIn()" routerLink="{{link[1]}}"
+      <a  mat-tab-link *ngIf="!adminMode && loggedIn()" routerLink="{{link[1]}}"
          (click)="activeLink = link"
          [active]="activeLink == link"> {{link[0]}} </a>
     }
+
+    @for (link of adminLinks; track link) {
+      <a  mat-tab-link *ngIf="adminMode && loggedIn()" routerLink="{{link[1]}}"
+          (click)="activeAdminLink = link"
+          [active]="activeAdminLink == link"> {{link[0]}} </a>
+    }
     <a mat-tab-link *ngIf="loggedIn()" (click)="logout()" > Logout </a>
+    <a mat-tab-link *ngIf="isAdmin() && loggedIn()" (click)="switchToAdmin()">
+      <span [innerText]="adminMode ? 'Exit Admin Mode' : 'Switch to Admin'"></span>
+    </a>
   </nav>
   <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 </mat-toolbar>
