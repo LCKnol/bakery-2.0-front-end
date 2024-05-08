@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {PiCollection} from "../dto/pi-collection";
-import {Token} from "../dto/token";
+import {LoginResponse} from "../dto/loginResponse";
 import {firstValueFrom} from "rxjs";
 import {User} from "../dto/user";
 import {GeneralService} from "./general.service";
