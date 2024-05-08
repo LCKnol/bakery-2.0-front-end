@@ -1,9 +1,10 @@
-import {Injectable} from "@angular/core";
+import {inject, Injectable} from "@angular/core";
 import {catchError, Observable, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
 import {MatSnackBar, MatSnackBarConfig} from "@angular/material/snack-bar";
+import {NavbarComponent} from "../navbar/navbar.component";
 
 @Injectable({
   providedIn: 'root'
@@ -54,13 +55,17 @@ export class GeneralService {
   }
 
   private handleHttpError(error: HttpErrorResponse) {
-    if (error.status === 401) {
+    const status = error.status;
+    if (status === 403)
+      this.cookieService.set('admin', 'false');
+    this.router.navigate(['/']);
+    if (status === 401) {
       // If 401 received, redirect to /login
+      console.log("error 401")
       this.cookieService.delete('token')
       this.router.navigate(['/login']);
-    }else if (error.status === 403)
-      this.cookieService.set('admin', 'false');
-      this.router.navigate(['/']);
+      const nav = inject(NavbarComponent);
+    }
     return throwError(() => error);
   }
 
