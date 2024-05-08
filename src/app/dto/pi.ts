@@ -4,5 +4,5 @@ export interface Pi {
   macAddress: string;
   status: string;
   dashboardName: string;
-  roomno: string;
+  roomNo: string;
 }
