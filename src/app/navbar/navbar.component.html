@@ -2,7 +2,7 @@
   <nav mat-tab-nav-bar [backgroundColor]="'primary'"  [tabPanel]="tabPanel">
     <img ngSrc="assets/bakeryLogo/BakeryLogoWhite.png" alt="Bakery logo" class="logo" width="40" height="47">
     @for (link of links; track link) {
-      <a  mat-tab-link *ngIf="!adminMode && loggedIn() || !isAdmin()" routerLink="{{link[1]}}"
+      <a  mat-tab-link *ngIf="!adminMode && loggedIn() || !isAdmin() && loggedIn()" routerLink="{{link[1]}}"
          (click)="activeLink = link"
          [active]="activeLink == link"> {{link[0]}} </a>
     }
