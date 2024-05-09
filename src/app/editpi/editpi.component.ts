@@ -10,9 +10,6 @@ import { MatIcon } from '@angular/material/icon';
 import { PiService } from '../services/pi.service';
 import { GeneralService } from '../services/general.service';
 import { Pi } from '../dto/pi';
-import { Room } from '../dto/room';
-import {DashboardDto} from "../dto/dashboardDto";
-import {DashboardService} from "../services/dashboard.service";
 
 
 @Component({
@@ -38,8 +35,8 @@ export class EditpiComponent {
   private piId?: number
 
   piEditForm: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    roomNo: new FormControl('')
+    name: new FormControl(),
+    roomno: new FormControl()
   });
 
 
@@ -61,16 +58,14 @@ export class EditpiComponent {
       })
   }
 
-
-
-
   async submitEditPiForm() {
+
     const editPi: Pi = {
       id: this.pi?.id!!, // Assumes piId is non-null
-      name: this.piEditForm.value.name?? this.pi?.name,
-      roomNo: this.piEditForm.value.roomNo??this.pi?.roomNo,
-      status: this.pi?.status ?? "0",
-      display: this.pi?.display ?? "0"
+      name: this.piEditForm.value.name ?? this.pi?.name,
+      roomNo: this.piEditForm.value.roomno?? this.pi?.roomNo,
+      status: this.pi?.status ?? "",
+  dashboardName: this.pi?.dashboardName ?? ""
     };
     // Call the service to update the Pi data
     await this.piService.editPi(editPi)
