@@ -47,11 +47,11 @@ export class LoginComponent {
     };
 
     this.loginService.login(loginRequest)
-      .then(token => {
-        this.loginService.setToken(token);
+      .then(loginResponse => {
+        this.loginService.setCookies(loginResponse);
         this.router.navigate(['/']).catch(_ => {console.log('no homepage found');});
       })
-      .catch(_ => {this.snackbar.open('Invalid login credentails', 'ok', {
+      .catch(_ => {this.snackbar.open('Invalid login credentials', 'ok', {
         verticalPosition: 'bottom'
       });})
   }
