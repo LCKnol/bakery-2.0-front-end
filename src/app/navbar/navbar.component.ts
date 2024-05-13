@@ -8,10 +8,11 @@ import {CookieService} from "ngx-cookie-service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatTabLink, MatTabNav, MatTabNavPanel} from "@angular/material/tabs";
 import {ThemePalette} from "@angular/material/core";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MatToolbar, MatButton, RouterModule, NgOptimizedImage, NgIf, MatTabNav, MatTabLink, MatTabNavPanel],
+  imports: [MatToolbar, MatButton, RouterModule, NgOptimizedImage, NgIf, MatTabNav, MatTabLink, MatTabNavPanel, MatMenu, MatMenuTrigger, MatMenuItem],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -21,8 +22,9 @@ export class NavbarComponent {
   activeLink = this.links[0];
   adminLinks = [["PI's", 'piManager'],['Users','users'], ['Teams','teams']];
   activeAdminLink : String[] = this.adminLinks[0];
-  adminMode: boolean = false;
-  constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService, private snackbar: MatSnackBar) {}
+  adminMode: boolean | undefined;
+  constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService, private snackbar: MatSnackBar) {
+  }
 
 
   logout(): void {
