@@ -1,6 +1,8 @@
 export interface Pi {
+  id: number;
   name: string;
-  status: string;
-  display: string;
   macAddress: string;
+  status: string;
+  dashboardName: string;
+  roomNo: string;
 }

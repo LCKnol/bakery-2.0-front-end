@@ -53,4 +53,6 @@ export class NavbarComponent {
       this.router.navigate(['/piManager'])
     }else{this.router.navigate(['/'])}
   }
+
+
 }

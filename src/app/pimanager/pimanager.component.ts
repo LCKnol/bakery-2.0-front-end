@@ -10,6 +10,7 @@ import {Router, RouterLink} from "@angular/router";
 import {PiService} from "../services/pi.service";
 import {MatPaginator} from "@angular/material/paginator";
 import {PiCollection} from "../dto/pi-collection";
+import {from, Observable} from 'rxjs';
 import {
   MatCell, MatCellDef,
   MatColumnDef,
@@ -22,6 +23,8 @@ import {LoginService} from "../services/login.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Pi} from "../dto/pi";
 import {MatTab, MatTabChangeEvent, MatTabGroup, MatTabLink, MatTabNav, MatTabNavPanel} from "@angular/material/tabs";
+import { HttpClient } from '@angular/common/http';
+import {GeneralService} from "../services/general.service";
 
 @Component({
   selector: 'app-pimanager',
@@ -65,7 +68,9 @@ export class PimanagerComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   dataSwitch: boolean = true
 
-  constructor(private piService: PiService) {
+  macAddress: string | null = null;
+
+  constructor(private piService: PiService, private generalService: GeneralService, private router: Router) {
     this.showAllPis()
   }
 
@@ -77,7 +82,7 @@ export class PimanagerComponent implements AfterViewInit {
   showAllPis(){
     this.piService.getAllPis().then(res => {
       this.dataSource = new MatTableDataSource<Pi>(res.pis)
-      this.displayedColumns = ['name', 'status', 'macaddress','display','action']
+      this.displayedColumns = ['name', 'status', 'macaddress','room','display','action']
       this.dataSource.paginator = this.paginator;
       this.dataSwitch = true
     });
@@ -100,7 +105,26 @@ export class PimanagerComponent implements AfterViewInit {
     }
   }
 
+  redirectToInitPi(macAddress: string) {
 
+    const url = '/init-pi';
+    const body = { macAddress };
+
+    console.log("Sending MAC address:", macAddress); // Log the MAC address being sent
+    // Convert Promise to Observable using 'from'
+    const postObservable = from(this.generalService.post(url, body));
+
+    postObservable.subscribe({
+      next: (response) => {
+        console.log('Response:', response);
+        // Assuming response contains the necessary data to navigate
+        this.router.navigate(['/init-pi'], { state: { data: macAddress}});
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      }
+    });
+  }
 
 }
 
