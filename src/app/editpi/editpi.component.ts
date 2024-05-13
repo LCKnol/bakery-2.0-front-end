@@ -63,10 +63,10 @@ export class EditpiComponent {
     const editPi: Pi = {
       id: this.pi?.id!!, // Assumes piId is non-null
       name: this.piEditForm.value.name ?? this.pi?.name,
-      macAddress: this.pi?.macAddress ?? "",
       roomNo: this.piEditForm.value.roomno?? this.pi?.roomNo,
       status: this.pi?.status ?? "",
-      dashboardName: this.pi?.dashboardName ?? ""
+      dashboardName: this.pi?.dashboardName ?? "",
+      macAddress: this.pi?.macAddress ?? ""
     };
     // Call the service to update the Pi data
     await this.piService.editPi(editPi)
