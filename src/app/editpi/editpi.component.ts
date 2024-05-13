@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -63,9 +63,10 @@ export class EditpiComponent {
     const editPi: Pi = {
       id: this.pi?.id!!, // Assumes piId is non-null
       name: this.piEditForm.value.name ?? this.pi?.name,
+      macAddress: this.pi?.macAddress ?? "",
       roomNo: this.piEditForm.value.roomno?? this.pi?.roomNo,
       status: this.pi?.status ?? "",
-  dashboardName: this.pi?.dashboardName ?? ""
+      dashboardName: this.pi?.dashboardName ?? ""
     };
     // Call the service to update the Pi data
     await this.piService.editPi(editPi)
