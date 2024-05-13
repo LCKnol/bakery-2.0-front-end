@@ -44,4 +44,21 @@ export class PiService {
   async declinePi(macAddress: string): Promise<void> {
     await firstValueFrom(await this.generalService.delete(Url.pi + "/init/" + macAddress));
   }
+
+  public async getPi(piId: number): Promise<Pi> {
+    const endpointUrl = Url.pi + '/' +piId;
+    return firstValueFrom(await this.generalService.get(endpointUrl));
+  }
+
+  public async editPi(pi: Pi) {
+    const endpointUrl = Url.pi;
+    await firstValueFrom(await this.generalService.put(endpointUrl, pi));
+  }
+
+  public async deletePi(piId: number) {
+    const endpointUrl = `${Url.pi}/${piId}`;
+    await firstValueFrom(await this.generalService.delete(endpointUrl));
+  }
+
+
 }

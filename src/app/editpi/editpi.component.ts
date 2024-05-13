@@ -65,7 +65,8 @@ export class EditpiComponent {
       name: this.piEditForm.value.name ?? this.pi?.name,
       roomNo: this.piEditForm.value.roomno?? this.pi?.roomNo,
       status: this.pi?.status ?? "",
-  dashboardName: this.pi?.dashboardName ?? ""
+      dashboardName: this.pi?.dashboardName ?? "",
+      macAddress: this.pi?.macAddress ?? ""
     };
     // Call the service to update the Pi data
     await this.piService.editPi(editPi)
