@@ -7,7 +7,6 @@ import {LoginService} from "../services/login.service";
 import {CookieService} from "ngx-cookie-service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatTabLink, MatTabNav, MatTabNavPanel} from "@angular/material/tabs";
-import {ThemePalette} from "@angular/material/core";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 @Component({
   selector: 'app-navbar',
@@ -22,7 +21,6 @@ export class NavbarComponent {
   activeLink = this.links[0];
   adminLinks = [["PI's", 'piManager'],['Users','users'], ['Teams','teams']];
   activeAdminLink : String[] = this.adminLinks[0];
-  adminMode: boolean | undefined;
   constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService, private snackbar: MatSnackBar) {
   }
 
@@ -45,14 +43,5 @@ export class NavbarComponent {
   isAdmin(): boolean {
     var admin = this.cookieService.get('admin')
     return admin === "true";
-}
-
-  switchToAdmin(): void {
-    this.adminMode = !this.adminMode;
-    if (this.adminMode) {
-      this.router.navigate(['/piManager'])
-    }else{this.router.navigate(['/'])}
   }
-
-
 }
