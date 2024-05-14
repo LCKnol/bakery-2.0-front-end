@@ -2,19 +2,18 @@
   <nav mat-tab-nav-bar [backgroundColor]="'primary'"  [tabPanel]="tabPanel">
     <img ngSrc="assets/bakeryLogo/BakeryLogoWhite.png" alt="Bakery logo" class="logo" width="40" height="47">
     @for (link of links; track link) {
-      <a  mat-tab-link *ngIf="!adminMode && loggedIn() || !isAdmin() && loggedIn()" routerLink="{{link[1]}}"
+      <a  mat-tab-link *ngIf="loggedIn()" routerLink="{{link[1]}}"
          (click)="activeLink = link"
          [active]="activeLink == link"> {{link[0]}} </a>
     }
-
-    @for (link of adminLinks; track link) {
-      <a  mat-tab-link *ngIf="adminMode && loggedIn() && isAdmin()" routerLink="{{link[1]}}"
-          (click)="activeAdminLink = link"
-          [active]="activeAdminLink == link"> {{link[0]}} </a>
-    }
-    <a mat-tab-link *ngIf="isAdmin() && loggedIn()" (click)="switchToAdmin()">
-      <span [innerText]="adminMode ? 'Exit Admin Mode' : 'Switch to Admin'"></span>
-    </a>
+    <a  mat-tab-link [matMenuTriggerFor]="menu" *ngIf="isAdmin() && loggedIn()">Admin</a>
+    <mat-menu #menu="matMenu" class="adminDropdown">
+      @for (link of adminLinks; track link) {
+      <button mat-menu-item *ngIf="isAdmin()" routerLink="{{link[1]}}"
+              (click)="activeAdminLink = link"
+              > {{link[0]}} </button>
+      }
+    </mat-menu>
     <a mat-tab-link *ngIf="loggedIn()" (click)="logout()" > Logout </a>
   </nav>
   <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
