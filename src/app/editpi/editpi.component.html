@@ -13,8 +13,10 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Room Number</mat-label>
-        <input matInput type="text" formControlName="roomno" value="{{ pi?.roomNo }}" >
+        <mat-label>Room</mat-label>
+        <mat-select formControlName="roomNo">
+          <mat-option *ngFor="let room of rooms" [value]="room">{{ room.roomNo }}</mat-option>
+        </mat-select>
       </mat-form-field>
 
       <div class="button-container">
