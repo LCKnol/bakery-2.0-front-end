@@ -1,9 +1,9 @@
 import {Team} from "./team";
-import {Room} from "./room";
+import {RoomDto} from "./roomDto";
 
 export interface User {
   firstname: string;
   lastname: string;
   teams: Team[];
-  rooms: Room[];
+  rooms: RoomDto[];
 }

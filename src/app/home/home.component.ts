@@ -11,11 +11,11 @@ import {
 import {MatButton} from "@angular/material/button";
 import {MatDivider} from "@angular/material/divider";
 import {PiCardComponent} from "../pi-card/pi-card.component";
-import {Token} from "../dto/token";
+import {LoginResponse} from "../dto/loginResponse";
 import {NgForOf, NgIf} from "@angular/common";
 import {PiCollection} from "../dto/pi-collection";
 import {User} from "../dto/user";
-import {HomeScreenService} from "../services/home-screen.service";
+import {PiService} from "../services/pi.service";
 
 @Component({
   selector: 'app-home',
@@ -39,17 +39,15 @@ import {HomeScreenService} from "../services/home-screen.service";
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  private token: Token = {
-    "token": "1234-1234-1234"
-  };
   piCollection: PiCollection = {
     pis: []
   };
   user: User | undefined;
 
 
-  constructor(private homeScreenService: HomeScreenService) {
-    this.homeScreenService.getUser().then(res => this.user = res)
-    this.homeScreenService.getPis().then(res => this.piCollection = res);
+  constructor(private piService: PiService) {
+    this.piService.getUser().then(res => this.user = res)
+    this.piService.getPis().then(res => this.piCollection = res);
   }
+
 }

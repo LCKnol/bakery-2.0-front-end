@@ -1,8 +1,6 @@
 <mat-card class="dashboard-card">
   <mat-card-header>
-    <div class="dasbhoard-header">
-      <span class="title">edit dashboard</span>
-    </div>
+      <h1>Edit dashboard</h1>
   </mat-card-header>
 
   <mat-card-content>
@@ -22,7 +20,7 @@
         <input matInput type="imageUrl" formControlName="imageUrl" value="{{dashboard?.imageUrl}}">
       </mat-form-field>
       <div class="button-container">
-        <button mat-flat-button type="submit" color="primary" class="dashboard-button">Confirm</button>
+        <button mat-flat-button type="submit" color="light-blue" class="dashboard-button">Confirm</button>
         <button mat-mini-fab color="warn" type="button" (click)="deleteDashboard()"><mat-icon>delete</mat-icon></button>
       </div>
     </form>

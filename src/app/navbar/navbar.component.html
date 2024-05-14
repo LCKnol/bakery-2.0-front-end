@@ -6,6 +6,14 @@
          (click)="activeLink = link"
          [active]="activeLink == link"> {{link[0]}} </a>
     }
+    <a  mat-tab-link [matMenuTriggerFor]="menu" *ngIf="isAdmin() && loggedIn()">Admin</a>
+    <mat-menu #menu="matMenu" class="adminDropdown">
+      @for (link of adminLinks; track link) {
+      <button mat-menu-item *ngIf="isAdmin()" routerLink="{{link[1]}}"
+              (click)="activeAdminLink = link"
+              > {{link[0]}} </button>
+      }
+    </mat-menu>
     <a mat-tab-link *ngIf="loggedIn()" (click)="logout()" > Logout </a>
   </nav>
   <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>

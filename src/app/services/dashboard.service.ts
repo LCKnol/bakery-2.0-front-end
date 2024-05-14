@@ -14,7 +14,6 @@ import {DashboardDto} from "../dto/dashboardDto";
   }
 
   public async getDashboards(): Promise<DashboardCollection> {
-
     const endpointUrl = Url.dashboards;
     return firstValueFrom(await this.generalService.get(endpointUrl));
   }
