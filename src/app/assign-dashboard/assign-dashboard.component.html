@@ -1,25 +1,28 @@
 <form [formGroup]="assignDashboardForm" (ngSubmit)="submitAssignDashboardForm()">
-<mat-dialog-content>
-  <div class="piInfo">
-  <h4>
-  <mat-icon>cast-connected</mat-icon>{{pi?.name}}
-  </h4>
-    <hr>
-<h4>
-  <mat-icon>tv</mat-icon> {{pi?.dashboardName}}
-</h4>
-  </div>
+  <mat-dialog-content>
+    <div class="piInfo">
+      <h4>
+        <mat-icon>cast-connected</mat-icon>
+        {{ pi?.name }}
+      </h4>
+      <hr>
+      <h4>
+        <mat-icon>tv</mat-icon>
+        {{ pi?.dashboardName }}
+      </h4>
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>Dashboards</mat-label>
       <mat-select formControlName="dashboardList" [value]="pi?.dashboardName">
-        <mat-option *ngFor="let dashboard of dashboards" [value]="dashboard.id">{{ dashboard.dashboardName }}</mat-option>
+        <mat-option *ngFor="let dashboard of dashboards" [value]="dashboard.id">{{ dashboard.dashboardName }}
+        </mat-option>
       </mat-select>
     </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions align="center">
-  <button mat-raised-button type="submit" color="primary" [formGroup]="assignDashboardForm">Save</button>
-  <button mat-raised-button mat-dialog-close>Cancel</button>
-</mat-dialog-actions>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-raised-button type="submit" color="primary" [formGroup]="assignDashboardForm">Save</button>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
 </form>
 
 

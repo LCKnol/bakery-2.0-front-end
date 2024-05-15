@@ -44,15 +44,16 @@ import {MatIcon} from "@angular/material/icon";
   templateUrl: './assign-dashboard.component.html',
   styleUrl: './assign-dashboard.component.css'
 })
-export class AssignDashboardComponent  {
+export class AssignDashboardComponent {
   dashboards?: DashboardDto[] = [];
   pi: Pi | undefined
 
   assignDashboardForm: FormGroup = new FormGroup({
     dashboardList: new FormControl()
   });
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AssignDashboardComponent>,private  dashboardService: DashboardService,private piService: PiService,) {
-    if(this.data){
+
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AssignDashboardComponent>, private dashboardService: DashboardService, private piService: PiService,) {
+    if (this.data) {
       this.pi = data.pi
     }
     dashboardService.getDashboards().then((dashboard: DashboardCollection) => {
@@ -70,8 +71,8 @@ export class AssignDashboardComponent  {
       roomNo: this.pi?.roomNo!!,
       dashboardId: this.assignDashboardForm.value.dashboardList
     };
-      this.piService.assignDashboard(newPi)
-      this.dialogRef.close(true);
+    this.piService.assignDashboard(newPi)
+    this.dialogRef.close(true);
   }
 
 }
