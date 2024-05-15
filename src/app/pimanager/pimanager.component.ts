@@ -105,7 +105,7 @@ export class PimanagerComponent implements AfterViewInit {
     }
   }
 
-  redirectToInitPi(macAddress: string) {
+  redirectToInitPi(macAddress: string, ipAddress: string) {
 
     const url = '/init-pi';
     const body = { macAddress };
@@ -118,7 +118,7 @@ export class PimanagerComponent implements AfterViewInit {
       next: (response) => {
         console.log('Response:', response);
         // Assuming response contains the necessary data to navigate
-        this.router.navigate(['/init-pi'], { state: { data: macAddress}});
+        this.router.navigate(['/init-pi'], { state: { macAddress: macAddress, ipAddress: ipAddress}});
       },
       error: (error) => {
         console.error('Error:', error);
