@@ -66,5 +66,4 @@ export class GeneralService {
     }
     return throwError(() => error);
   }
-
 }
