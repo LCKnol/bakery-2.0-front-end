@@ -1,0 +1,31 @@
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+.results mat-tab-group {
+  width: 100%;
+}
+.results mat-toolbar{
+  background-color: #003345;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.results mat-toolbar button{
+  color: white;
+  background-color: #19b;
+}
+app-dashboard-card {
+  width: 250px;
+  height: 250px;
+  margin: 10px
+}
+.container-card{
+  margin: 5% auto auto;
+  width: 80%;
+}
+.tablecontainer{
+  width: 100%;
+}
+

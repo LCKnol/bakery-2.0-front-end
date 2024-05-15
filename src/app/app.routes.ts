@@ -7,6 +7,7 @@ import {EditdashboardComponent} from "./editdashboard/editdashboard.component";
 import {AddDashboardComponent} from "./add-dashboard/add-dashboard.component";
 import {PimanagerComponent} from "./pimanager/pimanager.component"
 import {InitPiComponent} from "./init-pi/init-pi.component";
+import {RoomsComponent} from "./rooms/rooms.component";
 
 export const routes: Routes = [
   {
@@ -44,5 +45,10 @@ export const routes: Routes = [
     path: 'init-pi',
     component: InitPiComponent,
     title: 'init-pi'
+  },
+  {
+    path: 'rooms',
+    component: RoomsComponent,
+    title: 'rooms'
   }
 ];
