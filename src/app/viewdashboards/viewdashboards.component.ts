@@ -41,7 +41,7 @@ export class ViewdashboardsComponent {
     }
 
     this.filteredDashboards = this.dashboards?.filter(
-      dashboard => dashboard?.name.toLowerCase().includes(text.toLowerCase())
+      dashboard => dashboard?.dashboardName.toLowerCase().includes(text.toLowerCase())
     );
   }
 
