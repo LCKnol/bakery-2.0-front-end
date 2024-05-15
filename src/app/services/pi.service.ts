@@ -44,4 +44,8 @@ export class PiService {
   async declinePi(macAddress: string): Promise<void> {
     await firstValueFrom(await this.generalService.delete(Url.pi + "/init/" + macAddress));
   }
+
+  async assignDashboard(pi: Pi) {
+    await firstValueFrom(await this.generalService.post(Url.pi + "/setdashboard",pi));
+  }
 }

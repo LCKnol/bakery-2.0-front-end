@@ -25,6 +25,9 @@ import {Pi} from "../dto/pi";
 import {MatTab, MatTabChangeEvent, MatTabGroup, MatTabLink, MatTabNav, MatTabNavPanel} from "@angular/material/tabs";
 import { HttpClient } from '@angular/common/http';
 import {GeneralService} from "../services/general.service";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {MatDialog} from "@angular/material/dialog";
+import {AssignDashboardComponent} from "../assign-dashboard/assign-dashboard.component";
 
 @Component({
   selector: 'app-pimanager',
@@ -57,7 +60,10 @@ import {GeneralService} from "../services/general.service";
     MatTabNav,
     NgOptimizedImage,
     MatTabNavPanel,
-    MatFabButton
+    MatFabButton,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger
   ],
   templateUrl: './pimanager.component.html',
   styleUrl: './pimanager.component.css'
@@ -70,7 +76,7 @@ export class PimanagerComponent implements AfterViewInit {
 
   macAddress: string | null = null;
 
-  constructor(private piService: PiService, private generalService: GeneralService, private router: Router) {
+  constructor(private piService: PiService, private generalService: GeneralService, private router: Router,public dialog: MatDialog) {
     this.showAllPis()
   }
 
@@ -78,7 +84,13 @@ export class PimanagerComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-
+  openDialog(pi:Pi) {
+    const dialogRef = this.dialog.open(AssignDashboardComponent, {
+      data: {
+        pi:pi
+      }
+    });
+  }
   showAllPis(){
     this.piService.getAllPis().then(res => {
       this.dataSource = new MatTableDataSource<Pi>(res.pis)
@@ -125,6 +137,5 @@ export class PimanagerComponent implements AfterViewInit {
       }
     });
   }
-
 }
 
