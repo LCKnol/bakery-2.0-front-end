@@ -1,6 +1,14 @@
 <form [formGroup]="assignDashboardForm" (ngSubmit)="submitAssignDashboardForm()">
 <mat-dialog-content>
-  <h4>Assign dashboard to pi {{pi?.name}} </h4>
+  <div class="piInfo">
+  <h4>
+  <mat-icon>cast-connected</mat-icon>{{pi?.name}}
+  </h4>
+    <hr>
+<h4>
+  <mat-icon>tv</mat-icon> {{pi?.dashboardName}}
+</h4>
+  </div>
     <mat-form-field appearance="fill">
       <mat-label>Dashboards</mat-label>
       <mat-select formControlName="dashboardList" [value]="pi?.dashboardName">

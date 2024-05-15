@@ -2,3 +2,7 @@ mat-dialog-content{
   display: flex;
   flex-direction: column;
 }
+.piInfo{
+  display: flex;
+  align-items: center;
+}

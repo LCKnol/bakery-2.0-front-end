@@ -18,6 +18,8 @@ import {DashboardCollection} from "../dto/dashboardCollection";
 import {NgForOf} from "@angular/common";
 import {Pi} from "../dto/pi";
 import {PiService} from "../services/pi.service";
+import {MatCard} from "@angular/material/card";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-assign-dashboard',
@@ -36,6 +38,8 @@ import {PiService} from "../services/pi.service";
     MatOption,
     MatLabel,
     NgForOf,
+    MatCard,
+    MatIcon,
   ],
   templateUrl: './assign-dashboard.component.html',
   styleUrl: './assign-dashboard.component.css'
@@ -48,12 +52,12 @@ export class AssignDashboardComponent  {
     dashboardList: new FormControl()
   });
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AssignDashboardComponent>,private  dashboardService: DashboardService,private piService: PiService,) {
-    dashboardService.getDashboards().then((dashboard: DashboardCollection) => {
-      this.dashboards = dashboard.dashboards;
-    });
     if(this.data){
       this.pi = data.pi
     }
+    dashboardService.getDashboards().then((dashboard: DashboardCollection) => {
+      this.dashboards = dashboard.dashboards.filter(dashboard => dashboard.id !== this.pi?.dashboardId);
+    });
   }
 
   submitAssignDashboardForm() {
