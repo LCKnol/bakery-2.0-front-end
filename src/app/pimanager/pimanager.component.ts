@@ -23,7 +23,7 @@ import {LoginService} from "../services/login.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Pi} from "../dto/pi";
 import {MatTab, MatTabChangeEvent, MatTabGroup, MatTabLink, MatTabNav, MatTabNavPanel} from "@angular/material/tabs";
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {GeneralService} from "../services/general.service";
 
 @Component({
@@ -78,37 +78,35 @@ export class PimanagerComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-
-  showAllPis(){
+  showAllPis() {
     this.piService.getAllPis().then(res => {
       this.dataSource = new MatTableDataSource<Pi>(res.pis)
-      this.displayedColumns = ['name', 'status', 'macaddress','room','display','action']
+      this.displayedColumns = ['name', 'status', 'macaddress', 'ipaddress', 'room', 'display', 'action']
       this.dataSource.paginator = this.paginator;
       this.dataSwitch = true
     });
   }
 
-  showPiRequests(){
+  showPiRequests() {
     this.piService.getPiRequests().then(res => {
       this.dataSource = new MatTableDataSource<any>(res.piRequests)
-      this.displayedColumns = ['requestedon','macaddress','action']
+      this.displayedColumns = ['requestedon', 'macaddress', 'ipaddress', 'action']
       this.dataSource.paginator = this.paginator;
       this.dataSwitch = false
     });
   }
 
   switchView(tab: MatTabChangeEvent) {
-    if (tab.index == 0){
+    if (tab.index == 0) {
       this.showAllPis()
-    }else if(tab.index == 1){
+    } else if (tab.index == 1) {
       this.showPiRequests()
     }
   }
 
   redirectToInitPi(macAddress: string, ipAddress: string) {
-
     const url = '/init-pi';
-    const body = { macAddress };
+    const body = {macAddress};
 
     console.log("Sending MAC address:", macAddress); // Log the MAC address being sent
     // Convert Promise to Observable using 'from'
@@ -118,13 +116,11 @@ export class PimanagerComponent implements AfterViewInit {
       next: (response) => {
         console.log('Response:', response);
         // Assuming response contains the necessary data to navigate
-        this.router.navigate(['/init-pi'], { state: { macAddress: macAddress, ipAddress: ipAddress}});
+        this.router.navigate(['/init-pi'], {state: {macAddress: macAddress, ipAddress: ipAddress}});
       },
       error: (error) => {
         console.error('Error:', error);
       }
     });
   }
-
 }
-
