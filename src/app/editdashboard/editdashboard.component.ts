@@ -10,12 +10,14 @@ import {MatInput} from "@angular/material/input";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {executeKarmaBuilder} from "@angular-devkit/build-angular";
 import {MatIcon} from "@angular/material/icon";
-import {MatOption} from "@angular/material/autocomplete";
+import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
-import {NgForOf} from "@angular/common";
+import {AsyncPipe, NgForOf} from "@angular/common";
 import {TeamCollection} from "../dto/teamCollection";
 import {TeamService} from "../services/team.service";
 import {Team} from "../dto/team";
+import {merge, Observable, of} from "rxjs";
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-editdashboard',
@@ -33,38 +35,50 @@ import {Team} from "../dto/team";
     MatMiniFabButton,
     MatOption,
     MatSelect,
-    NgForOf
+    NgForOf,
+    MatAutocomplete,
+    MatAutocompleteTrigger,
+    AsyncPipe
   ],
   templateUrl: './editdashboard.component.html',
   styleUrl: './editdashboard.component.css'
 })
 export class EditdashboardComponent {
-  dashboard: DashboardDto | undefined
   private dashboardId?: number
-  selected: String = "test"
+  dashboard?: DashboardDto
+  team?: Team
+  teams: Team[] = []
+  teamFormControl = new FormControl('')
+  filteredOptions: Observable<Team[]> = new Observable<Team[]>();
 
   dashboardEditForm: FormGroup = new FormGroup({
     name: new FormControl(),
     dashboardUrl: new FormControl(),
     imageUrl: new FormControl(),
-    team: new FormControl()
+    team: this.teamFormControl
   })
 
-  teams: Team[] = []
 
   constructor(private route: ActivatedRoute, private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
     this.route.params.subscribe(params => {
       this.dashboardId = params['dashboardId'];
     });
 
-    this.fetchTeams()
     this.fetchDashboard()
+    this.fetchTeams()
+
   }
 
   fetchTeams() {
     // Make an HTTP GET request to your backend API to fetch room numbers
     this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
-      this.teams = teamCollection.teamCollection
+      this.teams = teamCollection.teamCollection.filter(team => team.id !== this.team?.id)
+      this.setFormValues()
+      this.filteredOptions = this.teamFormControl.valueChanges
+        .pipe(
+          startWith<string | null>(''),
+          map(value => this._filter(value!!))
+        );
     })
     .catch(_ => {
       this.generalService.showSnackbar("No dashboard available", "OK")
@@ -76,8 +90,7 @@ export class EditdashboardComponent {
     this.dashboardService.getDashboard(this.dashboardId!)
     .then((dashboard: DashboardDto) => {
       this.dashboard = dashboard;
-      // this.selected = dashboard.team
-      this.setFormValues()
+      this.team = dashboard.team
     })
     .catch(e => {
       console.log(e)
@@ -118,6 +131,15 @@ export class EditdashboardComponent {
       }).catch(_ => {this.generalService.showSnackbar("Error while deleting dashboard", "OK")})
 
     this.router.navigate(["/dashboards"])
+  }
+  displayFn(team?: any): string {
+    return team ? team.name : undefined;
+  }
+
+  private _filter(value: string): Team[] {
+    const filterValue = value.toLowerCase();
+
+    return this.teams.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 }
 
