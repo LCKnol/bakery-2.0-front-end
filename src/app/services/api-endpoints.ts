@@ -4,4 +4,5 @@ export enum Url {
   pi = "http://localhost:8080/pis",
   dashboards = "http://localhost:8080/dashboards",
   rooms = "http://localhost:8080/rooms",
+  teams = "http://localhost:8080/teams",
 }

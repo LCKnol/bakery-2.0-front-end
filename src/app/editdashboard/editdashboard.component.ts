@@ -7,9 +7,15 @@ import {MatButton, MatMiniFabButton} from "@angular/material/button";
 import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {executeKarmaBuilder} from "@angular-devkit/build-angular";
 import {MatIcon} from "@angular/material/icon";
+import {MatOption} from "@angular/material/autocomplete";
+import {MatSelect} from "@angular/material/select";
+import {NgForOf} from "@angular/common";
+import {TeamCollection} from "../dto/teamCollection";
+import {TeamService} from "../services/team.service";
+import {Team} from "../dto/team";
 
 @Component({
   selector: 'app-editdashboard',
@@ -24,7 +30,10 @@ import {MatIcon} from "@angular/material/icon";
     MatLabel,
     MatIcon,
     ReactiveFormsModule,
-    MatMiniFabButton
+    MatMiniFabButton,
+    MatOption,
+    MatSelect,
+    NgForOf
   ],
   templateUrl: './editdashboard.component.html',
   styleUrl: './editdashboard.component.css'
@@ -32,32 +41,67 @@ import {MatIcon} from "@angular/material/icon";
 export class EditdashboardComponent {
   dashboard: DashboardDto | undefined
   private dashboardId?: number
+  selected: String = "test"
 
   dashboardEditForm: FormGroup = new FormGroup({
     name: new FormControl(),
     dashboardUrl: new FormControl(),
-    imageUrl: new FormControl()
+    imageUrl: new FormControl(),
+    team: new FormControl()
   })
 
-  constructor(private route: ActivatedRoute, private dashboardService: DashboardService, private router: Router, private generalService: GeneralService) {
+  teams: Team[] = []
+
+  constructor(private route: ActivatedRoute, private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
     this.route.params.subscribe(params => {
       this.dashboardId = params['dashboardId'];
     });
-    dashboardService.getDashboard(this.dashboardId!)
-      .then((dashboard: DashboardDto) => {this.dashboard = dashboard;})
-      .catch(_ => {
-        generalService.showSnackbar("No dashboard available", "OK")
-        router.navigate(['/dashboards'])
-      })
+
+    this.fetchTeams()
+    this.fetchDashboard()
+  }
+
+  fetchTeams() {
+    // Make an HTTP GET request to your backend API to fetch room numbers
+    this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
+      this.teams = teamCollection.teamCollection
+    })
+    .catch(_ => {
+      this.generalService.showSnackbar("No dashboard available", "OK")
+      this.router.navigate(['/dashboards'])
+    });
+  }
+
+  fetchDashboard() {
+    this.dashboardService.getDashboard(this.dashboardId!)
+    .then((dashboard: DashboardDto) => {
+      this.dashboard = dashboard;
+      // this.selected = dashboard.team
+      this.setFormValues()
+    })
+    .catch(e => {
+      console.log(e)
+      this.generalService.showSnackbar("No dashboard available", "OK")
+      this.router.navigate(['/dashboards'])
+    })
+  }
+
+  setFormValues() {
+    if (this.dashboard) {
+      const selectedTeam = this.dashboard.team || null;
+      this.dashboardEditForm.controls['name'].setValue(this.dashboard.dashboardName);
+      this.dashboardEditForm.controls['dashboardUrl'].setValue(this.dashboard.dashboardUrl);
+    }
   }
 
   async submitEditDashboardForm() {
     var editDashboard: DashboardDto = {
       id: this.dashboard?.id!!,
-      name: this.dashboardEditForm.value.name ?? this.dashboard?.name,
+      dashboardName: this.dashboardEditForm.value.name ?? this.dashboard?.dashboardName,
       dashboardUrl: this.dashboardEditForm.value.dashboardUrl ?? this.dashboard?.dashboardUrl,
       imageUrl: this.dashboardEditForm.value.imageUrl ?? this.dashboard?.imageUrl,
-      userId: -1,
+      team: this.dashboardEditForm.value.team ?? this.dashboard?.team,
+      hasAccess: this.dashboard?.hasAccess ?? false,
     }
     await this.dashboardService.editDashboard(editDashboard)
       .then(_ => {
