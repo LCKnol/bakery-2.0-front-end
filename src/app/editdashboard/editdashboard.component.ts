@@ -91,7 +91,6 @@ export class EditdashboardComponent {
     .then((dashboard: DashboardDto) => {
       this.dashboard = dashboard;
       this.team = dashboard.team
-      // this.selected = dashboard.team
     })
     .catch(e => {
       console.log(e)
