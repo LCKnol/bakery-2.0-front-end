@@ -69,7 +69,4 @@ export class PiService {
     await firstValueFrom(await this.generalService.post(Url.pi + "/setdashboard",pi));
   }
 
-  async getUser(): Promise<User> {
-    return firstValueFrom(await this.generalService.get(Url.user));
-  }
 }
