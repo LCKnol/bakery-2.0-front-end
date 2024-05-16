@@ -80,7 +80,8 @@ export class InitPiComponent {
       macAddress: this.macAddress,
       status: '',
       dashboardName: '',
-      roomNo: this.addInitPiForm.value.roomNo.roomNo ?? ''
+      roomNo: this.addInitPiForm.value.roomNo.roomNo ?? '',
+      dashboardId: -1
     };
 
     this.piService.initPi(pi).then(_ => {

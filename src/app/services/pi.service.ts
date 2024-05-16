@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpHeaders} from "@angular/common/http";
 import {PiCollection} from "../dto/pi-collection";
+import {LoginResponse} from "../dto/loginResponse";
 import {firstValueFrom} from "rxjs";
+import {User} from "../dto/user";
 import {GeneralService} from "./general.service";
+import {Url} from "./api-endpoints";
 import {PiRequestCollection} from "../dto/piRequestCollection";
 import {Pi} from "../dto/pi";
-import { Url } from './api-endpoints';
-import {User} from "../dto/user";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +19,14 @@ export class PiService {
   constructor(private generalService: GeneralService) {
   }
 
-  public async getPis(): Promise<PiCollection> {
-    const endpointUrl = Url.pi; // Make sure 'Url.pis' is defined
-    return firstValueFrom(await this.generalService.get(endpointUrl));
+
+  async getUser(): Promise<User> {
+    return firstValueFrom(await this.generalService.get(Url.user));
   }
 
+  async getPis(): Promise<PiCollection> {
+    return firstValueFrom(await this.generalService.get(Url.pi));
+  }
   async getAllPis(): Promise<PiCollection> {
     return firstValueFrom(await this.generalService.get(Url.pi+"/all"));
   }
@@ -60,11 +65,11 @@ export class PiService {
     await firstValueFrom(await this.generalService.delete(Url.pi + "/init/" + macAddress));
   }
 
+  async assignDashboard(pi: Pi) {
+    await firstValueFrom(await this.generalService.post(Url.pi + "/setdashboard",pi));
+  }
+
   async getUser(): Promise<User> {
     return firstValueFrom(await this.generalService.get(Url.user));
   }
 }
-
-
-
-

@@ -5,4 +5,5 @@ export interface Pi {
   status: string;
   dashboardName: string;
   roomNo: string;
+  dashboardId: number
 }
