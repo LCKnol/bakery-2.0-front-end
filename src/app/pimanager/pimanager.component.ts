@@ -28,6 +28,7 @@ import {GeneralService} from "../services/general.service";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
 import {AssignDashboardComponent} from "../assign-dashboard/assign-dashboard.component";
+import {InitPiComponent} from "../init-pi/init-pi.component";
 
 @Component({
   selector: 'app-pimanager',
@@ -84,11 +85,25 @@ export class PimanagerComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  openDialog(pi:Pi) {
+  openAssignDialog(pi:Pi) {
     const dialogRef = this.dialog.open(AssignDashboardComponent, {
       data: {
         pi:pi
       }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.showAllPis()
+    });
+  }
+
+  openPiRequestDialog(macAddress: string) {
+    const dialogRef = this.dialog.open(InitPiComponent, {
+      data: {
+        macAddress:macAddress
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.showPiRequests()
     });
   }
   showAllPis(){
@@ -115,27 +130,6 @@ export class PimanagerComponent implements AfterViewInit {
     }else if(tab.index == 1){
       this.showPiRequests()
     }
-  }
-
-  redirectToInitPi(macAddress: string) {
-
-    const url = '/init-pi';
-    const body = { macAddress };
-
-    console.log("Sending MAC address:", macAddress); // Log the MAC address being sent
-    // Convert Promise to Observable using 'from'
-    const postObservable = from(this.generalService.post(url, body));
-
-    postObservable.subscribe({
-      next: (response) => {
-        console.log('Response:', response);
-        // Assuming response contains the necessary data to navigate
-        this.router.navigate(['/init-pi'], { state: { data: macAddress}});
-      },
-      error: (error) => {
-        console.error('Error:', error);
-      }
-    });
   }
 }
 
