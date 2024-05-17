@@ -1,11 +1,13 @@
 <mat-card class="container-card">
 <section class="results">
-  <mat-toolbar class="topbar telative mat-toolbar mat-primary mat-toolbar-single-row" >
+  <mat-toolbar class="mat-toolbar mat-primary mat-toolbar-single-row" >
+    <form>
+      <input matInput type="text" placeholder="Filter by name" #filter>
+      <button mat-button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
+    </form>
     <button mat-icon-button color="primary" (click)="openAddDialog()">
       <mat-icon>add</mat-icon>
     </button>
-      <input matInput  type="text" placeholder="Filter by name" #filter>
-      <button mat-button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
   </mat-toolbar>
     <mat-tab-group (selectedTabChange)="switchView($event)" >
       <mat-tab label="Dashboards">  </mat-tab>

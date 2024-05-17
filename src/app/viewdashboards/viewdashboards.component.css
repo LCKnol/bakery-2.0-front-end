@@ -8,10 +8,15 @@
   display: flex;
   flex-direction: row;
   gap: 20px;
+  justify-content: center;
 }
 .results mat-toolbar button{
   color: white;
   background-color: #19b;
+  margin-left: auto;
+}
+.results mat-toolbar form{
+  display: flex;
 }
 app-dashboard-card {
   width: 250px;
