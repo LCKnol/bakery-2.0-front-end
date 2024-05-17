@@ -66,6 +66,7 @@ export class AssignDashboardComponent {
       id: this.pi?.id!!,
       name: this.pi?.name!!,
       macAddress: this.pi?.macAddress!!,
+      ipAddress: this.pi?.ipAddress!!,
       status: this.pi?.status!!,
       dashboardName: this.pi?.dashboardName!!,
       roomNo: this.pi?.roomNo!!,

@@ -47,6 +47,7 @@ export class InitPiComponent {
     roomNo: new FormControl('')
   });
   macAddress: string | undefined;
+  ipAddress: string;
   rooms: RoomDto[] = []
 
 
@@ -60,10 +61,16 @@ export class InitPiComponent {
   ) {
     if (this.data) {
     this.macAddress = data.macAddress;
+      this.ipAddress = navigation?.extras.state?.['ipAddress'];
     }
+
+
+
     // Fetch room numbers from the backend API
     this.fetchRooms();
   }
+
+
 
   fetchRooms() {
     // Make an HTTP GET request to your backend API to fetch room numbers
@@ -77,6 +84,7 @@ export class InitPiComponent {
       id: -1,
       name: this.addInitPiForm.value.name ?? '',
       macAddress: this.macAddress!!,
+      ipAddress: this.ipAddress,
       status: '',
       dashboardName: '',
       roomNo: this.addInitPiForm.value.roomNo.roomNo ?? '',

@@ -19,11 +19,8 @@ import {
   MatTable,
   MatTableDataSource
 } from "@angular/material/table";
-import {LoginService} from "../services/login.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {Pi} from "../dto/pi";
 import {MatTab, MatTabChangeEvent, MatTabGroup, MatTabLink, MatTabNav, MatTabNavPanel} from "@angular/material/tabs";
-import { HttpClient } from '@angular/common/http';
 import {GeneralService} from "../services/general.service";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
@@ -106,28 +103,29 @@ export class PimanagerComponent implements AfterViewInit {
       this.showPiRequests()
     });
   }
-  showAllPis(){
+
+  showAllPis() {
     this.piService.getAllPis().then(res => {
       this.dataSource = new MatTableDataSource<Pi>(res.pis)
-      this.displayedColumns = ['name', 'status', 'macaddress','room','display','action']
+      this.displayedColumns = ['name', 'status', 'macaddress', 'ipaddress', 'room', 'display', 'action']
       this.dataSource.paginator = this.paginator;
       this.dataSwitch = true
     });
   }
 
-  showPiRequests(){
+  showPiRequests() {
     this.piService.getPiRequests().then(res => {
       this.dataSource = new MatTableDataSource<any>(res.piRequests)
-      this.displayedColumns = ['requestedon','macaddress','action']
+      this.displayedColumns = ['requestedon', 'macaddress', 'ipaddress', 'action']
       this.dataSource.paginator = this.paginator;
       this.dataSwitch = false
     });
   }
 
   switchView(tab: MatTabChangeEvent) {
-    if (tab.index == 0){
+    if (tab.index == 0) {
       this.showAllPis()
-    }else if(tab.index == 1){
+    } else if (tab.index == 1) {
       this.showPiRequests()
     }
   }
