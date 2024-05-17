@@ -17,8 +17,6 @@ import {RoomDto} from "../dto/roomDto";
 import {NgForOf} from "@angular/common";
 
 
-
-
 @Component({
   selector: 'app-init-pi',
   standalone: true,
@@ -45,26 +43,23 @@ export class InitPiComponent {
     roomNo: new FormControl('')
   });
   macAddress: string;
+  ipAddress: string;
   rooms: RoomDto[] = []
-
-
 
   constructor(
     private router: Router,
     private piService: PiService,
     private generalService: GeneralService,
     private roomService: RoomService,
-
   ) {
 
     const navigation = this.router.getCurrentNavigation();
-    this.macAddress = navigation?.extras.state?.['data'];
+    this.macAddress = navigation?.extras.state?.['macAddress'];
+    this.ipAddress = navigation?.extras.state?.['ipAddress'];
 
     // Fetch room numbers from the backend API
     this.fetchRooms();
   }
-
-
 
   fetchRooms() {
     // Make an HTTP GET request to your backend API to fetch room numbers
@@ -78,6 +73,7 @@ export class InitPiComponent {
       id: -1,
       name: this.addInitPiForm.value.name ?? '',
       macAddress: this.macAddress,
+      ipAddress: this.ipAddress,
       status: '',
       dashboardName: '',
       roomNo: this.addInitPiForm.value.roomNo.roomNo ?? '',
@@ -100,5 +96,4 @@ export class InitPiComponent {
       this.generalService.showSnackbar("Error while deleting pi", "OK");
     })
   }
-
 }
