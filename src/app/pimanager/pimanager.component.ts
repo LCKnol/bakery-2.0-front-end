@@ -93,10 +93,11 @@ export class PimanagerComponent implements AfterViewInit {
     });
   }
 
-  openPiRequestDialog(macAddress: string) {
+  openPiRequestDialog(macAddress: string,ipAddress: string) {
     const dialogRef = this.dialog.open(InitPiComponent, {
       data: {
-        macAddress:macAddress
+        macAddress:macAddress,
+        ipAddress: ipAddress
       }
     });
     dialogRef.afterClosed().subscribe(result => {

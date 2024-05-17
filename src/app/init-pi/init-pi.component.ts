@@ -47,7 +47,7 @@ export class InitPiComponent {
     roomNo: new FormControl('')
   });
   macAddress: string | undefined;
-  ipAddress: string;
+  ipAddress: string | undefined;
   rooms: RoomDto[] = []
 
 
@@ -61,7 +61,7 @@ export class InitPiComponent {
   ) {
     if (this.data) {
     this.macAddress = data.macAddress;
-      this.ipAddress = navigation?.extras.state?.['ipAddress'];
+      this.ipAddress = data.ipAddress
     }
 
 
@@ -84,7 +84,7 @@ export class InitPiComponent {
       id: -1,
       name: this.addInitPiForm.value.name ?? '',
       macAddress: this.macAddress!!,
-      ipAddress: this.ipAddress,
+      ipAddress: this.ipAddress!!,
       status: '',
       dashboardName: '',
       roomNo: this.addInitPiForm.value.roomNo.roomNo ?? '',
