@@ -72,8 +72,7 @@ export class AssignDashboardComponent {
       roomNo: this.pi?.roomNo!!,
       dashboardId: this.assignDashboardForm.value.dashboardList
     };
-    this.piService.assignDashboard(newPi)
-    this.dialogRef.close(true);
+    this.piService.assignDashboard(newPi).then(r =>
+      this.dialogRef.close(true))
   }
-
 }

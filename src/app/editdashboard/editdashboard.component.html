@@ -1,14 +1,9 @@
-<mat-card class="dashboard-card">
-  <mat-card-header>
-    <h1>Edit dashboard</h1>
-  </mat-card-header>
-
-  <mat-card-content class="info">
-    <h4>
-      <mat-icon>tv</mat-icon>
+<form [formGroup]="dashboardEditForm" (ngSubmit)="submitEditDashboardForm()">
+  <mat-dialog-content>
+    <div class="piInfo">
+      <mat-icon>group</mat-icon>
       {{team?.name}}
-    </h4>
-    <form [formGroup]="dashboardEditForm" (ngSubmit)="submitEditDashboardForm()" class="dashboard-form">
+      </div>
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
         <input matInput type="name" formControlName="name" value="">
@@ -35,6 +30,5 @@
         <button mat-flat-button type="submit" color="light-blue" class="dashboard-button">Confirm</button>
         <button mat-mini-fab color="warn" type="button" (click)="deleteDashboard()"><mat-icon>delete</mat-icon></button>
       </div>
-    </form>
-  </mat-card-content>
-</mat-card>
+    </mat-dialog-content>
+</form>

@@ -22,4 +22,14 @@ app-dashboard-card {
   margin: 5% auto auto;
   width: 80%;
 }
+.results mat-tab-group {
+  width: 100%;
+}
+.container-card{
+  margin: 5% auto auto;
+  width: 80%;
+}
+.tablecontainer{
+  width: 100%;
+}
 

@@ -9,6 +9,7 @@ import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {PiService} from "../services/pi.service";
 import {MatPaginator} from "@angular/material/paginator";
+import {PiCollection} from "../dto/pi-collection";
 import {from, Observable} from 'rxjs';
 import {
   MatCell, MatCellDef,
@@ -24,6 +25,7 @@ import {GeneralService} from "../services/general.service";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
 import {AssignDashboardComponent} from "../assign-dashboard/assign-dashboard.component";
+import {InitPiComponent} from "../init-pi/init-pi.component";
 
 @Component({
   selector: 'app-pimanager',
@@ -72,7 +74,7 @@ export class PimanagerComponent implements AfterViewInit {
 
   macAddress: string | null = null;
 
-  constructor(private piService: PiService, private generalService: GeneralService, private router: Router, public dialog: MatDialog) {
+  constructor(private piService: PiService, private generalService: GeneralService, private router: Router,public dialog: MatDialog) {
     this.showAllPis()
   }
 
@@ -80,11 +82,26 @@ export class PimanagerComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  openDialog(pi: Pi) {
+  openAssignDialog(pi:Pi) {
     const dialogRef = this.dialog.open(AssignDashboardComponent, {
       data: {
-        pi: pi
+        pi:pi
       }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.showAllPis()
+    });
+  }
+
+  openPiRequestDialog(macAddress: string,ipAddress: string) {
+    const dialogRef = this.dialog.open(InitPiComponent, {
+      data: {
+        macAddress:macAddress,
+        ipAddress: ipAddress
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.showPiRequests()
     });
   }
 
@@ -113,24 +130,5 @@ export class PimanagerComponent implements AfterViewInit {
       this.showPiRequests()
     }
   }
-
-  redirectToInitPi(macAddress: string, ipAddress: string) {
-    const url = '/init-pi';
-    const body = {macAddress};
-
-    console.log("Sending MAC address:", macAddress); // Log the MAC address being sent
-    // Convert Promise to Observable using 'from'
-    const postObservable = from(this.generalService.post(url, body));
-
-    postObservable.subscribe({
-      next: (response) => {
-        console.log('Response:', response);
-        // Assuming response contains the necessary data to navigate
-        this.router.navigate(['/init-pi'], {state: {macAddress: macAddress, ipAddress: ipAddress}});
-      },
-      error: (error) => {
-        console.error('Error:', error);
-      }
-    });
-  }
 }
+
