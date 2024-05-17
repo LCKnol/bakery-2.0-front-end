@@ -3,18 +3,18 @@ import {GeneralService} from "./general.service";
 import {firstValueFrom} from "rxjs";
 import {Url} from "./api-endpoints";
 import {Injectable} from "@angular/core";
-import {RoomCollection} from "../dto/roomCollection";
+import {TeamCollection} from "../dto/teamCollection";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class RoomService {
+export class TeamService {
 
   constructor(private generalService: GeneralService) {
   }
 
-  async getAllRooms(): Promise<RoomCollection> {
-    return firstValueFrom(await this.generalService.get(Url.rooms));
+  async getAllTeams(): Promise<TeamCollection> {
+    return firstValueFrom(await this.generalService.get(Url.teams));
   }
 }

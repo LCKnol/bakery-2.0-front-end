@@ -9,7 +9,6 @@ import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {PiService} from "../services/pi.service";
 import {MatPaginator} from "@angular/material/paginator";
-import {PiCollection} from "../dto/pi-collection";
 import {from, Observable} from 'rxjs';
 import {
   MatCell, MatCellDef,
@@ -19,12 +18,12 @@ import {
   MatTable,
   MatTableDataSource
 } from "@angular/material/table";
-import {LoginService} from "../services/login.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {Pi} from "../dto/pi";
 import {MatTab, MatTabChangeEvent, MatTabGroup, MatTabLink, MatTabNav, MatTabNavPanel} from "@angular/material/tabs";
-import {HttpClient} from '@angular/common/http';
 import {GeneralService} from "../services/general.service";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {MatDialog} from "@angular/material/dialog";
+import {AssignDashboardComponent} from "../assign-dashboard/assign-dashboard.component";
 
 @Component({
   selector: 'app-pimanager',
@@ -57,7 +56,10 @@ import {GeneralService} from "../services/general.service";
     MatTabNav,
     NgOptimizedImage,
     MatTabNavPanel,
-    MatFabButton
+    MatFabButton,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger
   ],
   templateUrl: './pimanager.component.html',
   styleUrl: './pimanager.component.css'
@@ -70,12 +72,20 @@ export class PimanagerComponent implements AfterViewInit {
 
   macAddress: string | null = null;
 
-  constructor(private piService: PiService, private generalService: GeneralService, private router: Router) {
+  constructor(private piService: PiService, private generalService: GeneralService, private router: Router, public dialog: MatDialog) {
     this.showAllPis()
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  openDialog(pi: Pi) {
+    const dialogRef = this.dialog.open(AssignDashboardComponent, {
+      data: {
+        pi: pi
+      }
+    });
   }
 
   showAllPis() {
