@@ -23,6 +23,9 @@ import {UserService} from "../services/user.service";
 import {DashboardDto} from "../dto/dashboardDto";
 import {UserCollection} from "../dto/userCollection";
 import {User} from "../dto/user";
+import {EditdashboardComponent} from "../editdashboard/editdashboard.component";
+import {AddDashboardComponent} from "../add-dashboard/add-dashboard.component";
+import {AddUserComponent} from "../add-user/add-user.component";
 
 @Component({
   selector: 'app-user-manager',
@@ -73,11 +76,17 @@ export class UserManagerComponent implements AfterViewInit{
   }
 
   openAddDialog() {
-
+    const dialogRef = this.dialog.open(AddUserComponent, {
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.showAllUsers()
+    });
   }
 
-  deleteUser() {
-
+  deleteUser(id: number) {
+      this.userService.deleteUser(id).then(res =>{
+        this.showAllUsers()
+      } )
   }
 
   private showAllUsers() {
@@ -101,5 +110,9 @@ export class UserManagerComponent implements AfterViewInit{
     );
     this.dataSource = new MatTableDataSource<User>(this.filteredUsers)
     this.dataSource.paginator = this.paginator;
+  }
+
+  openEditDialog(user: User) {
+
   }
 }

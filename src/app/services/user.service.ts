@@ -4,6 +4,7 @@ import {UserInfo} from "../dto/userInfo";
 import {UserCollection} from "../dto/userCollection";
 import {firstValueFrom} from "rxjs";
 import {Url} from "./api-endpoints";
+import {User} from "../dto/user";
 
 
 @Injectable({
@@ -16,7 +17,22 @@ export class UserService {
   }
 
   async getAllUsers(): Promise<UserCollection> {
-    var endpointUrl = Url.user +"/all"
+    const endpointUrl = Url.user +"/all"
     return firstValueFrom(await this.generalService.get(endpointUrl))
   }
+
+ async deleteUser(id: number) {
+    const endpointUrl = Url.user +"/"+id
+    return firstValueFrom(await this.generalService.delete(endpointUrl))
+  }
+
+  async addUser(user:User) {
+    const endpointUrl = Url.user+"/register"
+    return firstValueFrom(await this.generalService.post(endpointUrl,user))
+  }
+  async assignUserToTeam(user:number,team:number){
+    const endpointUrl = Url.user +"/assignToTeam/"+user+ "/"+team
+    return firstValueFrom(await this.generalService.post(endpointUrl,user))
+  }
+
 }
