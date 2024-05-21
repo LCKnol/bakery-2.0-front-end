@@ -8,6 +8,7 @@ import {AddDashboardComponent} from "./add-dashboard/add-dashboard.component";
 import {EditpiComponent} from "./editpi/editpi.component";
 import {PimanagerComponent} from "./pimanager/pimanager.component"
 import {InitPiComponent} from "./init-pi/init-pi.component";
+import {CreateAccountComponent} from "./create-account/create-account.component";
 import {UserManagerComponent} from "./user-manager/user-manager.component";
 
 export const routes: Routes = [
@@ -21,6 +22,12 @@ export const routes: Routes = [
     component: LoginComponent,
     canActivate: [authGuard],
     title: 'Login'
+  },
+
+  {
+    path: 'register',
+    component: CreateAccountComponent,
+    title: 'Register'
   },
   {
     path: 'dashboards',
