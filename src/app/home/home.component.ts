@@ -14,7 +14,7 @@ import {PiCardComponent} from "../pi-card/pi-card.component";
 import {LoginResponse} from "../dto/loginResponse";
 import {NgForOf, NgIf} from "@angular/common";
 import {PiCollection} from "../dto/pi-collection";
-import {User} from "../dto/user";
+import {UserInfo} from "../dto/userInfo";
 import {PiService} from "../services/pi.service";
 
 @Component({
@@ -42,7 +42,7 @@ export class HomeComponent {
   piCollection: PiCollection = {
     pis: []
   };
-  user: User | undefined;
+  user: UserInfo | undefined;
 
 
   constructor(private piService: PiService) {

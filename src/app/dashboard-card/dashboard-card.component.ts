@@ -8,6 +8,8 @@ import {DashboardDto} from '../dto/dashboardDto'
 import { CommonModule } from '@angular/common';
 import {RouterLink} from "@angular/router";
 import {RouterOutlet} from "@angular/router";
+import {EditdashboardComponent} from "../editdashboard/editdashboard.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-dashboard-card',
@@ -19,8 +21,16 @@ import {RouterOutlet} from "@angular/router";
 })
 export class DashboardCardComponent {
   @Input() dashboard!: DashboardDto;
-  constructor() {
+  constructor(public dialog: MatDialog) {
 
+  }
+
+  openDialog(dashboard:DashboardDto) {
+    const dialogRef = this.dialog.open(EditdashboardComponent, {
+      data: {
+        dashboard:dashboard
+      }
+    });
   }
 
 }

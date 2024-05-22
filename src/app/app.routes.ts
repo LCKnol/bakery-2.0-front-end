@@ -8,6 +8,7 @@ import {AddDashboardComponent} from "./add-dashboard/add-dashboard.component";
 import {EditpiComponent} from "./editpi/editpi.component";
 import {PimanagerComponent} from "./pimanager/pimanager.component"
 import {InitPiComponent} from "./init-pi/init-pi.component";
+import {UserManagerComponent} from "./user-manager/user-manager.component";
 
 export const routes: Routes = [
   {
@@ -47,6 +48,11 @@ export const routes: Routes = [
     title: 'Edit Pi' ,
   },
 
+  {
+    path: 'userManager',
+    component: UserManagerComponent,
+    title: 'userManager'
+  },
   {
     path: 'init-pi',
     component: InitPiComponent,

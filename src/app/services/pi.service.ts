@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpHeaders} from "@angular/common/http";
 import {PiCollection} from "../dto/pi-collection";
 import {LoginResponse} from "../dto/loginResponse";
-import {firstValueFrom, Observable} from "rxjs";
 import {User} from "../dto/user";
+import {firstValueFrom} from "rxjs";
+import {UserInfo} from "../dto/userInfo";
 import {GeneralService} from "./general.service";
 import {Url} from "./api-endpoints";
 import {PiRequestCollection} from "../dto/piRequestCollection";
@@ -22,7 +23,7 @@ export class PiService {
   }
 
 
-  async getUser(): Promise<User> {
+  async getUser(): Promise<UserInfo> {
     return firstValueFrom(await this.generalService.get(Url.user));
   }
 
@@ -45,7 +46,7 @@ export class PiService {
   }
 
   async getPiRequests(): Promise<PiRequestCollection> {
-    return firstValueFrom(await this.generalService.get(Url.pi + "/requests"));
+    return firstValueFrom(await this.generalService.get(Url.pi+"/requests"));
   }
 
 

@@ -10,7 +10,7 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button  mat-flat-button color="primary" [routerLink]="['/dashboards/edit', dashboard.id]" [disabled]="!dashboard.hasAccess">{{ dashboard.hasAccess ? 'View dashboard' : 'No access' }}</button>
+    <button  mat-flat-button (click)="openDialog(dashboard)" color="primary"  [disabled]="!dashboard.hasAccess">{{ dashboard.hasAccess ? 'View dashboard' : 'No access' }}</button>
   </mat-card-actions>
 </mat-card>
 

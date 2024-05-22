@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {LoginRequest} from "../dto/loginRequest";
@@ -17,6 +17,7 @@ import {TeamService} from "../services/team.service";
 import {RoomCollection} from "../dto/roomCollection";
 import {TeamCollection} from "../dto/teamCollection";
 import {NgForOf} from "@angular/common";
+import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-add-dashboard',
@@ -35,6 +36,7 @@ import {NgForOf} from "@angular/common";
     MatSelect,
     MatOption,
     NgForOf,
+    MatDialogContent,
   ],
   templateUrl: './add-dashboard.component.html',
   styleUrl: './add-dashboard.component.css'
@@ -49,13 +51,13 @@ export class AddDashboardComponent {
 
   teams: Team[] = []
 
-  constructor(private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddDashboardComponent>,private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
     this.fetchTeams()
   }
 
   fetchTeams() {
     // Make an HTTP GET request to your backend API to fetch room numbers
-    this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
+    this.teamService.getTeamsFromCurrentUser().then((teamCollection: TeamCollection) => {
       this.teams = teamCollection.teamCollection
     });
   }
@@ -73,6 +75,7 @@ export class AddDashboardComponent {
       .then(token => {
         this.router.navigate(['/dashboards']).catch(_ => {console.log('no page found');});
         this.generalService.showSnackbar("Dashboard added successfully", "ok", {})
+        this.dialogRef.close()
       })
       .catch(_ => {this.generalService.showSnackbar("Dashboard added failed", "ok", {});})
   }

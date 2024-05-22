@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {DashboardDto} from "../dto/dashboardDto";
 import {DashboardService} from "../services/dashboard.service";
@@ -18,11 +18,21 @@ import {TeamService} from "../services/team.service";
 import {Team} from "../dto/team";
 import {merge, Observable, of} from "rxjs";
 import {map, startWith} from 'rxjs/operators';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef
+} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-editdashboard',
   standalone: true,
   imports: [
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
     MatButton,
     MatCard,
     MatCardContent,
@@ -59,19 +69,18 @@ export class EditdashboardComponent {
   })
 
 
-  constructor(private route: ActivatedRoute, private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
-    this.route.params.subscribe(params => {
-      this.dashboardId = params['dashboardId'];
-    });
-
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any,private dialogRef: MatDialogRef<EditdashboardComponent>, private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
+    if (this.data) {
+      this.dashboard = data.dashboard
+      this.dashboardId = data.dashboard.id
+    }
     this.fetchDashboard()
     this.fetchTeams()
-
   }
 
   fetchTeams() {
     // Make an HTTP GET request to your backend API to fetch room numbers
-    this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
+    this.teamService.getTeamsFromCurrentUser().then((teamCollection: TeamCollection) => {
       this.teams = teamCollection.teamCollection.filter(team => team.id !== this.team?.id)
       this.setFormValues()
       this.filteredOptions = this.teamFormControl.valueChanges
@@ -121,7 +130,8 @@ export class EditdashboardComponent {
         this.generalService.showSnackbar("Dashboard succesfully updated", "OK", {duration: 3000})
       }).catch(_ => {this.generalService.showSnackbar("Error while updating dashboard", "OK")})
 
-    this.router.navigate(["/dashboards"])
+   this.dialogRef.close()
+    await this.router.navigate(['/dashboards'])
   }
 
   async deleteDashboard() {
@@ -130,7 +140,7 @@ export class EditdashboardComponent {
         this.generalService.showSnackbar("Dashboard succesfully deleted", "OK", {duration: 3000})
       }).catch(_ => {this.generalService.showSnackbar("Error while deleting dashboard", "OK")})
 
-    this.router.navigate(["/dashboards"])
+    this.dialogRef.close()
   }
   displayFn(team?: any): string {
     return team ? team.name : undefined;

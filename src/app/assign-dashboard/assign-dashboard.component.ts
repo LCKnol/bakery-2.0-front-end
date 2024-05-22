@@ -66,13 +66,13 @@ export class AssignDashboardComponent {
       id: this.pi?.id!!,
       name: this.pi?.name!!,
       macAddress: this.pi?.macAddress!!,
+      ipAddress: this.pi?.ipAddress!!,
       status: this.pi?.status!!,
       dashboardName: this.pi?.dashboardName!!,
       roomNo: this.pi?.roomNo!!,
       dashboardId: this.assignDashboardForm.value.dashboardList
     };
-    this.piService.assignDashboard(newPi)
-    this.dialogRef.close(true);
+    this.piService.assignDashboard(newPi).then(r =>
+      this.dialogRef.close(true))
   }
-
 }
