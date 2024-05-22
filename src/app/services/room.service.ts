@@ -21,7 +21,7 @@ export class RoomService {
   }
 
   public async deleteRoom(roomNo: String) {
-    const endpointUrl = Url.dashboards + '/' + roomNo;
+    const endpointUrl = Url.rooms + '/' + roomNo;
     await firstValueFrom(await this.generalService.delete(endpointUrl));
   }
   public async addRoom(room: RoomDto) {

@@ -26,6 +26,7 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {AddDashboardComponent} from "../add-dashboard/add-dashboard.component";
 import {MatDialog} from "@angular/material/dialog";
+import {AddRoomComponent} from "../add-room/add-room.component";
 
 
 @Component({
@@ -86,11 +87,15 @@ export class RoomsComponent {
 }
 
   openAddDialog() {
-    // const dialogRef = this.dialog.open(AddRoomComponent, {
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.showAllRooms()
-    // });
+    const dialogRef = this.dialog.open(AddRoomComponent, {
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.showAllRooms()
+    });
+  }
+
+  deleteRoom(room: RoomDto) {
+    this.roomService.deleteRoom(room.roomNo).then(() => {this.showAllRooms()})
   }
 }
 
