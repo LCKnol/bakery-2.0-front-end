@@ -20,18 +20,13 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
-/* Additional styles for header with logo */
+/* Additional styles for header with title */
 .pi-header {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center logo horizontally */
+  justify-content: center; /* Center title horizontally */
   gap: 10px;
-  margin-bottom: 20px; /* Adjust space between logo and form fields */
-}
-
-.logo {
-  height: 40px; /* Adjust the logo height as necessary */
-  width: auto;
+  margin-bottom: 20px; /* Adjust space between title and form fields */
 }
 
 .title {
@@ -47,10 +42,6 @@ mat-form-field {
 /* Additional styles for button */
 .pi-button {
   width: 100%; /* Make button full width */
-}
-
-/* Use the colors provided in the style guide for button */
-.pi-button {
   background-color: #19b;
   color: #fff;
 }
@@ -59,7 +50,7 @@ mat-form-field {
   background-color: #10839f;
 }
 
-.pi-container {
+.button-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
