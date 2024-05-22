@@ -58,10 +58,4 @@ export const routes: Routes = [
     component: InitPiComponent,
     title: 'init-pi'
   },
-
-  {
-    path:'piManager/edit/:piId',
-    component: EditpiComponent,
-    title: 'Edit Pi'
-  }
 ];
