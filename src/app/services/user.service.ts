@@ -27,11 +27,7 @@ export class UserService {
   }
 
   async addUser(user:User) {
-    const endpointUrl = Url.user+"/register"
-    return firstValueFrom(await this.generalService.post(endpointUrl,user))
-  }
-  async assignUserToTeam(user:number,team:number){
-    const endpointUrl = Url.user +"/assignToTeam/"+user+ "/"+team
+    const endpointUrl = Url.user
     return firstValueFrom(await this.generalService.post(endpointUrl,user))
   }
 

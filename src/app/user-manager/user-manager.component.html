@@ -44,7 +44,7 @@
               <mat-icon>menu</mat-icon>
             </button>
             <mat-menu #menu="matMenu" class="adminDropdown">
-              <button mat-menu-item (click)="openEditDialog(element)">Edit</button>
+              <button mat-menu-item (click)="openAssignToTeamDialog(element.id)">Add to team</button>
               <button mat-menu-item (click)="deleteUser(element.id)">Delete</button>
             </mat-menu>
         </ng-container>

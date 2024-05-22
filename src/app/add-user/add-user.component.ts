@@ -43,12 +43,13 @@ export class AddUserComponent {
     email: new FormControl(),
     password: new FormControl(),
     isAdmin: new FormControl(),
-    teams: new FormControl()
+    team: new FormControl()
   });
 
   teams: Team[] = []
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddUserComponent>,private userService: UserService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
+    this.dialogRef.updateSize('40%')
     this.fetchTeams()
   }
 
@@ -62,8 +63,8 @@ export class AddUserComponent {
 
     const user: User = {
       id: -1,
-      firstName: this.addUserForm.value.firstname,
-      lastName: this.addUserForm.value.lastname,
+      firstname: this.addUserForm.value.firstname,
+      lastname: this.addUserForm.value.lastname,
       email: this.addUserForm.value.email,
       password: this.addUserForm.value.password,
       isAdmin: this.addUserForm.value.isAdmin,

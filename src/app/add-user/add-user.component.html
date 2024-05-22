@@ -27,10 +27,11 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Admin</mat-label>
-      <input matInput type="text" formControlName="isAdmin">
+      <mat-select formControlName="isAdmin">
+        <mat-option  [value]="true">Yes</mat-option>
+        <mat-option  [value]="false">No</mat-option>
+      </mat-select>
     </mat-form-field>
-
-
 
     <mat-form-field appearance="fill">
       <mat-label>Available for teams</mat-label>
