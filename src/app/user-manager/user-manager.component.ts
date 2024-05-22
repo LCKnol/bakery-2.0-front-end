@@ -27,6 +27,7 @@ import {EditdashboardComponent} from "../editdashboard/editdashboard.component";
 import {AddDashboardComponent} from "../add-dashboard/add-dashboard.component";
 import {AddUserComponent} from "../add-user/add-user.component";
 import {AssignTeamComponent} from "../assign-team/assign-team.component";
+import {RemoveUserFromTeamComponent} from "../remove-user-from-team/remove-user-from-team.component";
 
 @Component({
   selector: 'app-user-manager',
@@ -107,7 +108,7 @@ export class UserManagerComponent implements AfterViewInit{
       return;
     }
     this.filteredUsers = this.users?.filter(
-      user => user?.firstname.toLowerCase().includes(text.toLowerCase())
+      user => user?.firstName.toLowerCase().includes(text.toLowerCase())
     );
     this.dataSource = new MatTableDataSource<User>(this.filteredUsers)
     this.dataSource.paginator = this.paginator;
@@ -116,6 +117,19 @@ export class UserManagerComponent implements AfterViewInit{
   openAssignToTeamDialog(userid: number) {
 
     const dialogRef = this.dialog.open(AssignTeamComponent, {
+      data: {
+        userid:userid
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.showAllUsers()
+    });
+
+  }
+
+  openRemoveFromTeamDialog(userid: number) {
+
+    const dialogRef = this.dialog.open(RemoveUserFromTeamComponent, {
       data: {
         userid:userid
       }

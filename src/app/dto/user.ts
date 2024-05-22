@@ -2,8 +2,8 @@ import {Team} from "./team";
 
 export interface User {
    id: Number;
-   firstname: String;
-   lastname: String;
+   firstName: String;
+   lastName: String;
    email: String;
    password: String;
    isAdmin: Boolean;

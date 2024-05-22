@@ -54,7 +54,6 @@ export class AddUserComponent {
   }
 
   fetchTeams() {
-    // Make an HTTP GET request to your backend API to fetch room numbers
     this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
       this.teams = teamCollection.teamCollection
     });
@@ -63,8 +62,8 @@ export class AddUserComponent {
 
     const user: User = {
       id: -1,
-      firstname: this.addUserForm.value.firstname,
-      lastname: this.addUserForm.value.lastname,
+      firstName: this.addUserForm.value.firstname,
+      lastName: this.addUserForm.value.lastname,
       email: this.addUserForm.value.email,
       password: this.addUserForm.value.password,
       isAdmin: this.addUserForm.value.isAdmin,

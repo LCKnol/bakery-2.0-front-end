@@ -57,7 +57,7 @@ export class AddDashboardComponent {
 
   fetchTeams() {
     // Make an HTTP GET request to your backend API to fetch room numbers
-    this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
+    this.teamService.getTeamsFromCurrentUser().then((teamCollection: TeamCollection) => {
       this.teams = teamCollection.teamCollection
     });
   }
