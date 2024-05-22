@@ -17,4 +17,9 @@ export class TeamService {
   async getAllTeams(): Promise<TeamCollection> {
     return firstValueFrom(await this.generalService.get(Url.teams));
   }
+
+  async assignUserToTeam(user:number,team:number){
+    const endpointUrl = Url.teams +"/assignToTeam/"+user+"/"+team
+    return firstValueFrom(await this.generalService.post(endpointUrl,user))
+  }
 }
