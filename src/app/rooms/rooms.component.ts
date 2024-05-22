@@ -23,41 +23,47 @@ import {RoomDto} from "../dto/roomDto";
 import {DashboardCardComponent} from "../dashboard-card/dashboard-card.component";
 import {MatInput} from "@angular/material/input";
 import {MatToolbar} from "@angular/material/toolbar";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {AddDashboardComponent} from "../add-dashboard/add-dashboard.component";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
-    imports: [
-      DashboardCardComponent,
-      MatButton,
-      MatCard,
-      MatIcon,
-      MatIconButton,
-      MatInput,
-      MatToolbar,
-      NgForOf,
-      RouterLink,
-      MatTable,
-      MatPaginator,
-      MatColumnDef,
-      MatHeaderCell,
-      MatCell,
-      MatHeaderRow,
-      MatRow,
-      MatHeaderCellDef,
-      MatCellDef,
-      MatHeaderRowDef,
-      MatRowDef,
-      NgIf,
-      MatTabGroup,
-      MatTab,
-      MatTabLink,
-      MatTabNav,
-      NgOptimizedImage,
-      MatTabNavPanel,
-      MatFabButton
-    ],
+  imports: [
+    DashboardCardComponent,
+    MatButton,
+    MatCard,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatToolbar,
+    NgForOf,
+    RouterLink,
+    MatTable,
+    MatPaginator,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderRow,
+    MatRow,
+    MatHeaderCellDef,
+    MatCellDef,
+    MatHeaderRowDef,
+    MatRowDef,
+    NgIf,
+    MatTabGroup,
+    MatTab,
+    MatTabLink,
+    MatTabNav,
+    NgOptimizedImage,
+    MatTabNavPanel,
+    MatFabButton,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger
+  ],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.css'
 })
@@ -66,16 +72,25 @@ export class RoomsComponent {
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
-  constructor(private roomService: RoomService, private generalService: GeneralService, private router: Router) {
+
+  constructor(private roomService: RoomService, private generalService: GeneralService, private router: Router, public dialog: MatDialog) {
     this.showAllRooms()
   }
 
   private showAllRooms() {
     this.roomService.getAllRooms().then(res  => {
       this.dataSource = new MatTableDataSource<RoomDto>(res.rooms);
-      this.displayedColumns = ['roomNo'];
+      this.displayedColumns = ['roomNo', 'action'];
       this.dataSource.paginator = this.paginator;
     });
 }
+
+  openAddDialog() {
+    // const dialogRef = this.dialog.open(AddRoomComponent, {
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   this.showAllRooms()
+    // });
+  }
 }
 

@@ -4,6 +4,5 @@ mat-dialog-content{
 }
 .piInfo{
   display: flex;
-  flex-direction: column;
   align-items: center;
 }

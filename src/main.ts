@@ -11,8 +11,8 @@ bootstrapApplication(AppComponent,
   {
     providers: [
       provideProtractorTestingSupport(),
-      provideRouter(routes), provideAnimationsAsync('noop'),
-      provideHttpClient(),
+      provideRouter(routes),
+      provideHttpClient(), provideAnimationsAsync(),
     ]
   }
 ).catch(err => console.error(err));
