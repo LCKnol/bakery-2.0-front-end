@@ -130,5 +130,11 @@ export class PimanagerComponent implements AfterViewInit {
       this.showPiRequests()
     }
   }
+
+  pingPi(id: number) {
+    this.piService.pingPi(id).then(_ => {
+      this.showAllPis()
+    })
+  }
 }
 

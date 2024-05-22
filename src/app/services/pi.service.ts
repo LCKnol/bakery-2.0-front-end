@@ -48,4 +48,8 @@ export class PiService {
   async assignDashboard(pi: Pi) {
     await firstValueFrom(await this.generalService.post(Url.pi + "/setdashboard",pi));
   }
+
+  async pingPi(pi: number): Promise<void> {
+    await firstValueFrom(await this.generalService.get(Url.pi + "/ping/" + pi))
+  }
 }
