@@ -1,9 +1,11 @@
 import {Team} from "./team";
-import {RoomDto} from "./roomDto";
 
 export interface User {
-  firstname: string;
-  lastname: string;
-  teams: Team[];
-  rooms: RoomDto[];
+   id: Number;
+   firstName: String;
+   lastName: String;
+   email: String;
+   password: String;
+   isAdmin: Boolean;
+   teams: Team[]
 }
