@@ -2,13 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpHeaders} from "@angular/common/http";
 import {PiCollection} from "../dto/pi-collection";
 import {LoginResponse} from "../dto/loginResponse";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, Observable} from "rxjs";
 import {User} from "../dto/user";
 import {GeneralService} from "./general.service";
 import {Url} from "./api-endpoints";
 import {PiRequestCollection} from "../dto/piRequestCollection";
 import {Pi} from "../dto/pi";
 import {Router} from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +69,10 @@ export class PiService {
 
   async assignDashboard(pi: Pi) {
     await firstValueFrom(await this.generalService.post(Url.pi + "/setdashboard",pi));
+  }
+
+  async rebootPi(piId: number): Promise<void> {
+    await firstValueFrom(await this.generalService.get(Url.pi + "/reboot/" + piId));
   }
 
 }

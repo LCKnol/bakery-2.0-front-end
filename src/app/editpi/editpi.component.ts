@@ -49,8 +49,6 @@ export class EditpiComponent {
   rooms: RoomDto[] = []
 
 
-
-
   constructor(
     private route: ActivatedRoute,
     private piService: PiService,
@@ -88,7 +86,8 @@ export class EditpiComponent {
       roomNo: this.piEditForm.value.roomNo.roomNo ?? '',
       status: this.pi?.status ?? "",
       dashboardName: this.pi?.dashboardName ?? "",
-      macAddress: this.pi?.macAddress ?? ""
+      macAddress: this.pi?.macAddress ?? "",
+      dashboardId:this.pi?.dashboardId?? -1,
     };
     // Call the service to update the Pi data
     await this.piService.editPi(editPi)

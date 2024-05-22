@@ -76,7 +76,12 @@ export class PimanagerComponent implements AfterViewInit {
 
   macAddress: string | null = null;
 
-  constructor(private piService: PiService, private generalService: GeneralService, private router: Router,public dialog: MatDialog) {
+  constructor(private piService: PiService,
+              private generalService: GeneralService,
+              private router: Router,
+              public dialog: MatDialog,
+              private snackBar: MatSnackBar,
+              ) {
     this.showAllPis()
   }
 
@@ -135,6 +140,19 @@ export class PimanagerComponent implements AfterViewInit {
       error: (error) => {
         console.error('Error:', error);
       }
+    });
+  }
+
+  rebootPi(pi: Pi) {
+    this.piService.rebootPi(pi.id).then(() => {
+      this.snackBar.open('Reboot command sent successfully!', 'Close', {
+        duration: 3000
+      });
+    }).catch((error) => {
+      console.error('Error sending reboot command:', error);
+      this.snackBar.open('Failed to send reboot command', 'Close', {
+        duration: 3000
+      });
     });
   }
 }
