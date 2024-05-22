@@ -72,6 +72,10 @@ export class PiService {
     await firstValueFrom(await this.generalService.post(Url.pi + "/setdashboard",pi));
   }
 
+  async pingPi(pi: number): Promise<void> {
+    await firstValueFrom(await this.generalService.get(Url.pi + "/ping/" + pi))
+  }
+
   async rebootPi(piId: number): Promise<void> {
     await firstValueFrom(await this.generalService.get(Url.pi + "/reboot/" + piId));
   }

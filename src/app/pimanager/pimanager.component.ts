@@ -26,6 +26,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
 import {AssignDashboardComponent} from "../assign-dashboard/assign-dashboard.component";
 import {InitPiComponent} from "../init-pi/init-pi.component";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -62,7 +63,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     MatFabButton,
     MatMenu,
     MatMenuItem,
-    MatMenuTrigger
+    MatMenuTrigger,
+    MatProgressSpinner
   ],
   templateUrl: './pimanager.component.html',
   styleUrl: './pimanager.component.css'
@@ -74,6 +76,7 @@ export class PimanagerComponent implements AfterViewInit {
   dataSwitch: boolean = true
 
   macAddress: string | null = null;
+  pingId: number | null = null
 
   constructor(private piService: PiService,
               private generalService: GeneralService,
@@ -135,6 +138,16 @@ export class PimanagerComponent implements AfterViewInit {
     } else if (tab.index == 1) {
       this.showPiRequests()
     }
+  }
+
+  pingPi(id: number) {
+    this.piService.pingPi(id).then(_ => {
+      this.pingId = id
+      setTimeout(() => {
+        this.showAllPis();
+        this.pingId = null
+      }, 2000);
+    });
   }
 
   rebootPi(pi: Pi) {
