@@ -133,8 +133,10 @@ export class PimanagerComponent implements AfterViewInit {
 
   pingPi(id: number) {
     this.piService.pingPi(id).then(_ => {
-      this.showAllPis()
-    })
+      setTimeout(() => {
+        this.showAllPis();
+      }, 2000);
+    });
   }
 }
 
