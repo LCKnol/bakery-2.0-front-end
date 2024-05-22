@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {PiCollection} from "../dto/pi-collection";
 import {LoginResponse} from "../dto/loginResponse";
 import {firstValueFrom} from "rxjs";
-import {User} from "../dto/user";
+import {UserInfo} from "../dto/userInfo";
 import {GeneralService} from "./general.service";
 import {Url} from "./api-endpoints";
 import {PiRequestCollection} from "../dto/piRequestCollection";
@@ -21,7 +21,7 @@ export class PiService {
   }
 
 
-  async getUser(): Promise<User> {
+  async getUser(): Promise<UserInfo> {
     return firstValueFrom(await this.generalService.get(Url.user));
   }
 
