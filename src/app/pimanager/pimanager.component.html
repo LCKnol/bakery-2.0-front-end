@@ -57,6 +57,7 @@
             <mat-menu #menu="matMenu" class="adminDropdown">
                 <button mat-menu-item  routerLink="/piManager/edit/{{element.id}}">Edit</button>
                 <button mat-menu-item  (click)="openAssignDialog(element)">Assign dashboard</button>
+                <button mat-menu-item (click)="rebootPi(element)">Reboot</button>
             </mat-menu>
         </ng-container>
 

@@ -26,6 +26,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatDialog} from "@angular/material/dialog";
 import {AssignDashboardComponent} from "../assign-dashboard/assign-dashboard.component";
 import {InitPiComponent} from "../init-pi/init-pi.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-pimanager',
@@ -74,7 +75,12 @@ export class PimanagerComponent implements AfterViewInit {
 
   macAddress: string | null = null;
 
-  constructor(private piService: PiService, private generalService: GeneralService, private router: Router,public dialog: MatDialog) {
+  constructor(private piService: PiService,
+              private generalService: GeneralService,
+              private router: Router,
+              public dialog: MatDialog,
+              private snackBar: MatSnackBar,
+              ) {
     this.showAllPis()
   }
 
@@ -129,6 +135,19 @@ export class PimanagerComponent implements AfterViewInit {
     } else if (tab.index == 1) {
       this.showPiRequests()
     }
+  }
+
+  rebootPi(pi: Pi) {
+    this.piService.rebootPi(pi.id).then(() => {
+      this.snackBar.open('Reboot command sent successfully!', 'Close', {
+        duration: 3000
+      });
+    }).catch((error) => {
+      console.error('Error sending reboot command:', error);
+      this.snackBar.open('Failed to send reboot command', 'Close', {
+        duration: 3000
+      });
+    });
   }
 }
 
