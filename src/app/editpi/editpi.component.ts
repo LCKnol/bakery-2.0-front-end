@@ -88,6 +88,7 @@ export class EditpiComponent {
       dashboardName: this.pi?.dashboardName ?? "",
       macAddress: this.pi?.macAddress ?? "",
       dashboardId:this.pi?.dashboardId?? -1,
+      ipAddress: this.pi?.ipAddress!!,
     };
     // Call the service to update the Pi data
     await this.piService.editPi(editPi)
