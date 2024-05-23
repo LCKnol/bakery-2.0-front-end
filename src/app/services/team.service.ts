@@ -17,4 +17,8 @@ export class TeamService {
   async getAllTeams(): Promise<TeamCollection> {
     return firstValueFrom(await this.generalService.get(Url.teams));
   }
+
+  async getTeamsNotInRoom(roomNo: String | undefined) : Promise<TeamCollection> {
+    return firstValueFrom(await this.generalService.get(Url.teams + '/notinroom' + '/' + roomNo));
+  }
 }
