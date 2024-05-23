@@ -15,6 +15,7 @@ import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material
 import {RoomDto} from "../dto/roomDto";
 import {RoomService} from "../services/room.service";
 import {MatTableDataSource} from "@angular/material/table";
+import {TeamCollection} from "../dto/teamCollection";
 
 @Component({
   selector: 'app-add-room',
@@ -39,35 +40,22 @@ import {MatTableDataSource} from "@angular/material/table";
   styleUrl: './delete-team-from-room.component.html'
 })
 export class DeleteTeamFromRoomComponent {
-    deleteTeamFromRoomForm: FormGroup = new FormGroup({
-    roomNo: new FormControl(''),
+  roomNo: String | undefined
+  teams: TeamCollection = {teamCollection: []}
+
+  deleteTeamFromRoomForm: FormGroup = new FormGroup({
+    team: new FormControl()
   });
 
-  teams: Team[] = []
-
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<DeleteTeamFromRoomComponent>,private roomService: RoomService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
-    this.setTeams()
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<DeleteTeamFromRoomComponent>, private roomService: RoomService,private teamService: TeamService) {
+    if (this.data) {
+      this.roomNo = this.data.room.roomNo
+      this.teams = this.data.room.teamCollection
+    }
   }
 
-  private async setTeams() {
-  //   this.roomService.getAvalibleTeams(room).then(res => {
-  //     this.teams = new MatTableDataSource<RoomDto>(res.rooms);
-  // });
+  submitDeleteTeamFromRoomForm() {
+    // this.teamService.removeUserFromTeam(this.userid!!,this.assignTeamForm.value.team).then(r =>
+    //   this.dialogRef.close(true))
   }
-
-
-  submitDeleteTeamFromRoomForm() : void {
-    const roomDto: RoomDto = {
-      roomNo: this.deleteTeamFromRoomForm.value.roomNo ?? '',
-    };
-    this.roomService.addRoom(roomDto)
-      .then(token => {
-        this.router.navigate(['/rooms']).catch(_ => {console.log('no page found');});
-        this.generalService.showSnackbar("Room added successfully", "ok", {})
-        this.dialogRef.close()
-      })
-      .catch(_ => {this.generalService.showSnackbar("Room added failed", "ok", {});})
-  }
-
 }
-

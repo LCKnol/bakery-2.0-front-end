@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatButton, MatFabButton, MatIconButton} from "@angular/material/button";
 import {MatCard} from "@angular/material/card";
 import {
@@ -27,6 +27,9 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {AddDashboardComponent} from "../add-dashboard/add-dashboard.component";
 import {MatDialog} from "@angular/material/dialog";
 import {AddRoomComponent} from "../add-room/add-room.component";
+import * as console from "node:console";
+import {DeleteTeamFromRoomComponent} from "../delete-team-from-room/delete-team-from-room.component";
+import {AddTeamToRoomComponent} from "../add-team-to-room/add-team-to-room.component";
 
 
 @Component({
@@ -68,7 +71,7 @@ import {AddRoomComponent} from "../add-room/add-room.component";
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.css'
 })
-export class RoomsComponent {
+export class RoomsComponent implements AfterViewInit {
   displayedColumns: string[] = []
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
@@ -79,9 +82,9 @@ export class RoomsComponent {
   }
 
   private showAllRooms() {
-    this.roomService.getAllRooms().then(res  => {
+    this.roomService.getAllRoomsAndTeams().then(res  => {
       this.dataSource = new MatTableDataSource<RoomDto>(res.rooms);
-      this.displayedColumns = ['roomNo', 'action'];
+      this.displayedColumns = ['roomNo','teams','action'];
       this.dataSource.paginator = this.paginator;
     });
 }
@@ -94,8 +97,33 @@ export class RoomsComponent {
     });
   }
 
+  openDeleteTeamFromRoomDialog(room: RoomDto){
+    const dialogRef = this.dialog.open(DeleteTeamFromRoomComponent, {
+      data: {
+        room:room
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.showAllRooms()
+    });
+  }
+
+  openAddTeamToRoomDialog(room: RoomDto){
+    const dialogRef = this.dialog.open(AddTeamToRoomComponent, {
+      data: {
+        room:room
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.showAllRooms()
+    });
+  }
   deleteRoom(room: RoomDto) {
     this.roomService.deleteRoom(room.roomNo).then(() => {this.showAllRooms()})
+  }
+
+  ngAfterViewInit(): void {
+    this.showAllRooms()
   }
 }
 

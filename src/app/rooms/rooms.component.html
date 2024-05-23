@@ -19,6 +19,11 @@
           <td mat-cell *matCellDef="let element"> {{element.roomNo}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="teams">
+          <th mat-header-cell *matHeaderCellDef> Teams </th>
+          <td mat-cell *matCellDef="let element"><p *ngFor="let item of element.teamCollection.teamCollection"> {{item.name}}</p>  </td>
+        </ng-container>
+
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Actions</th>
           <td mat-cell *matCellDef="let element">
@@ -27,6 +32,9 @@
             </button>
             <mat-menu #menu="matMenu" class="adminDropdown">
               <button mat-menu-item (click)="deleteRoom(element)">Delete room</button>
+              <button mat-menu-item (click)="openDeleteTeamFromRoomDialog(element)">Remove team</button>
+              <button mat-menu-item (click)="openAddTeamToRoomDialog(element)">Add team</button>
+
             </mat-menu>
         </ng-container>
 

@@ -20,6 +20,10 @@ export class RoomService {
     return firstValueFrom(await this.generalService.get(Url.rooms));
   }
 
+  async getAllRoomsAndTeams(): Promise<RoomCollection> {
+    return firstValueFrom(await this.generalService.get(Url.rooms + '/roomandteam'));
+  }
+
   public async deleteRoom(roomNo: String) {
     const endpointUrl = Url.rooms + '/' + roomNo;
     await firstValueFrom(await this.generalService.delete(endpointUrl));

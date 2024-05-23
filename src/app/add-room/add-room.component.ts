@@ -14,6 +14,7 @@ import {NgForOf} from "@angular/common";
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 import {RoomDto} from "../dto/roomDto";
 import {RoomService} from "../services/room.service";
+import {TeamCollection} from "../dto/teamCollection";
 
 @Component({
   selector: 'app-add-room',
@@ -42,7 +43,7 @@ export class AddRoomComponent {
     roomNo: new FormControl(''),
   });
 
-  teams: Team[] = []
+  teams: TeamCollection = {teamCollection: []}
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddRoomComponent>,private roomService: RoomService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
   }
@@ -50,9 +51,10 @@ export class AddRoomComponent {
 
   submitAddRoomForm() : void {
     console.log(this.addRoomForm.value.roomNo)
-    const roomDto: { roomNo: String } = {
+    const roomDto: { roomNo: String, teams: TeamCollection } = {
       roomNo: this.addRoomForm.value.roomNo ?? '',
-    };
+      teams: this.teams
+      }
 
     this.roomService.addRoom(roomDto)
       .then(token => {
