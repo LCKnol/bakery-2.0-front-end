@@ -20,3 +20,12 @@ mat-card {
 .mat-mdc-menu-panel{
   min-width: 330px!important;
 }
+.dialog-flex{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+mat-dialog-content{
+  display: flex;
+  flex-direction: column;
+}

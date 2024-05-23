@@ -7,7 +7,7 @@ import {MatInput} from "@angular/material/input";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {NgForOf} from "@angular/common";
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {DashboardDto} from "../dto/dashboardDto";
 import {Pi} from "../dto/pi";
 import {DashboardService} from "../services/dashboard.service";
@@ -43,7 +43,7 @@ export class AssignTeamComponent {
   teams: Team[] = []
 
   assignTeamForm: FormGroup = new FormGroup({
-    team: new FormControl()
+    team: new FormControl('',[Validators.required])
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AssignDashboardComponent>, private dashboardService: DashboardService,private teamService: TeamService) {

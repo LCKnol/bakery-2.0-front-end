@@ -2,8 +2,4 @@ mat-dialog-content{
   display: flex;
   flex-direction: column;
 }
-.piInfo{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
