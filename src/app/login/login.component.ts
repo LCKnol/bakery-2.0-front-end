@@ -37,15 +37,16 @@ export class LoginComponent implements OnInit {
   });
 
 
+
   constructor(private loginService: LoginService, private router: Router, private snackbar: MatSnackBar, private renderer: Renderer2) {
   }
 
   ngOnInit() {
-    // Dynamically create and append the script tag
+
     const script = this.renderer.createElement('script');
     script.src = 'https://accounts.google.com/gsi/client?hl=en';
     script.async = true;
-    // Append the script tag to the <head> element
+
     this.renderer.appendChild(document.head, script);
   }
 

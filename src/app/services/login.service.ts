@@ -28,7 +28,10 @@ export class LoginService {
 
   public async logout(): Promise<void> {
     const endpointUrl = Url.authentication;
-    return firstValueFrom(await this.generalService.delete(endpointUrl));
+    const x : Promise<void> = firstValueFrom(await this.generalService.delete(endpointUrl));
+    this.cookieService.delete("token")
+    sessionStorage.clear()
+    return x
   }
 
 

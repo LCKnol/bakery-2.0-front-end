@@ -11,20 +11,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
   <script>
-
     function decodeJWTToken(token) {
       return JSON.parse(atob(token.split(".")[1]))
     }
+
     function handleCredentialResponse(response) {
-      console.log("callback function called")
-      console.log(JSON.stringify(response))
+      const JWTToken = response.credential;
       const responsePayload = decodeJWTToken(response.credential)
-      console.log("callback payload: " + JSON.stringify(responsePayload))
-      sessionStorage.setItem('googleUser', JSON.stringify(responsePayload))
 
+      sessionStorage.setItem('googleUserToken', JWTToken);
+      sessionStorage.setItem('googleUser', JSON.stringify(responsePayload));
 
-      // Navigate to the /register page with the response data as query parameters
-      window.location.href = `/register`;
+      window.location.href = '/google-oauth'
     }
   </script>
 </head>
