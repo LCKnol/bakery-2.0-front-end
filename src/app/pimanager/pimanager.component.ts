@@ -162,5 +162,16 @@ export class PimanagerComponent implements AfterViewInit {
       });
     });
   }
+
+  setTv(piId: number, option: boolean) {
+    this.piService.setTv(piId, option).then(() => {
+
+    }).catch((error) => {
+      console.error('Error sending command:', error);
+      this.snackBar.open('Failed to send command', 'Close', {
+        duration: 3000
+      });
+    });
+  }
 }
 

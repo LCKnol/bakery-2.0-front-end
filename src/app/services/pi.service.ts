@@ -80,4 +80,7 @@ export class PiService {
     await firstValueFrom(await this.generalService.get(Url.pi + "/reboot/" + piId));
   }
 
+  async setTv(piId: number, option: boolean) {
+    await firstValueFrom(await this.generalService.get(Url.pi + "/tv/" + piId + "/" + option));
+  }
 }
