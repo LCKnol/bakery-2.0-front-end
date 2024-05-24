@@ -55,7 +55,7 @@ export class DeleteTeamFromRoomComponent {
   }
 
   submitDeleteTeamFromRoomForm() {
-    // this.teamService.removeUserFromTeam(this.userid!!,this.assignTeamForm.value.team).then(r =>
-    //   this.dialogRef.close(true))
+    this.roomService.removeTeamFromRoom(this.roomNo!!,this.deleteTeamFromRoomForm.value.team).then(r =>
+      this.dialogRef.close(true))
   }
 }

@@ -50,7 +50,6 @@ export class AddRoomComponent {
 
 
   submitAddRoomForm() : void {
-    console.log(this.addRoomForm.value.roomNo)
     const roomDto: { roomNo: String, teams: TeamCollection } = {
       roomNo: this.addRoomForm.value.roomNo ?? '',
       teams: this.teams

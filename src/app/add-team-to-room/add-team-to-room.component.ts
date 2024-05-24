@@ -54,8 +54,8 @@ export class AddTeamToRoomComponent {
   }
 
   submitAddTeamToRoomForm() {
-    // this.teamService.removeUserFromTeam(this.userid!!,this.assignTeamForm.value.team).then(r =>
-    //   this.dialogRef.close(true))
+    this.roomService.addTeamToRoom(this.roomNo!!,this.addTeamToRoomForm.value.team).then(r =>
+      this.dialogRef.close(true))
   }
 
   fetchTeams() {
