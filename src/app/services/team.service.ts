@@ -29,7 +29,7 @@ export class TeamService {
 
   async getTeamsNotInRoom(roomNo: String | undefined) : Promise<TeamCollection> {
     return firstValueFrom(await this.generalService.get(Url.teams + '/notinroom' + '/' + roomNo));
-    }
+  }
   async assignUserToTeam(user:number,team:number){
     const endpointUrl = Url.teams +"/assignToTeam/"+user+"/"+team
     return firstValueFrom(await this.generalService.post(endpointUrl,user))

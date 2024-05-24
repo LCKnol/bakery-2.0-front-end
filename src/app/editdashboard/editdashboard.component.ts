@@ -56,7 +56,6 @@ import {
 export class EditdashboardComponent {
   dashboard: DashboardDto | undefined
   private dashboardId?: number
-  dashboard?: DashboardDto
   team?: Team
   teams: Team[] = []
   teamFormControl = new FormControl('')
