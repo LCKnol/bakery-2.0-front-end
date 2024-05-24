@@ -64,12 +64,12 @@ export class EditdashboardComponent {
   dashboardEditForm: FormGroup = new FormGroup({
     name: new FormControl(),
     dashboardUrl: new FormControl(),
-    imageUrl: new FormControl(),
+    dashboardRefresh: new FormControl(),
     team: this.teamFormControl
   })
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any,private dialogRef: MatDialogRef<EditdashboardComponent>, private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<EditdashboardComponent>, private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
     if (this.data) {
       this.dashboard = data.dashboard
       this.dashboardId = data.dashboard.id
@@ -89,23 +89,23 @@ export class EditdashboardComponent {
           map(value => this._filter(value!!))
         );
     })
-    .catch(_ => {
-      this.generalService.showSnackbar("No dashboard available", "OK")
-      this.router.navigate(['/dashboards'])
-    });
+      .catch(_ => {
+        this.generalService.showSnackbar("No dashboard available", "OK")
+        this.router.navigate(['/dashboards'])
+      });
   }
 
   fetchDashboard() {
     this.dashboardService.getDashboard(this.dashboardId!)
-    .then((dashboard: DashboardDto) => {
-      this.dashboard = dashboard;
-      this.team = dashboard.team
-    })
-    .catch(e => {
-      console.log(e)
-      this.generalService.showSnackbar("No dashboard available", "OK")
-      this.router.navigate(['/dashboards'])
-    })
+      .then((dashboard: DashboardDto) => {
+        this.dashboard = dashboard;
+        this.team = dashboard.team
+      })
+      .catch(e => {
+        console.log(e)
+        this.generalService.showSnackbar("No dashboard available", "OK")
+        this.router.navigate(['/dashboards'])
+      })
   }
 
   setFormValues() {
@@ -113,6 +113,7 @@ export class EditdashboardComponent {
       const selectedTeam = this.dashboard.team || null;
       this.dashboardEditForm.controls['name'].setValue(this.dashboard.dashboardName);
       this.dashboardEditForm.controls['dashboardUrl'].setValue(this.dashboard.dashboardUrl);
+      this.dashboardEditForm.controls['dashboardRefresh'].setValue(this.dashboard.dashboardRefresh);
     }
   }
 
@@ -121,16 +122,18 @@ export class EditdashboardComponent {
       id: this.dashboard?.id!!,
       dashboardName: this.dashboardEditForm.value.name ?? this.dashboard?.dashboardName,
       dashboardUrl: this.dashboardEditForm.value.dashboardUrl ?? this.dashboard?.dashboardUrl,
-      imageUrl: this.dashboardEditForm.value.imageUrl ?? this.dashboard?.imageUrl,
+      dashboardRefresh: this.dashboardEditForm.value.dashboardRefresh ?? this.dashboard?.dashboardRefresh,
       team: this.dashboardEditForm.value.team ?? this.dashboard?.team,
       hasAccess: this.dashboard?.hasAccess ?? false,
     }
     await this.dashboardService.editDashboard(editDashboard)
       .then(_ => {
         this.generalService.showSnackbar("Dashboard succesfully updated", "OK", {duration: 3000})
-      }).catch(_ => {this.generalService.showSnackbar("Error while updating dashboard", "OK")})
+      }).catch(_ => {
+        this.generalService.showSnackbar("Error while updating dashboard", "OK")
+      })
 
-   this.dialogRef.close()
+    this.dialogRef.close()
     await this.router.navigate(['/dashboards'])
   }
 
@@ -138,10 +141,13 @@ export class EditdashboardComponent {
     await this.dashboardService.deleteDashboard(this.dashboardId!!)
       .then(_ => {
         this.generalService.showSnackbar("Dashboard succesfully deleted", "OK", {duration: 3000})
-      }).catch(_ => {this.generalService.showSnackbar("Error while deleting dashboard", "OK")})
+      }).catch(_ => {
+        this.generalService.showSnackbar("Error while deleting dashboard", "OK")
+      })
 
     this.dialogRef.close()
   }
+
   displayFn(team?: any): string {
     return team ? team.name : undefined;
   }

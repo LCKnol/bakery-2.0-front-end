@@ -45,13 +45,13 @@ export class AddDashboardComponent {
   addDashboardForm: FormGroup = new FormGroup({
     name: new FormControl(''),
     dashboardUrl: new FormControl(''),
-    image: new FormControl(''),
+    dashboardRefresh: new FormControl(''),
     team: new FormControl('')
   });
 
   teams: Team[] = []
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddDashboardComponent>,private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddDashboardComponent>, private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
     this.fetchTeams()
   }
 
@@ -62,22 +62,26 @@ export class AddDashboardComponent {
     });
   }
 
-  submitAddDashboardForm() : void {
+  submitAddDashboardForm(): void {
     const dashboardDto: DashboardDto = {
       team: this.addDashboardForm.value.team ?? null,
       id: -1,
       dashboardName: this.addDashboardForm.value.name ?? '',
       dashboardUrl: this.addDashboardForm.value.dashboardUrl ?? '',
-      imageUrl: 'testurl',
+      dashboardRefresh: this.addDashboardForm.value.dashboardRefresh ?? 300,
       hasAccess: false
     };
     this.dashboardService.addDashboard(dashboardDto)
       .then(token => {
-        this.router.navigate(['/dashboards']).catch(_ => {console.log('no page found');});
+        this.router.navigate(['/dashboards']).catch(_ => {
+          console.log('no page found');
+        });
         this.generalService.showSnackbar("Dashboard added successfully", "ok", {})
         this.dialogRef.close()
       })
-      .catch(_ => {this.generalService.showSnackbar("Dashboard added failed", "ok", {});})
+      .catch(_ => {
+        this.generalService.showSnackbar("Dashboard added failed", "ok", {});
+      })
   }
 
 }
