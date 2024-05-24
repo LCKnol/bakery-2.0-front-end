@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import { Component } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {LoginRequest} from "../dto/loginRequest";
@@ -57,7 +57,7 @@ export class AddDashboardComponent {
 
   fetchTeams() {
     // Make an HTTP GET request to your backend API to fetch room numbers
-    this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
+    this.teamService.getTeamsFromCurrentUser().then((teamCollection: TeamCollection) => {
       this.teams = teamCollection.teamCollection
     });
   }

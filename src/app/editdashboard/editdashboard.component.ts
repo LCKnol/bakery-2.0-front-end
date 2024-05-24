@@ -54,6 +54,7 @@ import {
   styleUrl: './editdashboard.component.css'
 })
 export class EditdashboardComponent {
+  dashboard: DashboardDto | undefined
   private dashboardId?: number
   dashboard?: DashboardDto
   team?: Team
@@ -80,7 +81,7 @@ export class EditdashboardComponent {
 
   fetchTeams() {
     // Make an HTTP GET request to your backend API to fetch room numbers
-    this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
+    this.teamService.getTeamsFromCurrentUser().then((teamCollection: TeamCollection) => {
       this.teams = teamCollection.teamCollection.filter(team => team.id !== this.team?.id)
       this.setFormValues()
       this.filteredOptions = this.teamFormControl.valueChanges

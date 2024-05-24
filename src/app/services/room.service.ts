@@ -1,8 +1,10 @@
 
 import {GeneralService} from "./general.service";
+import {User} from "../dto/user";
 import {firstValueFrom} from "rxjs";
 import {Url} from "./api-endpoints";
 import {Injectable} from "@angular/core";
+import {RoomCollection} from "../dto/roomCollection";
 import {RoomCollection} from "../dto/roomCollection";
 import {DashboardDto} from "../dto/dashboardDto";
 import {RoomDto} from "../dto/roomDto";
