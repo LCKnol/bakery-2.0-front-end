@@ -20,7 +20,7 @@
       type="text"
       placeholder=""
       matInput
-      formControlName="teamFormControl"
+      [formControl]="teamFormControl"
       [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
       <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option.name}}</mat-option>

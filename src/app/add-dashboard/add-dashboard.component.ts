@@ -49,27 +49,25 @@ import {map, startWith} from "rxjs/operators";
 })
 export class AddDashboardComponent {
   filteredOptions: Observable<Team[]> = new Observable<Team[]>();
-  teamFormControl = new FormControl('',[Validators.required]);
+  teamFormControl = new FormControl()
 
   addDashboardForm: FormGroup = new FormGroup({
-    name: new FormControl('',[Validators.required]),
-    dashboardUrl: new FormControl('',[Validators.required]),
-    image: new FormControl('',[Validators.required]),
-    team: this.teamFormControl,
+    name: new FormControl(null,[Validators.required]),
+    dashboardUrl: new FormControl(null,[Validators.required]),
+    team: this.teamFormControl
   });
-
 
   teams: Team[] = []
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddDashboardComponent>,private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
+  constructor(private dialogRef: MatDialogRef<AddDashboardComponent>,private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
     this.fetchTeams()
   }
 
   fetchTeams() {
-    // Make an HTTP GET request to your backend API to fetch room numbers
     this.teamService.getTeamsFromCurrentUser().then((teamCollection: TeamCollection) => {
       this.teams = teamCollection.teamCollection
-      this.filteredOptions = this.teamFormControl.valueChanges.pipe(
+      this.filteredOptions = this.teamFormControl.valueChanges
+        .pipe(
           startWith<string | null>(''),
           map(value => this._filter(value!!))
         );
@@ -86,11 +84,11 @@ export class AddDashboardComponent {
       id: -1,
       dashboardName: this.addDashboardForm.value.name ?? '',
       dashboardUrl: this.addDashboardForm.value.dashboardUrl ?? '',
-      imageUrl: 'testurl',
       hasAccess: false
     };
+    console.log(dashboardDto)
     this.dashboardService.addDashboard(dashboardDto)
-      .then(token => {
+      .then(_ => {
         this.router.navigate(['/dashboards']).catch(_ => {console.log('no page found');});
         this.generalService.showSnackbar("Dashboard added successfully", "ok", {})
         this.dialogRef.close()
@@ -104,7 +102,7 @@ export class AddDashboardComponent {
 
   private _filter(value: string): Team[] {
     const filterValue = value.toLowerCase();
-
+    console.log(value)
     return this.teams.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 }

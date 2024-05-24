@@ -58,13 +58,12 @@ export class EditdashboardComponent {
   dashboard?: DashboardDto
   team?: Team
   teams: Team[] = []
-  teamFormControl = new FormControl('')
+  teamFormControl = new FormControl(null)
   filteredOptions: Observable<Team[]> = new Observable<Team[]>();
 
   dashboardEditForm: FormGroup = new FormGroup({
-    name: new FormControl(),
-    dashboardUrl: new FormControl(),
-    imageUrl: new FormControl(),
+    name: new FormControl(null, Validators.required),
+    dashboardUrl: new FormControl(null, Validators.required),
     team: this.teamFormControl
   })
 
@@ -102,7 +101,6 @@ export class EditdashboardComponent {
       this.team = dashboard.team
     })
     .catch(e => {
-      console.log(e)
       this.generalService.showSnackbar("No dashboard available", "OK")
       this.router.navigate(['/dashboards'])
     })
@@ -110,7 +108,6 @@ export class EditdashboardComponent {
 
   setFormValues() {
     if (this.dashboard) {
-      const selectedTeam = this.dashboard.team || null;
       this.dashboardEditForm.controls['name'].setValue(this.dashboard.dashboardName);
       this.dashboardEditForm.controls['dashboardUrl'].setValue(this.dashboard.dashboardUrl);
     }
@@ -121,10 +118,12 @@ export class EditdashboardComponent {
       id: this.dashboard?.id!!,
       dashboardName: this.dashboardEditForm.value.name ?? this.dashboard?.dashboardName,
       dashboardUrl: this.dashboardEditForm.value.dashboardUrl ?? this.dashboard?.dashboardUrl,
-      imageUrl: this.dashboardEditForm.value.imageUrl ?? this.dashboard?.imageUrl,
-      team: this.dashboardEditForm.value.team ?? this.dashboard?.team,
+      team: this.dashboardEditForm.value.team ?? this.team,
       hasAccess: this.dashboard?.hasAccess ?? false,
     }
+    console.log(editDashboard)
+    console.log('dashboard form team ' + this.dashboardEditForm.value.team)
+    console.log('this.team: ' + this.team)
     await this.dashboardService.editDashboard(editDashboard)
       .then(_ => {
         this.generalService.showSnackbar("Dashboard succesfully updated", "OK", {duration: 3000})
@@ -150,6 +149,15 @@ export class EditdashboardComponent {
     const filterValue = value.toLowerCase();
 
     return this.teams.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  private _getTeam(name: String, teams: Team[]): Team {
+    for (const team of teams) {
+      if (team.name === name) {
+        return team
+      }
+    }
+    return this.team!!
   }
 }
 
