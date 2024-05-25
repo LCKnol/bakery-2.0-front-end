@@ -30,6 +30,7 @@ import {AssignTeamComponent} from "../assign-team/assign-team.component";
 import {RemoveUserFromTeamComponent} from "../remove-user-from-team/remove-user-from-team.component";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {Pi} from "../dto/pi";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-user-manager',
@@ -59,7 +60,9 @@ import {Pi} from "../dto/pi";
     MatMenuTrigger,
     MatHeaderCellDef,
     NgForOf,
-    MatSlideToggle
+    MatSlideToggle,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './user-manager.component.html',
   styleUrl: './user-manager.component.css'
