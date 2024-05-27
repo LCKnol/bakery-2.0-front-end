@@ -30,6 +30,8 @@ import {AddRoomComponent} from "../add-room/add-room.component";
 import * as console from "node:console";
 import {DeleteTeamFromRoomComponent} from "../delete-team-from-room/delete-team-from-room.component";
 import {AddTeamToRoomComponent} from "../add-team-to-room/add-team-to-room.component";
+import {User} from "../dto/user";
+import {DashboardDto} from "../dto/dashboardDto";
 
 
 @Component({
@@ -75,6 +77,9 @@ export class RoomsComponent implements AfterViewInit {
   displayedColumns: string[] = []
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  rooms?: RoomDto[] = [];
+  filteredRooms?: RoomDto[] = [];
+
 
 
   constructor(private roomService: RoomService, private generalService: GeneralService, private router: Router, public dialog: MatDialog) {
@@ -82,10 +87,12 @@ export class RoomsComponent implements AfterViewInit {
   }
 
   private showAllRooms() {
-    this.roomService.getAllRoomsAndTeams().then(res  => {
+      this.roomService.getAllRoomsAndTeams().then(res  => {
       this.dataSource = new MatTableDataSource<RoomDto>(res.rooms);
       this.displayedColumns = ['roomNo','teams','action'];
       this.dataSource.paginator = this.paginator;
+      this.rooms = res.rooms;
+      this.filteredRooms = res.rooms
     });
 }
 
@@ -124,6 +131,19 @@ export class RoomsComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.showAllRooms()
+  }
+
+  filterResults(text: string) {
+    if (!text) {
+      this.dataSource = new MatTableDataSource<RoomDto>(this.rooms)
+      this.dataSource.paginator = this.paginator;
+      return;
+    }
+    this.filteredRooms = this.rooms?.filter(
+      room => room?.roomNo.toLowerCase().includes(text.toLowerCase())
+    );
+    this.dataSource = new MatTableDataSource<RoomDto>(this.filteredRooms)
+    this.dataSource.paginator = this.paginator;
   }
 }
 
