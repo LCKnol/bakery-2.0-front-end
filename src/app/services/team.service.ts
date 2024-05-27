@@ -4,6 +4,8 @@ import {firstValueFrom} from "rxjs";
 import {Url} from "./api-endpoints";
 import {Injectable} from "@angular/core";
 import {TeamCollection} from "../dto/teamCollection";
+import {User} from "../dto/user";
+import {TeamInfo} from "../dto/team.info";
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +37,10 @@ export class TeamService {
   async removeUserFromTeam(user:number,team:number){
     const endpointUrl = Url.teams +"/removeFromTeam/"+user+"/"+team
     return firstValueFrom(await this.generalService.delete(endpointUrl))
+  }
+
+  async addTeam(team:TeamInfo) {
+    const endpointUrl = Url.teams
+    return firstValueFrom(await this.generalService.post(endpointUrl,team))
   }
 }
