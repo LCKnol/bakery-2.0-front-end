@@ -10,6 +10,7 @@ import {PimanagerComponent} from "./pimanager/pimanager.component"
 import {InitPiComponent} from "./init-pi/init-pi.component";
 import {RoomsComponent} from "./rooms/rooms.component";
 import {UserManagerComponent} from "./user-manager/user-manager.component";
+import {ViewpisComponent} from "./viewpis/viewpis.component";
 
 export const routes: Routes = [
   {
@@ -63,5 +64,10 @@ export const routes: Routes = [
     path: 'rooms',
     component: RoomsComponent,
     title: 'rooms'
+  },
+  {
+    path: 'pis',
+    component: ViewpisComponent,
+    title: 'Pis'
   }
 ];
