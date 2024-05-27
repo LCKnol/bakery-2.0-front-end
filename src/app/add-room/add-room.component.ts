@@ -1,68 +1,81 @@
 import {Component, Inject} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {Router} from "@angular/router";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
-import {MatInput} from "@angular/material/input";
-import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
-import {MatIcon} from "@angular/material/icon";
-import {GeneralService} from "../services/general.service";
-import {MatOption, MatSelect} from "@angular/material/select";
-import {Team} from "../dto/team";
-import {TeamService} from "../services/team.service";
-import {NgForOf} from "@angular/common";
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatIcon} from "@angular/material/icon";
+import {MatInput} from "@angular/material/input";
+import {MatOption} from "@angular/material/autocomplete";
+import {MatSelect} from "@angular/material/select";
+import {NgForOf} from "@angular/common";
 import {RoomDto} from "../dto/roomDto";
+import {User} from "../dto/user";
+import {TeamService} from "../services/team.service";
 import {RoomService} from "../services/room.service";
-import {TeamCollection} from "../dto/teamCollection";
+import {UserService} from "../services/user.service";
+import {Router} from "@angular/router";
+import {GeneralService} from "../services/general.service";
+import {RoomCollection} from "../dto/roomCollection";
+import {UserCollection} from "../dto/userCollection";
+import {TeamInfo} from "../dto/team.info";
 
 @Component({
   selector: 'app-add-room',
   standalone: true,
-
-  imports: [
-    MatFormField,
-    ReactiveFormsModule,
-    MatButton,
-    MatInput,
-    MatLabel,
-    MatCard,
-    MatCardContent,
-    MatCardHeader,
-    MatIcon,
-    MatSelect,
-    MatOption,
-    NgForOf,
-    MatDialogContent,
-  ],
+    imports: [
+        FormsModule,
+        MatButton,
+        MatDialogContent,
+        MatFormField,
+        MatIcon,
+        MatInput,
+        MatLabel,
+        MatOption,
+        MatSelect,
+        NgForOf,
+        ReactiveFormsModule
+    ],
   templateUrl: './add-room.component.html',
   styleUrl: './add-room.component.css'
 })
 export class AddRoomComponent {
-  addRoomForm: FormGroup = new FormGroup({
-    roomNo: new FormControl(''),
+  addTeamForm: FormGroup = new FormGroup({
+
+    room: new FormControl()
   });
 
-  teams: TeamCollection = {teamCollection: []}
+  rooms: RoomDto[] = []
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddRoomComponent>,private roomService: RoomService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
+
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddRoomComponent>,
+               private roomService: RoomService, private router: Router, private generalService: GeneralService) {
+    this.dialogRef.updateSize('40%')
+    this.fetchRooms()
+
   }
 
 
-  submitAddRoomForm() : void {
-    const roomDto: { roomNo: String, teams: TeamCollection } = {
-      roomNo: this.addRoomForm.value.roomNo ?? '',
-      teams: this.teams
-      }
 
-    this.roomService.addRoom(roomDto)
+  fetchRooms() {
+    this.roomService.getAllRooms().then((roomCollection: RoomCollection) => {
+      this.rooms = roomCollection.rooms
+    });
+  }
+
+
+  //
+  submitAddRoomForm() {
+    const room: RoomDto = {
+
+      roomNo: this.addTeamForm.value.room
+    };
+    this.roomService.addRoom(room)
       .then(token => {
-        this.router.navigate(['/rooms']).catch(_ => {console.log('no page found');});
         this.generalService.showSnackbar("Room added successfully", "ok", {})
         this.dialogRef.close()
       })
-      .catch(_ => {this.generalService.showSnackbar("Room added failed", "ok", {});})
+      .catch(_ => {
+        this.generalService.showSnackbar("Adding Room failed", "ok", {});
+      });
   }
-
 }
-
