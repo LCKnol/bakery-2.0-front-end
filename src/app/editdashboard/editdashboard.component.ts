@@ -121,9 +121,6 @@ export class EditdashboardComponent {
       team: this.dashboardEditForm.value.team ?? this.team,
       hasAccess: this.dashboard?.hasAccess ?? false,
     }
-    console.log(editDashboard)
-    console.log('dashboard form team ' + this.dashboardEditForm.value.team)
-    console.log('this.team: ' + this.team)
     await this.dashboardService.editDashboard(editDashboard)
       .then(_ => {
         this.generalService.showSnackbar("Dashboard succesfully updated", "OK", {duration: 3000})
