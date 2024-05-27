@@ -28,6 +28,9 @@ import {AssignDashboardComponent} from "../assign-dashboard/assign-dashboard.com
 import {InitPiComponent} from "../init-pi/init-pi.component";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {DashboardDto} from "../dto/dashboardDto";
+import {EditdashboardComponent} from "../editdashboard/editdashboard.component";
+import {EditpiComponent} from "../editpi/editpi.component";
 
 @Component({
   selector: 'app-pimanager',
@@ -140,6 +143,17 @@ export class PimanagerComponent implements AfterViewInit {
     }
   }
 
+  openEditDialog(pi:Pi) {
+    const dialogRef = this.dialog.open(EditpiComponent, {
+      data: {
+        pi: pi
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.showAllPis()
+    });
+  }
+
   pingPi(id: number) {
     this.piService.pingPi(id).then(_ => {
       this.pingId = id
@@ -158,6 +172,17 @@ export class PimanagerComponent implements AfterViewInit {
     }).catch((error) => {
       console.error('Error sending reboot command:', error);
       this.snackBar.open('Failed to send reboot command', 'Close', {
+        duration: 3000
+      });
+    });
+  }
+
+  setTv(piId: number, option: boolean) {
+    this.piService.setTv(piId, option).then(() => {
+
+    }).catch((error) => {
+      console.error('Error sending command:', error);
+      this.snackBar.open('Failed to send command', 'Close', {
         duration: 3000
       });
     });

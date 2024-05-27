@@ -16,8 +16,11 @@ import {Team} from "../dto/team";
 import {TeamService} from "../services/team.service";
 import {RoomCollection} from "../dto/roomCollection";
 import {TeamCollection} from "../dto/teamCollection";
-import {NgForOf} from "@angular/common";
+import {AsyncPipe, NgForOf} from "@angular/common";
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
+import {MatAutocomplete, MatAutocompleteTrigger} from "@angular/material/autocomplete";
+import {Observable} from "rxjs";
+import {map, startWith} from "rxjs/operators";
 
 @Component({
   selector: 'app-add-dashboard',
@@ -37,29 +40,43 @@ import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material
     MatOption,
     NgForOf,
     MatDialogContent,
+    AsyncPipe,
+    MatAutocomplete,
+    MatAutocompleteTrigger,
   ],
   templateUrl: './add-dashboard.component.html',
   styleUrl: './add-dashboard.component.css'
 })
 export class AddDashboardComponent {
+  filteredOptions: Observable<Team[]> = new Observable<Team[]>();
+  teamFormControl = new FormControl()
+
   addDashboardForm: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    dashboardUrl: new FormControl(''),
+    name: new FormControl(null, [Validators.required]),
+    dashboardUrl: new FormControl(null, [Validators.required]),
     dashboardRefresh: new FormControl(''),
-    team: new FormControl('')
+    team: this.teamFormControl
   });
 
   teams: Team[] = []
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddDashboardComponent>, private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
+  constructor(private dialogRef: MatDialogRef<AddDashboardComponent>, private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
     this.fetchTeams()
   }
 
   fetchTeams() {
-    // Make an HTTP GET request to your backend API to fetch room numbers
     this.teamService.getTeamsFromCurrentUser().then((teamCollection: TeamCollection) => {
       this.teams = teamCollection.teamCollection
-    });
+      this.filteredOptions = this.teamFormControl.valueChanges
+        .pipe(
+          startWith<string | null>(''),
+          map(value => this._filter(value!!))
+        );
+    })
+      .catch(_ => {
+        this.generalService.showSnackbar("No dashboard available", "OK")
+        this.router.navigate(['/dashboards'])
+      });
   }
 
   submitAddDashboardForm(): void {
@@ -71,8 +88,9 @@ export class AddDashboardComponent {
       dashboardRefresh: this.addDashboardForm.value.dashboardRefresh ?? 300,
       hasAccess: false
     };
+    console.log(dashboardDto)
     this.dashboardService.addDashboard(dashboardDto)
-      .then(token => {
+      .then(_ => {
         this.router.navigate(['/dashboards']).catch(_ => {
           console.log('no page found');
         });
@@ -84,4 +102,13 @@ export class AddDashboardComponent {
       })
   }
 
+  displayFn(team?: any): string {
+    return team ? team.name : undefined;
+  }
+
+  private _filter(value: string): Team[] {
+    const filterValue = value.toLowerCase();
+    console.log(value)
+    return this.teams.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
 }

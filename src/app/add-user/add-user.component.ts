@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -38,11 +38,11 @@ import {UserService} from "../services/user.service";
 })
 export class AddUserComponent {
   addUserForm: FormGroup = new FormGroup({
-    firstname: new FormControl(),
-    lastname: new FormControl(),
-    email: new FormControl(),
-    password: new FormControl(),
-    isAdmin: new FormControl(),
+    firstname: new FormControl('',[Validators.required]),
+    lastname: new FormControl('',[Validators.required]),
+    email: new FormControl('',[Validators.required]),
+    password: new FormControl('',[Validators.required]),
+    isAdmin: new FormControl('',[Validators.required]),
     team: new FormControl()
   });
 

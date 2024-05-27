@@ -56,10 +56,12 @@
               <mat-icon>menu</mat-icon>
             </button>
             <mat-menu #menu="matMenu" class="adminDropdown">
-                <button mat-menu-item  routerLink="/piManager/edit/{{element.id}}">Edit</button>
+                <button mat-menu-item  (click)="openEditDialog(element)">Edit</button>
                 <button mat-menu-item  (click)="openAssignDialog(element)">Assign dashboard</button>
                 <button mat-menu-item (click)="rebootPi(element)">Reboot</button>
                 <button mat-menu-item (click)="pingPi(element.id)">Ping</button>
+                <button mat-menu-item (click)="setTv(element.id,true)">Turn tv on</button>
+                <button mat-menu-item (click)="setTv(element.id,false)">Turn tv off</button>
             </mat-menu>
         </ng-container>
 

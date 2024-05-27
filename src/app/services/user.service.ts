@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {GeneralService} from "./general.service";
-import {UserInfo} from "../dto/userInfo";
 import {UserCollection} from "../dto/userCollection";
 import {firstValueFrom} from "rxjs";
 import {Url} from "./api-endpoints";
@@ -31,4 +30,8 @@ export class UserService {
     return firstValueFrom(await this.generalService.post(endpointUrl,user))
   }
 
+ async assignAdminRights(user: User) {
+    const endpointUrl = Url.user +"/assignAdminRights"
+    return firstValueFrom(await this.generalService.post(endpointUrl,user))
+  }
 }

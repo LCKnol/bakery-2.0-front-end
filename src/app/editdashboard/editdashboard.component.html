@@ -1,18 +1,17 @@
 <form [formGroup]="dashboardEditForm" (ngSubmit)="submitEditDashboardForm()">
   <mat-dialog-content>
-    <div class="piInfo">
+    <div class="dialog-flex">
       <mat-icon>group</mat-icon>
       {{ team?.name }}
     </div>
-
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput type="text" formControlName="name" value="">
+      <input matInput type="text" formControlName="name">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Dashboard url</mat-label>
-      <input matInput type="text" formControlName="dashboardUrl" value="">
+      <input matInput type="text" formControlName="dashboardUrl">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -32,9 +31,10 @@
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option.name }}</mat-option>
       </mat-autocomplete>
     </mat-form-field>
-
     <div class="button-container">
-      <button mat-flat-button type="submit" color="light-blue" class="dashboard-button">Confirm</button>
+      <button mat-flat-button type="submit" color="light-blue" class="dashboard-button"
+              [disabled]="!dashboardEditForm.valid">Confirm
+      </button>
       <button mat-mini-fab color="warn" type="button" (click)="deleteDashboard()">
         <mat-icon>delete</mat-icon>
       </button>

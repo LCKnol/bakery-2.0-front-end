@@ -8,6 +8,23 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <script>
+    function decodeJWTToken(token) {
+      return JSON.parse(atob(token.split(".")[1]))
+    }
+
+    function handleCredentialResponse(response) {
+      const JWTToken = response.credential;
+      const responsePayload = decodeJWTToken(response.credential)
+
+      sessionStorage.setItem('googleUserToken', JWTToken);
+      sessionStorage.setItem('googleUser', JSON.stringify(responsePayload));
+
+      window.location.href = '/google-oauth'
+    }
+  </script>
 </head>
 <body class="mat-typography">
   <app-root></app-root>
