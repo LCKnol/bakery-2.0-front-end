@@ -32,6 +32,7 @@ import {DeleteTeamFromRoomComponent} from "../delete-team-from-room/delete-team-
 import {AddTeamToRoomComponent} from "../add-team-to-room/add-team-to-room.component";
 import {User} from "../dto/user";
 import {DashboardDto} from "../dto/dashboardDto";
+import {FormsModule} from "@angular/forms";
 
 
 @Component({
@@ -68,7 +69,8 @@ import {DashboardDto} from "../dto/dashboardDto";
     MatFabButton,
     MatMenu,
     MatMenuItem,
-    MatMenuTrigger
+    MatMenuTrigger,
+    FormsModule
   ],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.css'

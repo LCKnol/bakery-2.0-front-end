@@ -2,9 +2,9 @@
   <section class="results">
 
     <mat-toolbar class="mat-toolbar mat-primary mat-toolbar-single-row" >
-      <form>
-        <input matInput type="text" placeholder="Filter by name" #filter>
-        <button mat-button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
+      <form (ngSubmit)="filterResults(filter.value)">
+        <input matInput type="text" placeholder="Filter by room number" #filter>
+        <button mat-button class="primary" type="submit" >Search</button>
       </form>
       <button mat-icon-button color="primary" (click)="openAddDialog()">
         <mat-icon>add</mat-icon>
