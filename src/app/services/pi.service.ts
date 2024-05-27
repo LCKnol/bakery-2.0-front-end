@@ -83,4 +83,14 @@ export class PiService {
   async setTv(piId: number, option: boolean) {
     await firstValueFrom(await this.generalService.get(Url.pi + "/tv/" + piId + "/" + option));
   }
+
+  async updatePis() {
+    await firstValueFrom(await this.generalService.get(Url.pi + "/update"));
+  }
+  async pingPis() {
+    await firstValueFrom(await this.generalService.get(Url.pi + "/pingAll"));
+  }
+  async rebootPis() {
+    await firstValueFrom(await this.generalService.get(Url.pi + "/rebootAll"));
+  }
 }

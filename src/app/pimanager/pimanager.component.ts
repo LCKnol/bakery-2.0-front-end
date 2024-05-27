@@ -31,44 +31,47 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {DashboardDto} from "../dto/dashboardDto";
 import {EditdashboardComponent} from "../editdashboard/editdashboard.component";
 import {EditpiComponent} from "../editpi/editpi.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-pimanager',
   standalone: true,
-  imports: [
-    DashboardCardComponent,
-    MatButton,
-    MatCard,
-    MatIcon,
-    MatIconButton,
-    MatInput,
-    MatToolbar,
-    NgForOf,
-    RouterLink,
-    MatTable,
-    MatPaginator,
-    MatColumnDef,
-    MatHeaderCell,
-    MatCell,
-    MatHeaderRow,
-    MatRow,
-    MatHeaderCellDef,
-    MatCellDef,
-    MatHeaderRowDef,
-    MatRowDef,
-    NgIf,
-    MatTabGroup,
-    MatTab,
-    MatTabLink,
-    MatTabNav,
-    NgOptimizedImage,
-    MatTabNavPanel,
-    MatFabButton,
-    MatMenu,
-    MatMenuItem,
-    MatMenuTrigger,
-    MatProgressSpinner
-  ],
+    imports: [
+        DashboardCardComponent,
+        MatButton,
+        MatCard,
+        MatIcon,
+        MatIconButton,
+        MatInput,
+        MatToolbar,
+        NgForOf,
+        RouterLink,
+        MatTable,
+        MatPaginator,
+        MatColumnDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatHeaderCellDef,
+        MatCellDef,
+        MatHeaderRowDef,
+        MatRowDef,
+        NgIf,
+        MatTabGroup,
+        MatTab,
+        MatTabLink,
+        MatTabNav,
+        NgOptimizedImage,
+        MatTabNavPanel,
+        MatFabButton,
+        MatMenu,
+        MatMenuItem,
+        MatMenuTrigger,
+        MatProgressSpinner,
+        FormsModule,
+        ReactiveFormsModule
+    ],
   templateUrl: './pimanager.component.html',
   styleUrl: './pimanager.component.css'
 })
@@ -186,6 +189,20 @@ export class PimanagerComponent implements AfterViewInit {
         duration: 3000
       });
     });
+  }
+
+  filterResults(value: string) {
+
+  }
+
+  updatePis() {
+    this.piService.updatePis()
+  }
+  pingPis() {
+    this.piService.pingPis()
+  }
+  rebootPis() {
+    this.piService.rebootPis()
   }
 }
 

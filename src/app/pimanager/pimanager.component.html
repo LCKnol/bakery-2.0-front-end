@@ -1,5 +1,21 @@
 <mat-card class="container-card">
   <section class="results">
+
+    <mat-toolbar class="mat-toolbar mat-primary mat-toolbar-single-row" >
+      <form (ngSubmit)="filterResults(filter.value)">
+        <input matInput type="text" placeholder="Filter" #filter>
+        <button mat-button class="primary" type="submit" >Search</button>
+      </form>
+      <button mat-icon-button [matMenuTriggerFor]="menu"  color="primary">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" class="adminDropdown">
+        <button mat-menu-item  (click)="updatePis()">Update all Pi's</button>
+        <button mat-menu-item  (click)="pingPis()">Ping all Pi's</button>
+        <button mat-menu-item  (click)="rebootPis()">Reboot all Pi's</button>
+      </mat-menu>
+    </mat-toolbar>
+
     <mat-tab-group (selectedTabChange)="switchView($event)" >
       <mat-tab label="View pi's">  </mat-tab>
       <mat-tab label="View pi requests"></mat-tab>
