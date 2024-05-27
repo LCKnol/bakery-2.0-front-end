@@ -72,7 +72,7 @@ export const routes: Routes = [
     path: 'rooms',
     component: RoomsComponent,
     title: 'rooms'
-  }
+  },
   {
     path: 'google-oauth',
     component: GoogleOauthComponent,
