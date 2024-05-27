@@ -8,6 +8,7 @@ import {AddDashboardComponent} from "./add-dashboard/add-dashboard.component";
 import {EditpiComponent} from "./editpi/editpi.component";
 import {PimanagerComponent} from "./pimanager/pimanager.component"
 import {InitPiComponent} from "./init-pi/init-pi.component";
+import {RoomsComponent} from "./rooms/rooms.component";
 import {CreateAccountComponent} from "./create-account/create-account.component";
 import {GoogleOauthComponent} from "./google-oauth/google-oauth.component";
 import {UserManagerComponent} from "./user-manager/user-manager.component";
@@ -67,6 +68,11 @@ export const routes: Routes = [
     component: InitPiComponent,
     title: 'init-pi'
   },
+  {
+    path: 'rooms',
+    component: RoomsComponent,
+    title: 'rooms'
+  }
   {
     path: 'google-oauth',
     component: GoogleOauthComponent,

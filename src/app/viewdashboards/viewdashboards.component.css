@@ -18,20 +18,11 @@
 .results mat-toolbar form{
   display: flex;
 }
-app-dashboard-card {
-  width: 250px;
-  height: 250px;
-  margin: 10px
-}
-.container-card{
-  margin: 5% auto auto;
-  width: 80%;
-}
 .results mat-tab-group {
   width: 100%;
 }
 .container-card{
-  margin: 5% auto auto;
+  margin: 5% auto 2%;
   width: 80%;
 }
 .tablecontainer{
