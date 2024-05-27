@@ -10,6 +10,7 @@ import {PimanagerComponent} from "./pimanager/pimanager.component"
 import {InitPiComponent} from "./init-pi/init-pi.component";
 import {RoomsComponent} from "./rooms/rooms.component";
 import {UserManagerComponent} from "./user-manager/user-manager.component";
+import {TeamManagerComponent} from "./team-manager/team-manager.component";
 
 export const routes: Routes = [
   {
@@ -66,7 +67,7 @@ export const routes: Routes = [
   },
   {
     path: 'teamManager',  // Add the route for TeamManagerComponent
-    component: ,
+    component: TeamManagerComponent,
     title: 'TeamManager'
   }
 ];
