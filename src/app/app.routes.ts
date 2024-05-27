@@ -8,8 +8,8 @@ import {AddDashboardComponent} from "./add-dashboard/add-dashboard.component";
 import {EditpiComponent} from "./editpi/editpi.component";
 import {PimanagerComponent} from "./pimanager/pimanager.component"
 import {InitPiComponent} from "./init-pi/init-pi.component";
+import {RoomsComponent} from "./rooms/rooms.component";
 import {UserManagerComponent} from "./user-manager/user-manager.component";
-import {TeamManagerComponent} from "./team-manager/team-manager.component";
 
 export const routes: Routes = [
   {
@@ -60,8 +60,13 @@ export const routes: Routes = [
     title: 'init-pi'
   },
   {
+    path: 'rooms',
+    component: RoomsComponent,
+    title: 'rooms'
+  },
+  {
     path: 'teamManager',  // Add the route for TeamManagerComponent
-    component: TeamManagerComponent,
+    component: ,
     title: 'TeamManager'
   }
 ];
