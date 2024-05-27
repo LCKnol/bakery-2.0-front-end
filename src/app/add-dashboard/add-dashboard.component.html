@@ -1,6 +1,6 @@
 <form [formGroup]="addDashboardForm" (ngSubmit)="submitAddDashboardForm()" class="login-form">
 <mat-dialog-content>
-  <div class="piInfo">
+  <div class="dialog-flex">
     <mat-icon>add_to_queue</mat-icon>
     <p>Add</p>
   </div>
@@ -14,12 +14,18 @@
         <input matInput type="text" formControlName="dashboardUrl">
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Available for teams</mat-label>
-        <mat-select formControlName="team">
-          <mat-option *ngFor="let team of teams" [value]="team">{{ team.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <button mat-flat-button type="submit" class="login-button" color="light-blue">Add dashboard</button>
+  <mat-form-field appearance="fill">
+    <mat-label>Team</mat-label>
+    <input
+      type="text"
+      placeholder=""
+      matInput
+      [formControl]="teamFormControl"
+      [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option.name}}</mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+      <button mat-flat-button type="submit" class="login-button" color="light-blue" [disabled]="!addDashboardForm.valid">Add dashboard</button>
   </mat-dialog-content>
 </form>

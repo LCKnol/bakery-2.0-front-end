@@ -28,6 +28,9 @@ import {AddDashboardComponent} from "../add-dashboard/add-dashboard.component";
 import {AddUserComponent} from "../add-user/add-user.component";
 import {AssignTeamComponent} from "../assign-team/assign-team.component";
 import {RemoveUserFromTeamComponent} from "../remove-user-from-team/remove-user-from-team.component";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {Pi} from "../dto/pi";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-user-manager',
@@ -56,7 +59,10 @@ import {RemoveUserFromTeamComponent} from "../remove-user-from-team/remove-user-
     NgIf,
     MatMenuTrigger,
     MatHeaderCellDef,
-    NgForOf
+    NgForOf,
+    MatSlideToggle,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './user-manager.component.html',
   styleUrl: './user-manager.component.css'
@@ -137,6 +143,13 @@ export class UserManagerComponent implements AfterViewInit{
     dialogRef.afterClosed().subscribe(result => {
       this.showAllUsers()
     });
+  }
 
+  updateAdminStatus(user: User) {
+    user.isAdmin = !user.isAdmin
+    this.userService.assignAdminRights(user).then(r => {
+      this.showAllUsers()
+    })
   }
 }
+

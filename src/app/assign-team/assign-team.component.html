@@ -1,6 +1,6 @@
 <form [formGroup]="assignTeamForm" (ngSubmit)="submitAssignTeamForm()" class="login-form">
   <mat-dialog-content>
-    <div class="piInfo">
+    <div class="dialog-flex">
       <mat-icon>account_circle</mat-icon>
       <p>Assign team to user</p>
     </div>
@@ -10,7 +10,7 @@
         <mat-option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-flat-button type="submit" class="login-button" color="light-blue">Assign team</button>
+    <button mat-flat-button type="submit" class="login-button" color="light-blue" [disabled]="!assignTeamForm.valid">Assign team</button>
   </mat-dialog-content>
 </form>
 

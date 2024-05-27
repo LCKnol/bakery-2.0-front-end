@@ -8,7 +8,7 @@ import {
   MatDialogTitle
 } from "@angular/material/dialog";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatOption, MatSelect} from "@angular/material/select";
@@ -49,7 +49,7 @@ export class AssignDashboardComponent {
   pi: Pi | undefined
 
   assignDashboardForm: FormGroup = new FormGroup({
-    dashboardList: new FormControl()
+    dashboardList: new FormControl('',[Validators.required]),
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AssignDashboardComponent>, private dashboardService: DashboardService, private piService: PiService,) {

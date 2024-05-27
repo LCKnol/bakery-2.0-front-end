@@ -1,6 +1,6 @@
 <form [formGroup]="addUserForm" (ngSubmit)="submitAddUserForm()" class="login-form">
   <mat-dialog-content>
-    <div class="piInfo">
+    <div class="dialog-flex">
       <mat-icon>account_circle</mat-icon>
       <p>Add</p>
     </div>
@@ -39,7 +39,7 @@
         <mat-option *ngFor="let team of teams" [value]="team">{{ team.name }}</mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-flat-button type="submit" class="login-button" color="light-blue">Add user</button>
+    <button mat-flat-button type="submit" class="login-button" color="light-blue" [disabled]="!addUserForm.valid">Add user</button>
   </mat-dialog-content>
 </form>
 

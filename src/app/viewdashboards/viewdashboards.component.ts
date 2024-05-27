@@ -29,12 +29,13 @@ import {MatTab, MatTabChangeEvent, MatTabGroup} from "@angular/material/tabs";
 import {Pi} from "../dto/pi";
 import {AssignDashboardComponent} from "../assign-dashboard/assign-dashboard.component";
 import {EditdashboardComponent} from "../editdashboard/editdashboard.component";
+import {FormsModule} from "@angular/forms";
 
 
 @Component({
   selector: 'app-viewdashboards',
   standalone: true,
-  imports: [DashboardCardComponent, NavbarComponent, CommonModule, MatButton, MatToolbar, NgOptimizedImage, RouterLink, MatFormField, MatInput, MatIcon, MatCard, MatIconButton, MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderRow, MatHeaderRowDef, MatMenu, MatMenuItem, MatPaginator, MatRow, MatRowDef, MatTab, MatTabGroup, MatTable, MatHeaderCellDef, MatMenuTrigger],
+  imports: [DashboardCardComponent, NavbarComponent, CommonModule, MatButton, MatToolbar, NgOptimizedImage, RouterLink, MatFormField, MatInput, MatIcon, MatCard, MatIconButton, MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderRow, MatHeaderRowDef, MatMenu, MatMenuItem, MatPaginator, MatRow, MatRowDef, MatTab, MatTabGroup, MatTable, MatHeaderCellDef, MatMenuTrigger, FormsModule],
   templateUrl: './viewdashboards.component.html',
   styleUrl: './viewdashboards.component.css'
 })

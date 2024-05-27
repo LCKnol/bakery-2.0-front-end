@@ -31,4 +31,8 @@ export class UserService {
     return firstValueFrom(await this.generalService.post(endpointUrl,user))
   }
 
+ async assignAdminRights(user: User) {
+    const endpointUrl = Url.user +"/assignAdminRights"
+    return firstValueFrom(await this.generalService.post(endpointUrl,user))
+  }
 }
