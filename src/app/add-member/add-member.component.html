@@ -2,10 +2,10 @@
   <mat-dialog-content>
     <div class="piInfo">
       <mat-icon>account_circle</mat-icon>
-      <p>Add</p>
+      <p>Add member</p>
     </div>
     <mat-form-field appearance="fill">
-      <mat-label> Add Member</mat-label>
+      <mat-label>Members</mat-label>
       <mat-select formControlName="members">
         <mat-option *ngFor="let user of userCollection" [value]="user">{{ user.firstName }}</mat-option>
       </mat-select>
