@@ -1,8 +1,9 @@
-export class TeamInfo {
-  constructor(
-    public id: number,
-    public name: string,
-    public members: string[],
-    public rooms: string[]
-  ) {}
+import {User} from "./user";
+import {RoomDto} from "./roomDto";
+
+export interface TeamInfo {
+  id: number,
+  name: string,
+  members: User[],
+  rooms: RoomDto[]
 }

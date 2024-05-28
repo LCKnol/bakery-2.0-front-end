@@ -6,6 +6,9 @@ import {Injectable} from "@angular/core";
 import {TeamCollection} from "../dto/teamCollection";
 import {User} from "../dto/user";
 import {TeamInfo} from "../dto/team.info";
+import {RoomCollection} from "../dto/roomCollection";
+import {UserCollection} from "../dto/userCollection";
+import {TeamInfoCollection} from "../dto/TeamInfoCollection";
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +48,23 @@ export class TeamService {
   async addTeam(team:TeamInfo) {
     const endpointUrl = Url.teams
     return firstValueFrom(await this.generalService.post(endpointUrl,team))
+  }
+
+  async getRoomsInTeam(teamId: number | undefined): Promise<RoomCollection> {
+    const endpointUrl = Url.rooms + "/team/" + teamId;
+    return firstValueFrom(await this.generalService.get(endpointUrl));
+  }
+
+  async getUsersInTeam(teamId: number): Promise<UserCollection> {
+    const endpointUrl = Url.teams + "/users/" + teamId;
+    return firstValueFrom(await this.generalService.get(endpointUrl));
+  }
+  async deleteTeam(teamId: number): Promise<void> {
+    const endpointUrl = Url.teams + "/" + teamId;
+    await firstValueFrom(await this.generalService.delete(endpointUrl));
+  }
+  async getAllTeamsInfo(): Promise<TeamInfoCollection> {
+    const endpointUrl = Url.teams + "/allInfo"
+    return firstValueFrom(await this.generalService.get(endpointUrl));
   }
 }
