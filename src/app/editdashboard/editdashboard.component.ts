@@ -155,14 +155,5 @@ export class EditdashboardComponent {
 
     return this.teams.filter(option => option.name.toLowerCase().includes(filterValue));
   }
-
-  private _getTeam(name: String, teams: Team[]): Team {
-    for (const team of teams) {
-      if (team.name === name) {
-        return team
-      }
-    }
-    return this.team!!
-  }
 }
 
