@@ -32,6 +32,7 @@ import {DashboardDto} from "../dto/dashboardDto";
 import {EditdashboardComponent} from "../editdashboard/editdashboard.component";
 import {EditpiComponent} from "../editpi/editpi.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RoomDto} from "../dto/roomDto";
 
 @Component({
   selector: 'app-pimanager',
@@ -79,6 +80,8 @@ export class PimanagerComponent implements AfterViewInit {
   displayedColumns: string[] = []
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  pis?: Pi[] = [];
+  filteredPis?: Pi[] = [];
   dataSwitch: boolean = true
 
   macAddress: string | null = null;
@@ -126,6 +129,8 @@ export class PimanagerComponent implements AfterViewInit {
       this.displayedColumns = ['name', 'status', 'macaddress', 'ipaddress', 'room', 'display', 'action']
       this.dataSource.paginator = this.paginator;
       this.dataSwitch = true
+      this.pis = res.pis;
+      this.filteredPis = res.pis
     });
   }
 
@@ -191,8 +196,19 @@ export class PimanagerComponent implements AfterViewInit {
     });
   }
 
-  filterResults(value: string) {
-
+  filterResults(text: string) {
+    if(this.dataSwitch) {
+      if (!text) {
+        this.dataSource = new MatTableDataSource<Pi>(this.pis)
+        this.dataSource.paginator = this.paginator;
+        return;
+      }
+      this.filteredPis = this.pis?.filter(
+        pi => pi?.name.toLowerCase().includes(text.toLowerCase())
+      );
+      this.dataSource = new MatTableDataSource<Pi>(this.filteredPis)
+      this.dataSource.paginator = this.paginator;
+    }
   }
 
   updatePis() {
