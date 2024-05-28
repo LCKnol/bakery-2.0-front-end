@@ -52,14 +52,15 @@ export class AddDashboardComponent {
   teamFormControl = new FormControl()
 
   addDashboardForm: FormGroup = new FormGroup({
-    name: new FormControl(null,[Validators.required]),
-    dashboardUrl: new FormControl(null,[Validators.required]),
+    name: new FormControl(null, [Validators.required]),
+    dashboardUrl: new FormControl(null, [Validators.required]),
+    dashboardRefresh: new FormControl(''),
     team: this.teamFormControl
   });
 
   teams: Team[] = []
 
-  constructor(private dialogRef: MatDialogRef<AddDashboardComponent>,private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
+  constructor(private dialogRef: MatDialogRef<AddDashboardComponent>, private dashboardService: DashboardService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
     this.fetchTeams()
   }
 
@@ -78,22 +79,27 @@ export class AddDashboardComponent {
       });
   }
 
-  submitAddDashboardForm() : void {
+  submitAddDashboardForm(): void {
     const dashboardDto: DashboardDto = {
       team: this.addDashboardForm.value.team ?? null,
       id: -1,
       dashboardName: this.addDashboardForm.value.name ?? '',
       dashboardUrl: this.addDashboardForm.value.dashboardUrl ?? '',
+      dashboardRefresh: this.addDashboardForm.value.dashboardRefresh ?? 300,
       hasAccess: false
     };
     console.log(dashboardDto)
     this.dashboardService.addDashboard(dashboardDto)
       .then(_ => {
-        this.router.navigate(['/dashboards']).catch(_ => {console.log('no page found');});
+        this.router.navigate(['/dashboards']).catch(_ => {
+          console.log('no page found');
+        });
         this.generalService.showSnackbar("Dashboard added successfully", "ok", {})
         this.dialogRef.close()
       })
-      .catch(_ => {this.generalService.showSnackbar("Dashboard added failed", "ok", {});})
+      .catch(_ => {
+        this.generalService.showSnackbar("Dashboard added failed", "ok", {});
+      })
   }
 
   displayFn(team?: any): string {
