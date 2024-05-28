@@ -28,7 +28,6 @@ export class NavbarComponent {
   logout(): void {
     this.loginService.logout()
       .then(() => {
-        this.cookieService.delete("token")
         this.router.navigate(['/login'])
       })
       .catch(_ => {this.snackbar.open('An error occurred while logging out', 'ok', {

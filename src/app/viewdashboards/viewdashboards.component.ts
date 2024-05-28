@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Inject, ViewChild} from '@angular/core';
 import {DashboardCardComponent} from '../dashboard-card/dashboard-card.component'
 import {NavbarComponent} from '../navbar/navbar.component'
 import {DashboardCollection} from '../dto/dashboardCollection'
-import  {DashboardService} from  "../services/dashboard.service";
+import {DashboardService} from "../services/dashboard.service";
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatToolbar} from "@angular/material/toolbar";
@@ -47,7 +47,7 @@ export class ViewdashboardsComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   dataSwitch: boolean = true
 
-  constructor(private  dashboardService: DashboardService,public dialog: MatDialog)  {
+  constructor(private dashboardService: DashboardService, public dialog: MatDialog) {
     this.showAllDashboards()
   }
 
@@ -68,10 +68,10 @@ export class ViewdashboardsComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  openEditDialog(dashboard:DashboardDto) {
+  openEditDialog(dashboard: DashboardDto) {
     const dialogRef = this.dialog.open(EditdashboardComponent, {
       data: {
-        dashboard:dashboard
+        dashboard: dashboard
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -80,25 +80,24 @@ export class ViewdashboardsComponent implements AfterViewInit {
   }
 
   openAddDialog() {
-    const dialogRef = this.dialog.open(AddDashboardComponent, {
-    });
+    const dialogRef = this.dialog.open(AddDashboardComponent, {});
     dialogRef.afterClosed().subscribe(result => {
       this.showAllDashboards()
     });
   }
 
   switchView(tab: MatTabChangeEvent) {
-    if (tab.index == 0){
+    if (tab.index == 0) {
       this.showAllDashboards()
-    }else if(tab.index == 1){
-     // this.showPiRequests()
+    } else if (tab.index == 1) {
+      // this.showPiRequests()
     }
   }
 
-  showAllDashboards(){
+  showAllDashboards() {
     this.dashboardService.getDashboards().then(res => {
       this.dataSource = new MatTableDataSource<DashboardDto>(res.dashboards)
-      this.displayedColumns = ['name', 'team','url','action']
+      this.displayedColumns = ['name', 'team', 'url', 'refresh', 'action']
       this.dataSource.paginator = this.paginator;
       this.dashboards = res.dashboards;
       this.filteredDashboards = res.dashboards

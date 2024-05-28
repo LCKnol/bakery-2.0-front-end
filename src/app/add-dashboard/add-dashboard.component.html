@@ -1,31 +1,37 @@
 <form [formGroup]="addDashboardForm" (ngSubmit)="submitAddDashboardForm()" class="login-form">
-<mat-dialog-content>
-  <div class="dialog-flex">
-    <mat-icon>add_to_queue</mat-icon>
-    <p>Add</p>
-  </div>
-      <mat-form-field appearance="fill">
-        <mat-label>Dashboard naam</mat-label>
-        <input matInput type="text" formControlName="name">
-      </mat-form-field>
+  <mat-dialog-content>
+    <div class="dialog-flex">
+      <mat-icon>add_to_queue</mat-icon>
+      <p>Add</p>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Dashboard naam</mat-label>
+      <input matInput type="text" formControlName="name">
+    </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>URL</mat-label>
-        <input matInput type="text" formControlName="dashboardUrl">
-      </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>URL</mat-label>
+      <input matInput type="text" formControlName="dashboardUrl">
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Team</mat-label>
-    <input
-      type="text"
-      placeholder=""
-      matInput
-      [formControl]="teamFormControl"
-      [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option.name}}</mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-      <button mat-flat-button type="submit" class="login-button" color="light-blue" [disabled]="!addDashboardForm.valid">Add dashboard</button>
+    <mat-form-field appearance="fill">
+      <mat-label>Refresh rate</mat-label>
+      <input matInput type="number" formControlName="dashboardRefresh">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Team</mat-label>
+      <input
+        type="text"
+        placeholder=""
+        matInput
+        [formControl]="teamFormControl"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option.name }}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <button mat-flat-button type="submit" class="login-button" color="light-blue">Add dashboard</button>
   </mat-dialog-content>
 </form>
