@@ -1,12 +1,12 @@
-<form [formGroup]="addTeamForm" (ngSubmit)="submitAddRoomForm()" class="login-form">
+<form [formGroup]="addRoomForm" (ngSubmit)="submitAddRoomForm()" class="login-form">
   <mat-dialog-content>
     <div class="piInfo">
       <mat-icon>account_circle</mat-icon>
-      <p>Add</p>
+      <p>Add Room</p>
     </div>
 
     <mat-form-field appearance="fill">
-      <mat-label>Add Rooms</mat-label>
+      <mat-label>Rooms</mat-label>
       <mat-select formControlName="room">
         <mat-option *ngFor="let room of rooms" [value]="room">{{ room.roomNo }}</mat-option>
       </mat-select>

@@ -39,7 +39,7 @@ import {TeamInfo} from "../dto/team.info";
   styleUrl: './add-room.component.css'
 })
 export class AddRoomComponent {
-  addTeamForm: FormGroup = new FormGroup({
+  addRoomForm: FormGroup = new FormGroup({
 
     room: new FormControl()
   });
@@ -54,23 +54,16 @@ export class AddRoomComponent {
 
   }
 
-
-
   fetchRooms() {
     this.roomService.getAllRooms().then((roomCollection: RoomCollection) => {
       this.rooms = roomCollection.rooms
     });
   }
 
-
-  //
   submitAddRoomForm() {
-    const room: RoomDto = {
 
-      roomNo: this.addTeamForm.value.room
-    };
-    this.roomService.addRoom(room)
-      .then(token => {
+    this.roomService.addTeamToRoom(this.addRoomForm.value.room, this.teamId!!)
+      .then(_ => {
         this.generalService.showSnackbar("Room added successfully", "ok", {})
         this.dialogRef.close()
       })
