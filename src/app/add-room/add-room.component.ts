@@ -45,13 +45,16 @@ export class AddRoomComponent {
   });
 
   rooms: RoomDto[] = []
+  teamId : number | undefined
 
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddRoomComponent>,
                private roomService: RoomService, private router: Router, private generalService: GeneralService) {
     this.dialogRef.updateSize('40%')
+    if (data) {
+      this.teamId = data.teamId;
+    }
     this.fetchRooms()
-
   }
 
   fetchRooms() {
