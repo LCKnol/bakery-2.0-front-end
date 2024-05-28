@@ -1,1 +1,15 @@
-<p>remove-member works!</p>
+<form [formGroup]="removeMemberForm" (ngSubmit)="submitRemoveMemberForm()" class="login-form">
+  <mat-dialog-content>
+    <div class="dialog-flex">
+      <mat-icon>account_circle</mat-icon>
+      <p>Remove member from team</p>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Members</mat-label>
+      <mat-select formControlName="members">
+        <mat-option *ngFor="let member of members" [value]="member.id">{{ member.firstName }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-flat-button type="submit" class="login-button" color="light-blue">Remove from team</button>
+  </mat-dialog-content>
+</form>
