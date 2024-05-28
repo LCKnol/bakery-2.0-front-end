@@ -35,4 +35,11 @@ export class UserService {
     const endpointUrl = Url.user +"/assignAdminRights"
     return firstValueFrom(await this.generalService.post(endpointUrl,user))
   }
+  async removeUserFromTeam(userId: number, teamId: number): Promise<void> {
+    const endpointUrl = Url.user + '/removeFromTeam/' + userId + '/' + teamId;
+    await firstValueFrom(await this.generalService.delete(endpointUrl));
+  }
+
+
+
 }
