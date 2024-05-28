@@ -1,7 +1,10 @@
+import {Team} from "./team";
+
 export interface DashboardDto {
-  id:  number;
+  id: number;
   dashboardUrl: string;
-  name: string;
-  imageUrl: string;
-  userId: number;
+  dashboardName: string;
+  dashboardRefresh: number;
+  team: Team;
+  hasAccess: Boolean;
 }

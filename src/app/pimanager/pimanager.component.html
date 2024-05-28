@@ -15,16 +15,17 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef> Status </th>
           <td mat-cell *matCellDef="let element">
-            {{element.status}}
-            <mat-icon *ngIf="element.status == 'offline'">
+            {{element.id !== pingId ? element.status : ''}}
+            <mat-icon *ngIf="element.status == 'OFFLINE' && element.id != pingId">
               wifi_off
             </mat-icon>
-            <mat-icon *ngIf="element.status == 'online'">
+            <mat-icon *ngIf="element.status == 'ONLINE' && element.id != pingId">
               wifi
             </mat-icon>
-            <mat-icon *ngIf="element.status == 'error'">
+            <mat-icon *ngIf="element.status == 'ERROR' && element.id != pingId">
               error
             </mat-icon>
+            <mat-spinner [diameter]="30" *ngIf="element.id == pingId"></mat-spinner>
 
              </td>
         </ng-container>
@@ -34,20 +35,34 @@
           <td mat-cell *matCellDef="let element"> {{element.macAddress}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="ipaddress">
+          <th mat-header-cell *matHeaderCellDef> IP address</th>
+          <td mat-cell *matCellDef="let element"> {{ element.ipAddress }}</td>
+        </ng-container>
+
         <ng-container matColumnDef="room">
           <th mat-header-cell *matHeaderCellDef> Room </th>
           <td mat-cell *matCellDef="let element"> {{element.roomNo}} </td>
         </ng-container>
         <ng-container matColumnDef="display">
           <th mat-header-cell *matHeaderCellDef> Display </th>
-          <td mat-cell *matCellDef="let element"> {{element.display}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.dashboardName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef> Edit</th>
-          <td mat-cell *matCellDef="let element"> <button mat-icon-button routerLink="/piManager/edit/{{element.id}}" color="primary">
-            <mat-icon>edit</mat-icon>
-          </button>
+          <th mat-header-cell *matHeaderCellDef> Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button [matMenuTriggerFor]="menu"  color="primary">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="adminDropdown">
+                <button mat-menu-item  (click)="openEditDialog(element)">Edit</button>
+                <button mat-menu-item  (click)="openAssignDialog(element)">Assign dashboard</button>
+                <button mat-menu-item (click)="rebootPi(element)">Reboot</button>
+                <button mat-menu-item (click)="pingPi(element.id)">Ping</button>
+                <button mat-menu-item (click)="setTv(element.id,true)">Turn tv on</button>
+                <button mat-menu-item (click)="setTv(element.id,false)">Turn tv off</button>
+            </mat-menu>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -63,6 +78,11 @@
           <td mat-cell *matCellDef="let element"> {{element.macAddress}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="ipaddress">
+          <th mat-header-cell *matHeaderCellDef> IP address</th>
+          <td mat-cell *matCellDef="let element"> {{ element.ipAddress }}</td>
+        </ng-container>
+
         <ng-container matColumnDef="requestedon">
           <th mat-header-cell *matHeaderCellDef> Requested on </th>
           <td mat-cell *matCellDef="let element"> {{element.requestedOn}} </td>
@@ -70,7 +90,7 @@
 
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> View </th>
-          <td mat-cell *matCellDef="let element"> <button mat-flat-button type="button" color="light-blue" (click)="redirectToInitPi(element.macAddress)">View request</button></td>
+          <td mat-cell *matCellDef="let element"> <button mat-flat-button type="button" color="light-blue" (click)="openPiRequestDialog(element.macAddress,element.ipAddress)">View request</button></td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

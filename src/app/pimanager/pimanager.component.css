@@ -16,13 +16,8 @@
   color: white;
   background-color: #19b;
 }
-app-dashboard-card {
-  width: 250px;
-  height: 250px;
-  margin: 10px
-}
 .container-card{
-  margin: 5% auto auto;
+  margin: 5% auto 2%;
   width: 80%;
 }
 .tablecontainer{

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {Router} from "@angular/router";
@@ -15,6 +15,7 @@ import {MatSelect} from "@angular/material/select";
 import {RoomCollection} from "../dto/roomCollection";
 import {RoomDto} from "../dto/roomDto";
 import {NgForOf} from "@angular/common";
+import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 
 
 
@@ -35,6 +36,7 @@ import {NgForOf} from "@angular/common";
     MatOption,
     MatSelect,
     NgForOf,
+    MatDialogContent,
   ],
   templateUrl: './init-pi.component.html',
   styleUrl: './init-pi.component.css'
@@ -44,7 +46,8 @@ export class InitPiComponent {
     name: new FormControl(''),
     roomNo: new FormControl('')
   });
-  macAddress: string;
+  macAddress: string | undefined;
+  ipAddress: string | undefined;
   rooms: RoomDto[] = []
 
 
@@ -54,11 +57,14 @@ export class InitPiComponent {
     private piService: PiService,
     private generalService: GeneralService,
     private roomService: RoomService,
-
+    @Inject(MAT_DIALOG_DATA) private data: any,private dialogRef: MatDialogRef<InitPiComponent>,
   ) {
+    if (this.data) {
+    this.macAddress = data.macAddress;
+      this.ipAddress = data.ipAddress
+    }
 
-    const navigation = this.router.getCurrentNavigation();
-    this.macAddress = navigation?.extras.state?.['data'];
+
 
     // Fetch room numbers from the backend API
     this.fetchRooms();
@@ -77,24 +83,26 @@ export class InitPiComponent {
     const pi: Pi = {
       id: -1,
       name: this.addInitPiForm.value.name ?? '',
-      macAddress: this.macAddress,
+      macAddress: this.macAddress!!,
+      ipAddress: this.ipAddress!!,
       status: '',
       dashboardName: '',
-      roomNo: this.addInitPiForm.value.roomNo.roomNo ?? ''
+      roomNo: this.addInitPiForm.value.roomNo.roomNo ?? '',
+      dashboardId: -1
     };
 
     this.piService.initPi(pi).then(_ => {
       this.generalService.showSnackbar("Pi succesfully initialized", "OK")
-      this.router.navigate(['/piManager']);
+      this.dialogRef.close()
     }).catch(_ => {
       this.generalService.showSnackbar("Error while initializing pi", "OK");
     })
   }
 
   declinePiRequest() {
-    this.piService.declinePi(this.macAddress).then(_ => {
+    this.piService.declinePi(this.macAddress!!).then(_ => {
       this.generalService.showSnackbar("Pi succesfully declined", "OK")
-      this.router.navigate(['/piManager']);
+      this.dialogRef.close()
     }).catch(_ => {
       this.generalService.showSnackbar("Error while deleting pi", "OK");
     })

@@ -17,9 +17,9 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 })
 
 export class NavbarComponent {
-  links = [['Home', '/'],['Dashboard','dashboards']];
+  links = [['Home', '/'],['Dashboard','dashboards'],['Admin','admin']];
   activeLink = this.links[0];
-  adminLinks = [["PI's", 'piManager'],['Users','users'], ['Teams','teams']];
+  adminLinks = [["PI's", 'piManager'],['Users','userManager'], ['Teams','teams'], ['Rooms','rooms']];
   activeAdminLink : String[] = this.adminLinks[0];
   constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService, private snackbar: MatSnackBar) {
   }
@@ -28,7 +28,6 @@ export class NavbarComponent {
   logout(): void {
     this.loginService.logout()
       .then(() => {
-        this.cookieService.delete("token")
         this.router.navigate(['/login'])
       })
       .catch(_ => {this.snackbar.open('An error occurred while logging out', 'ok', {
