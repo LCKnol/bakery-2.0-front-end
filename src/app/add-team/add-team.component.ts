@@ -45,7 +45,7 @@ export class AddTeamComponent {
   addTeamForm: FormGroup = new FormGroup({
     name: new FormControl(),
     members: new FormControl(),
-    room: new FormControl()
+    rooms: new FormControl()
   });
 
   rooms: RoomDto[] = []
@@ -75,11 +75,17 @@ export class AddTeamComponent {
 
 
   submitAddTeamForm() {
+    var members: User[] = []
+    members.push(this.addTeamForm.value.members)
+    var rooms: RoomDto[] = []
+    rooms.push(this.addTeamForm.value.rooms)
+    console.log(rooms)
+
     const team: TeamInfo = {
       id: -1,
       name: this.addTeamForm.value.name,
-      members: this.addTeamForm.value.members,
-      rooms: this.addTeamForm.value.rooms,
+      members: members,
+      rooms: rooms,
     };
     this.teamService.addTeam(team)
       .then(token => {

@@ -19,7 +19,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Assign Rooms</mat-label>
-      <mat-select formControlName="room">
+      <mat-select formControlName="rooms">
         <mat-option *ngFor="let room of rooms" [value]="room">{{ room.roomNo }}</mat-option>
       </mat-select>
     </mat-form-field>
