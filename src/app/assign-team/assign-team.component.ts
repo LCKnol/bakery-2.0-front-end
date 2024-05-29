@@ -41,6 +41,7 @@ export class AssignTeamComponent {
 
   userid: number | undefined
   teams: Team[] = []
+  userTeams: Team[] =[]
 
   assignTeamForm: FormGroup = new FormGroup({
     team: new FormControl('',[Validators.required])
@@ -49,6 +50,7 @@ export class AssignTeamComponent {
   constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AssignDashboardComponent>, private dashboardService: DashboardService,private teamService: TeamService) {
     if (this.data) {
       this.userid = data.userid
+      this.userTeams = data.teams
       this.fetchTeams()
     }
   }
@@ -61,7 +63,7 @@ export class AssignTeamComponent {
 
   fetchTeams() {
     this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
-      this.teams = teamCollection.teamCollection
+      this.teams = teamCollection.teamCollection.filter(item => !this.userTeams.some(user => user.id === item.id));
     });
   }
 }
