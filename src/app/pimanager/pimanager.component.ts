@@ -83,6 +83,7 @@ export class PimanagerComponent implements AfterViewInit {
   pis?: Pi[] = [];
   filteredPis?: Pi[] = [];
   dataSwitch: boolean = true
+  pingAll: boolean = false
 
   macAddress: string | null = null;
   pingId: number | null = null
@@ -129,6 +130,7 @@ export class PimanagerComponent implements AfterViewInit {
       this.displayedColumns = ['name', 'status', 'macaddress', 'ipaddress', 'room', 'display', 'action']
       this.dataSource.paginator = this.paginator;
       this.dataSwitch = true
+      this.pingAll = false
       this.pis = res.pis;
       this.filteredPis = res.pis
     });
@@ -215,10 +217,25 @@ export class PimanagerComponent implements AfterViewInit {
     this.piService.updatePis()
   }
   pingPis() {
-    this.piService.pingPis()
+    this.piService.pingPis().then(_ => {
+      this.pingAll = true
+      setTimeout(() => {
+        this.showAllPis();
+        this.pingAll = false
+      }, 2000);
+    });
   }
   rebootPis() {
-    this.piService.rebootPis()
+    this.piService.rebootPis().then(() => {
+      this.snackBar.open('Reboot command sent successfully!', 'Close', {
+        duration: 3000
+      });
+    }).catch((error) => {
+      console.error('Error sending reboot command:', error);
+      this.snackBar.open('Failed to send reboot command', 'Close', {
+        duration: 3000
+      });
+    });
   }
 }
 
