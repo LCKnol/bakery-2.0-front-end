@@ -9,8 +9,6 @@ import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {PiService} from "../services/pi.service";
 import {MatPaginator} from "@angular/material/paginator";
-import {PiCollection} from "../dto/pi-collection";
-import {from, Observable} from 'rxjs';
 import {
   MatCell, MatCellDef,
   MatColumnDef,
@@ -28,54 +26,52 @@ import {AssignDashboardComponent} from "../assign-dashboard/assign-dashboard.com
 import {InitPiComponent} from "../init-pi/init-pi.component";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {DashboardDto} from "../dto/dashboardDto";
-import {EditdashboardComponent} from "../editdashboard/editdashboard.component";
 import {EditpiComponent} from "../editpi/editpi.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {RoomDto} from "../dto/roomDto";
 
 @Component({
   selector: 'app-pimanager',
   standalone: true,
-    imports: [
-        DashboardCardComponent,
-        MatButton,
-        MatCard,
-        MatIcon,
-        MatIconButton,
-        MatInput,
-        MatToolbar,
-        NgForOf,
-        RouterLink,
-        MatTable,
-        MatPaginator,
-        MatColumnDef,
-        MatHeaderCell,
-        MatCell,
-        MatHeaderRow,
-        MatRow,
-        MatHeaderCellDef,
-        MatCellDef,
-        MatHeaderRowDef,
-        MatRowDef,
-        NgIf,
-        MatTabGroup,
-        MatTab,
-        MatTabLink,
-        MatTabNav,
-        NgOptimizedImage,
-        MatTabNavPanel,
-        MatFabButton,
-        MatMenu,
-        MatMenuItem,
-        MatMenuTrigger,
-        MatProgressSpinner,
-        FormsModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    DashboardCardComponent,
+    MatButton,
+    MatCard,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatToolbar,
+    NgForOf,
+    RouterLink,
+    MatTable,
+    MatPaginator,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderRow,
+    MatRow,
+    MatHeaderCellDef,
+    MatCellDef,
+    MatHeaderRowDef,
+    MatRowDef,
+    NgIf,
+    MatTabGroup,
+    MatTab,
+    MatTabLink,
+    MatTabNav,
+    NgOptimizedImage,
+    MatTabNavPanel,
+    MatFabButton,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger,
+    MatProgressSpinner,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './pimanager.component.html',
   styleUrl: './pimanager.component.css'
 })
+
 export class PimanagerComponent implements AfterViewInit {
   displayedColumns: string[] = []
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
@@ -93,7 +89,7 @@ export class PimanagerComponent implements AfterViewInit {
               private router: Router,
               public dialog: MatDialog,
               private snackBar: MatSnackBar,
-              ) {
+  ) {
     this.showAllPis()
   }
 
@@ -101,10 +97,10 @@ export class PimanagerComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  openAssignDialog(pi:Pi) {
+  openAssignDialog(pi: Pi) {
     const dialogRef = this.dialog.open(AssignDashboardComponent, {
       data: {
-        pi:pi
+        pi: pi
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -112,10 +108,10 @@ export class PimanagerComponent implements AfterViewInit {
     });
   }
 
-  openPiRequestDialog(macAddress: string,ipAddress: string) {
+  openPiRequestDialog(macAddress: string, ipAddress: string) {
     const dialogRef = this.dialog.open(InitPiComponent, {
       data: {
-        macAddress:macAddress,
+        macAddress: macAddress,
         ipAddress: ipAddress
       }
     });
@@ -153,7 +149,7 @@ export class PimanagerComponent implements AfterViewInit {
     }
   }
 
-  openEditDialog(pi:Pi) {
+  openEditDialog(pi: Pi) {
     const dialogRef = this.dialog.open(EditpiComponent, {
       data: {
         pi: pi
@@ -199,7 +195,7 @@ export class PimanagerComponent implements AfterViewInit {
   }
 
   filterResults(text: string) {
-    if(this.dataSwitch) {
+    if (this.dataSwitch) {
       if (!text) {
         this.dataSource = new MatTableDataSource<Pi>(this.pis)
         this.dataSource.paginator = this.paginator;
@@ -216,6 +212,7 @@ export class PimanagerComponent implements AfterViewInit {
   updatePis() {
     this.piService.updatePis()
   }
+
   pingPis() {
     this.piService.pingPis().then(_ => {
       this.pingAll = true
@@ -225,6 +222,7 @@ export class PimanagerComponent implements AfterViewInit {
       }, 2000);
     });
   }
+
   rebootPis() {
     this.piService.rebootPis().then(() => {
       this.snackBar.open('Reboot command sent successfully!', 'Close', {
@@ -238,4 +236,3 @@ export class PimanagerComponent implements AfterViewInit {
     });
   }
 }
-
