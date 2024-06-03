@@ -61,7 +61,9 @@ export class AddRoomComponent {
         this.generalService.showSnackbar("Room added successfully", "ok", {})
         this.dialogRef.close()
       })
-      .catch(_ => {this.generalService.showSnackbar("Room added failed", "ok", {});})
+      .catch(_ => {
+        this.generalService.showSnackbar("Room added failed", "ok", {});
+        this.dialogRef.close()})
   }
 
 }

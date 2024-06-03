@@ -88,7 +88,6 @@ export class AddDashboardComponent {
       dashboardRefresh: this.addDashboardForm.value.dashboardRefresh ?? 300,
       hasAccess: false
     };
-    console.log(dashboardDto)
     this.dashboardService.addDashboard(dashboardDto)
       .then(_ => {
         this.router.navigate(['/dashboards']).catch(_ => {
@@ -99,6 +98,7 @@ export class AddDashboardComponent {
       })
       .catch(_ => {
         this.generalService.showSnackbar("Dashboard added failed", "ok", {});
+        this.dialogRef.close()
       })
   }
 
@@ -108,7 +108,6 @@ export class AddDashboardComponent {
 
   private _filter(value: string): Team[] {
     const filterValue = value.toLowerCase();
-    console.log(value)
     return this.teams.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 }

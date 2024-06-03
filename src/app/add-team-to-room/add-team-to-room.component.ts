@@ -46,7 +46,7 @@ export class AddTeamToRoomComponent {
     team: new FormControl()
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddTeamToRoomComponent>, private roomService: RoomService,private teamService: TeamService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any,private generalService: GeneralService, private dialogRef: MatDialogRef<AddTeamToRoomComponent>, private roomService: RoomService,private teamService: TeamService) {
     if (this.data) {
       this.roomNo = this.data.room.roomNo;
       this.fetchTeams()
@@ -55,7 +55,10 @@ export class AddTeamToRoomComponent {
 
   submitAddTeamToRoomForm() {
     this.roomService.addTeamToRoom(this.roomNo!!,this.addTeamToRoomForm.value.team).then(r =>
-      this.dialogRef.close(true))
+      this.dialogRef.close(true)).catch(_ => {
+      this.generalService.showSnackbar("Adding team failed", "ok", {});
+      this.dialogRef.close()
+    })
   }
 
   fetchTeams() {

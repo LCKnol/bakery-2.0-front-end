@@ -74,6 +74,9 @@ export class AddUserComponent {
         this.generalService.showSnackbar("User added successfully", "ok", {})
         this.dialogRef.close()
       })
-      .catch(_ => {this.generalService.showSnackbar("Adding user failed", "ok", {});})
+      .catch(_ => {
+        this.generalService.showSnackbar("Adding user failed", "ok", {});
+        this.dialogRef.close()
+      })
   }
 }

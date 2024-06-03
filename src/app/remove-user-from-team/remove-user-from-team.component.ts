@@ -12,6 +12,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {NgForOf} from "@angular/common";
+import {GeneralService} from "../services/general.service";
 
 @Component({
   selector: 'app-remove-user-from-team',
@@ -39,7 +40,7 @@ export class RemoveUserFromTeamComponent {
     team: new FormControl()
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<RemoveUserFromTeamComponent>, private dashboardService: DashboardService,private teamService: TeamService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any,private generalService:GeneralService, private dialogRef: MatDialogRef<RemoveUserFromTeamComponent>, private dashboardService: DashboardService,private teamService: TeamService) {
     if (this.data) {
       this.userid = data.userid
       this.fetchTeams()
@@ -48,7 +49,10 @@ export class RemoveUserFromTeamComponent {
 
   submitAssignTeamForm() {
     this.teamService.removeUserFromTeam(this.userid!!,this.assignTeamForm.value.team).then(r =>
-      this.dialogRef.close(true))
+      this.dialogRef.close(true)).catch(_ => {
+      this.generalService.showSnackbar('Error while updating Pi', 'OK')
+      this.dialogRef.close()
+    })
   }
 
   fetchTeams() {

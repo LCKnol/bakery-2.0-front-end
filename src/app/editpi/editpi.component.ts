@@ -20,6 +20,8 @@ import {Observable} from "rxjs";
 import {Team} from "../dto/team";
 import {MatAutocomplete, MatAutocompleteTrigger} from "@angular/material/autocomplete";
 import {map, startWith} from "rxjs/operators";
+import {UserService} from "../services/user.service";
+import {UserInfo} from "../dto/userInfo";
 
 
 @Component({
@@ -66,6 +68,7 @@ export class EditpiComponent {
     private router: Router,
     private generalService: GeneralService,
     private roomService: RoomService,
+    private userService: UserService,
     private dialogRef: MatDialogRef<EditpiComponent>
   ) {
       if (this.data) {
@@ -76,15 +79,23 @@ export class EditpiComponent {
 
   fetchRooms() {
     // Make an HTTP GET request to your backend API to fetch room numbers
-    this.roomService.getAllRooms().then((rooms: RoomCollection) => {
-      this.rooms = rooms.rooms.filter(room => room.roomNo != this.pi?.roomNo)
-      this.setFormValues()
-      this.filteredOptions = this.roomFormControl.valueChanges
-        .pipe(
-          startWith<string | null>(''),
-          map(value => this._filter(value!!))
-        );
-    });
+    this.userService.getCurrentUser().then((user: UserInfo) => {
+      this.roomService.getAllRooms().then((rooms: RoomCollection) => {
+        if (!user.isAdmin){
+          this.rooms = rooms.rooms.filter(room => room.roomNo != this.pi?.roomNo &&  user.rooms.some( userRoom => room.roomNo == userRoom.roomNo));
+        }else{
+          this.rooms = rooms.rooms.filter(room => room.roomNo != this.pi?.roomNo);
+        }
+        this.setFormValues()
+        this.filteredOptions = this.roomFormControl.valueChanges
+          .pipe(
+            startWith<string | null>(''),
+            map(value => this._filter(value!!))
+          );
+      });
+
+    })
+
   }
   setFormValues() {
     if (this.pi) {
@@ -97,11 +108,11 @@ export class EditpiComponent {
     const editPi: Pi = {
       id: this.pi?.id!!, // Assumes piId is non-null
       name: this.piEditForm.value.name ?? this.pi?.name,
-      roomNo: this.piEditForm.value.roomNo ?? '',
+      roomNo: this.piEditForm.value.roomNo ?? this.pi?.roomNo,
       status: this.pi?.status ?? "",
       dashboardName: this.pi?.dashboardName ?? "",
       macAddress: this.pi?.macAddress ?? "",
-      dashboardId:this.pi?.dashboardId?? -1,
+      dashboardId: this.pi?.dashboardId ?? -1,
       ipAddress: this.pi?.ipAddress!!,
     };
     // Call the service to update the Pi data
@@ -111,6 +122,7 @@ export class EditpiComponent {
         this.dialogRef.close()
       }).catch(_ => {
         this.generalService.showSnackbar('Error while updating Pi', 'OK')
+        this.dialogRef.close()
       })
   }
 
