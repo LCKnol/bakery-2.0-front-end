@@ -135,11 +135,12 @@ export class UserManagerComponent implements AfterViewInit{
 
   }
 
-  openRemoveFromTeamDialog(userid: number) {
+  openRemoveFromTeamDialog(userid: number, userTeams: Team[]) {
 
     const dialogRef = this.dialog.open(RemoveUserFromTeamComponent, {
       data: {
-        userid:userid
+        userid:userid,
+        userTeams:userTeams
       }
     });
     dialogRef.afterClosed().subscribe(result => {
