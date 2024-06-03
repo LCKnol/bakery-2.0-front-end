@@ -45,6 +45,7 @@ export class AddRoomComponent {
   });
 
   rooms: RoomDto[] = []
+  teamRooms: RoomDto[] = []
   teamId : number | undefined
 
 
@@ -53,18 +54,18 @@ export class AddRoomComponent {
     this.dialogRef.updateSize('40%')
     if (data) {
       this.teamId = data.teamId;
+      this.teamRooms = data.rooms;
     }
     this.fetchRooms()
   }
 
   fetchRooms() {
     this.roomService.getAllRooms().then((roomCollection: RoomCollection) => {
-      this.rooms = roomCollection.rooms
-    });
-  }
+      this.rooms = roomCollection.rooms.filter(item=> !this.teamRooms.some(item2=> item.roomNo === item2.roomNo));
+      })
+    }
 
   submitAddRoomForm() {
-
     this.roomService.addTeamToRoom(this.addRoomForm.value.room, this.teamId!!)
       .then(_ => {
         this.generalService.showSnackbar("Room added successfully", "ok", {})

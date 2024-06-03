@@ -100,7 +100,6 @@ export class TeamManagerComponent implements AfterViewInit {
 
   private showAllTeams() {
     this.teamService.getAllTeamsInfo().then(res => {
-      console.log(res);
       this.dataSource = new MatTableDataSource<TeamInfo>(res.teamInfoCollection);
       this.displayedColumns = ['name', 'members', 'rooms', 'action'];
       this.dataSource.paginator = this.paginator;
@@ -128,9 +127,13 @@ export class TeamManagerComponent implements AfterViewInit {
     }
   }
 
-  addRoom(teamId: number) {
+  addRoom(teamInfo: TeamInfo) {
     const dialogRef = this.dialog.open(AddRoomComponent, {
-      data: { teamId: teamId }
+      data: {
+        teamId: teamInfo.id,
+        rooms: teamInfo.rooms,
+      }
+
     });
     dialogRef.afterClosed().subscribe(result => {
       this.showAllTeams();
@@ -149,9 +152,11 @@ export class TeamManagerComponent implements AfterViewInit {
     });
   }
 
-  addMember(teamId: number) {
+  addMember(teamInfo: TeamInfo) {
     const dialogRef = this.dialog.open(AddMemberComponent, {
-      data: { teamId: teamId }
+      data: { teamId: teamInfo.id,
+        teamMembers:teamInfo.members
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.showAllTeams();

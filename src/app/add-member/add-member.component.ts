@@ -37,6 +37,7 @@ export class AddMemberComponent {
 
   teamId: number | undefined;
   userCollection: User[] = [];
+  teamMembers: User[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
@@ -45,22 +46,26 @@ export class AddMemberComponent {
     private teamService: TeamService,
     private generalService: GeneralService
   ) {
+    this.dialogRef.updateSize('40%');
     if (data) {
       this.teamId = data.teamId;
+     this.teamMembers = data.teamMembers;
     }
-    this.dialogRef.updateSize('40%');
     this.fetchMembers();
   }
 
   fetchMembers() {
     this.userService.getAllUsers().then((userCollection: UserCollection) => {
-      this.userCollection = userCollection.userCollection;
+      this.userCollection = userCollection.userCollection.filter(item =>
+        !this.teamMembers.some(item2 => item.id === item2.id)
+      );
     });
   }
 
+
   submitAddMemberForm() {
-    const userId = this.addMemberForm.value.members;
-    this.teamService.assignUserToTeam(userId, this.teamId!!)
+   // const userId = this.addMemberForm.value.members;
+    this.teamService.assignUserToTeam(this.addMemberForm.value.members.id, this.teamId!!)
       .then(_ => {
         this.generalService.showSnackbar("Member added successfully", "ok", {});
         this.dialogRef.close();

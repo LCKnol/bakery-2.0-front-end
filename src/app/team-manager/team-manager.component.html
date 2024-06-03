@@ -41,9 +41,9 @@
               <mat-icon>menu</mat-icon>
             </button>
             <mat-menu #menu="matMenu" class="adminDropdown">
-              <button mat-menu-item (click)="addRoom(element.id)">Add Room</button>
+              <button mat-menu-item (click)="addRoom(element)">Add Room</button>
               <button mat-menu-item (click)="removeRoom(element.id,element.rooms)">Remove Room</button>
-              <button mat-menu-item (click)="addMember(element.id)">Add Member</button>
+              <button mat-menu-item (click)="addMember(element)">Add Member</button>
               <button mat-menu-item (click)="removeMember(element.id,element.members)">Remove Member</button>
               <button mat-menu-item (click)="deleteTeam(element.id)">Delete Team</button>
             </mat-menu>
