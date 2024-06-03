@@ -31,6 +31,7 @@ import {RemoveUserFromTeamComponent} from "../remove-user-from-team/remove-user-
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {Pi} from "../dto/pi";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {Team} from "../dto/team";
 
 @Component({
   selector: 'app-user-manager',
@@ -120,11 +121,12 @@ export class UserManagerComponent implements AfterViewInit{
     this.dataSource.paginator = this.paginator;
   }
 
-  openAssignToTeamDialog(userid: number) {
+  openAssignToTeamDialog(userid: number, teams: Team[]) {
 
     const dialogRef = this.dialog.open(AssignTeamComponent, {
       data: {
-        userid:userid
+        userid:userid,
+        teams:teams
       }
     });
     dialogRef.afterClosed().subscribe(result => {
