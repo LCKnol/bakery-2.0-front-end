@@ -18,7 +18,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {TeamCollection} from "../dto/teamCollection";
 
 @Component({
-  selector: 'app-add-room',
+  selector: 'app-assign-room',
   standalone: true,
 
   imports: [

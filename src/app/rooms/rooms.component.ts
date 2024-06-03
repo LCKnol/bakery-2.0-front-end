@@ -26,13 +26,14 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {AddDashboardComponent} from "../add-dashboard/add-dashboard.component";
 import {MatDialog} from "@angular/material/dialog";
-import {AddRoomComponent} from "../add-room/add-room.component";
+import {AssignRoomComponent} from "../assign-room/assign-room.component";
 import * as console from "node:console";
 import {DeleteTeamFromRoomComponent} from "../delete-team-from-room/delete-team-from-room.component";
 import {AddTeamToRoomComponent} from "../add-team-to-room/add-team-to-room.component";
 import {User} from "../dto/user";
 import {DashboardDto} from "../dto/dashboardDto";
 import {FormsModule} from "@angular/forms";
+import {AddRoomComponent} from "../add-room/add-room.component";
 
 
 @Component({

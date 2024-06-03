@@ -19,7 +19,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 export class NavbarComponent {
   links = [['Home', '/'],['My dashboards','dashboards'],["My pi's",'pis'],['Admin','admin']];
   activeLink = this.links[0];
-  adminLinks = [["PI's", 'piManager'],['Users','userManager'], ['Teams','teams'], ['Rooms','rooms']];
+  adminLinks = [["PI's", 'piManager'],['Users','userManager'], ['Teams','teamManager'], ['Rooms','rooms']];
   activeAdminLink : String[] = this.adminLinks[0];
   constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService, private snackbar: MatSnackBar) {
   }

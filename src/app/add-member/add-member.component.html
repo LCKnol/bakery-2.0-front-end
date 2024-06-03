@@ -1,0 +1,17 @@
+<form [formGroup]="addMemberForm" (ngSubmit)="submitAddMemberForm()" class="login-form">
+  <mat-dialog-content>
+    <div class="piInfo">
+      <mat-icon>account_circle</mat-icon>
+      <p>Add member</p>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Members</mat-label>
+      <mat-select formControlName="members">
+        <mat-option *ngFor="let user of userCollection" [value]="user">{{ user.firstName }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-flat-button type="submit" class="login-button" color="light-blue">Add Member</button>
+  </mat-dialog-content>
+</form>
+
