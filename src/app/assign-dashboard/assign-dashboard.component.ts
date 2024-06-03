@@ -20,6 +20,7 @@ import {Pi} from "../dto/pi";
 import {PiService} from "../services/pi.service";
 import {MatCard} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
+import {GeneralService} from "../services/general.service";
 
 @Component({
   selector: 'app-assign-dashboard',
@@ -52,7 +53,7 @@ export class AssignDashboardComponent {
     dashboardList: new FormControl('',[Validators.required]),
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AssignDashboardComponent>, private dashboardService: DashboardService, private piService: PiService,) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any,private generalService: GeneralService, private dialogRef: MatDialogRef<AssignDashboardComponent>, private dashboardService: DashboardService, private piService: PiService,) {
     if (this.data) {
       this.pi = data.pi
     }
@@ -73,6 +74,9 @@ export class AssignDashboardComponent {
       dashboardId: this.assignDashboardForm.value.dashboardList
     };
     this.piService.assignDashboard(newPi).then(r =>
-      this.dialogRef.close(true))
+      this.dialogRef.close(true)).catch(_ => {
+      this.generalService.showSnackbar("Error while assigning dashboard", "OK")
+      this.dialogRef.close()
+    })
   }
 }

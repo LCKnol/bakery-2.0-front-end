@@ -18,6 +18,7 @@ import {UserService} from "../services/user.service";
 import {Team} from "../dto/team";
 import {TeamCollection} from "../dto/teamCollection";
 import {TeamService} from "../services/team.service";
+import {GeneralService} from "../services/general.service";
 
 @Component({
   selector: 'app-assign-team',
@@ -41,14 +42,16 @@ export class AssignTeamComponent {
 
   userid: number | undefined
   teams: Team[] = []
+  userTeams: Team[] =[]
 
   assignTeamForm: FormGroup = new FormGroup({
     team: new FormControl('',[Validators.required])
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AssignDashboardComponent>, private dashboardService: DashboardService,private teamService: TeamService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any,private generalService: GeneralService, private dialogRef: MatDialogRef<AssignDashboardComponent>, private dashboardService: DashboardService,private teamService: TeamService) {
     if (this.data) {
       this.userid = data.userid
+      this.userTeams = data.teams
       this.fetchTeams()
     }
   }
@@ -56,12 +59,15 @@ export class AssignTeamComponent {
 
   submitAssignTeamForm() {
     this.teamService.assignUserToTeam(this.userid!!,this.assignTeamForm.value.team).then(r =>
-      this.dialogRef.close(true))
+      this.dialogRef.close(true)).catch(_ => {
+      this.generalService.showSnackbar("Error while assigning team", "OK")
+      this.dialogRef.close()
+    })
   }
 
   fetchTeams() {
     this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
-      this.teams = teamCollection.teamCollection
+      this.teams = teamCollection.teamCollection.filter(item => !this.userTeams.some(user => user.id === item.id));
     });
   }
 }

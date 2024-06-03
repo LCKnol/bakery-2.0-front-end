@@ -9,8 +9,6 @@ import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {PiService} from "../services/pi.service";
 import {MatPaginator} from "@angular/material/paginator";
-import {PiCollection} from "../dto/pi-collection";
-import {from, Observable} from 'rxjs';
 import {
   MatCell, MatCellDef,
   MatColumnDef,
@@ -28,9 +26,8 @@ import {AssignDashboardComponent} from "../assign-dashboard/assign-dashboard.com
 import {InitPiComponent} from "../init-pi/init-pi.component";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {DashboardDto} from "../dto/dashboardDto";
-import {EditdashboardComponent} from "../editdashboard/editdashboard.component";
 import {EditpiComponent} from "../editpi/editpi.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-pimanager',
@@ -67,16 +64,22 @@ import {EditpiComponent} from "../editpi/editpi.component";
     MatMenu,
     MatMenuItem,
     MatMenuTrigger,
-    MatProgressSpinner
+    MatProgressSpinner,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './pimanager.component.html',
   styleUrl: './pimanager.component.css'
 })
+
 export class PimanagerComponent implements AfterViewInit {
   displayedColumns: string[] = []
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>()
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  pis?: Pi[] = [];
+  filteredPis?: Pi[] = [];
   dataSwitch: boolean = true
+  pingAll: boolean = false
 
   macAddress: string | null = null;
   pingId: number | null = null
@@ -86,7 +89,7 @@ export class PimanagerComponent implements AfterViewInit {
               private router: Router,
               public dialog: MatDialog,
               private snackBar: MatSnackBar,
-              ) {
+  ) {
     this.showAllPis()
   }
 
@@ -94,10 +97,10 @@ export class PimanagerComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  openAssignDialog(pi:Pi) {
+  openAssignDialog(pi: Pi) {
     const dialogRef = this.dialog.open(AssignDashboardComponent, {
       data: {
-        pi:pi
+        pi: pi
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -105,10 +108,10 @@ export class PimanagerComponent implements AfterViewInit {
     });
   }
 
-  openPiRequestDialog(macAddress: string,ipAddress: string) {
+  openPiRequestDialog(macAddress: string, ipAddress: string) {
     const dialogRef = this.dialog.open(InitPiComponent, {
       data: {
-        macAddress:macAddress,
+        macAddress: macAddress,
         ipAddress: ipAddress
       }
     });
@@ -123,6 +126,9 @@ export class PimanagerComponent implements AfterViewInit {
       this.displayedColumns = ['name', 'status', 'macaddress', 'ipaddress', 'room', 'display', 'action']
       this.dataSource.paginator = this.paginator;
       this.dataSwitch = true
+      this.pingAll = false
+      this.pis = res.pis;
+      this.filteredPis = res.pis
     });
   }
 
@@ -143,7 +149,7 @@ export class PimanagerComponent implements AfterViewInit {
     }
   }
 
-  openEditDialog(pi:Pi) {
+  openEditDialog(pi: Pi) {
     const dialogRef = this.dialog.open(EditpiComponent, {
       data: {
         pi: pi
@@ -187,5 +193,46 @@ export class PimanagerComponent implements AfterViewInit {
       });
     });
   }
-}
 
+  filterResults(text: string) {
+    if (this.dataSwitch) {
+      if (!text) {
+        this.dataSource = new MatTableDataSource<Pi>(this.pis)
+        this.dataSource.paginator = this.paginator;
+        return;
+      }
+      this.filteredPis = this.pis?.filter(
+        pi => pi?.name.toLowerCase().includes(text.toLowerCase())
+      );
+      this.dataSource = new MatTableDataSource<Pi>(this.filteredPis)
+      this.dataSource.paginator = this.paginator;
+    }
+  }
+
+  updatePis() {
+    this.piService.updatePis()
+  }
+
+  pingPis() {
+    this.piService.pingPis().then(_ => {
+      this.pingAll = true
+      setTimeout(() => {
+        this.showAllPis();
+        this.pingAll = false
+      }, 2000);
+    });
+  }
+
+  rebootPis() {
+    this.piService.rebootPis().then(() => {
+      this.snackBar.open('Reboot command sent successfully!', 'Close', {
+        duration: 3000
+      });
+    }).catch((error) => {
+      console.error('Error sending reboot command:', error);
+      this.snackBar.open('Failed to send reboot command', 'Close', {
+        duration: 3000
+      });
+    });
+  }
+}

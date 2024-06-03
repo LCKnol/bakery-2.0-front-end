@@ -47,7 +47,7 @@ export class DeleteTeamFromRoomComponent {
     team: new FormControl()
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<DeleteTeamFromRoomComponent>, private roomService: RoomService,private teamService: TeamService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any,private generalService: GeneralService, private dialogRef: MatDialogRef<DeleteTeamFromRoomComponent>, private roomService: RoomService,private teamService: TeamService) {
     if (this.data) {
       this.roomNo = this.data.room.roomNo
       this.teams = this.data.room.teamCollection
@@ -56,6 +56,9 @@ export class DeleteTeamFromRoomComponent {
 
   submitDeleteTeamFromRoomForm() {
     this.roomService.removeTeamFromRoom(this.roomNo!!,this.deleteTeamFromRoomForm.value.team).then(r =>
-      this.dialogRef.close(true))
+      this.dialogRef.close(true)).catch(_ => {
+      this.generalService.showSnackbar("Error while removing team", "OK")
+      this.dialogRef.close()
+    })
   }
 }

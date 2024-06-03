@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, Observable} from "rxjs";
 import {LoginResponse} from "../dto/loginResponse";
 import {LoginRequest} from "../dto/loginRequest";
 import { CookieService } from 'ngx-cookie-service';
@@ -12,7 +12,7 @@ import {Url} from "./api-endpoints";
 })
 export class LoginService {
 
-  constructor(private cookieService: CookieService, private generalService: GeneralService) {
+  constructor(private cookieService: CookieService, private generalService: GeneralService, private http: HttpClient) {
   }
 
   public async login(loginRequst : LoginRequest): Promise<LoginResponse> {
@@ -28,6 +28,11 @@ export class LoginService {
 
   public async logout(): Promise<void> {
     const endpointUrl = Url.authentication;
-    return firstValueFrom(await this.generalService.delete(endpointUrl));
+    const x : Promise<void> = firstValueFrom(await this.generalService.delete(endpointUrl));
+    this.cookieService.delete("token")
+    sessionStorage.clear()
+    return x
   }
+
+
 }

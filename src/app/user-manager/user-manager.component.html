@@ -50,7 +50,7 @@
               <mat-icon>menu</mat-icon>
             </button>
             <mat-menu #menu="matMenu" class="adminDropdown">
-              <button mat-menu-item (click)="openAssignToTeamDialog(element.id)">Add to team</button>
+              <button mat-menu-item (click)="openAssignToTeamDialog(element.id,element.teams)">Add to team</button>
               <button mat-menu-item (click)="openRemoveFromTeamDialog(element.id)">Remove from team</button>
               <button mat-menu-item (click)="deleteUser(element.id)">Delete</button>
             </mat-menu>
