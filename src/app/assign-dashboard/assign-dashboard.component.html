@@ -11,11 +11,16 @@
       </h4>
     </div>
     <mat-form-field appearance="fill">
-      <mat-label>Dashboards</mat-label>
-      <mat-select formControlName="dashboardList" [value]="pi?.dashboardName">
-        <mat-option *ngFor="let dashboard of dashboards" [value]="dashboard.id">{{ dashboard.dashboardName }}
-        </mat-option>
-      </mat-select>
+      <mat-label>Team</mat-label>
+      <input
+        type="text"
+        placeholder=""
+        matInput
+        [formControl]="dashboardFormControl"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option.dashboardName }}</mat-option>
+      </mat-autocomplete>
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions align="center">
