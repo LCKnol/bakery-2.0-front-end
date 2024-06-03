@@ -24,7 +24,7 @@ import { NgForOf, NgIf } from "@angular/common";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { TeamInfo } from "../dto/team.info";
-import { AddRoomComponent } from "../add-room/add-room.component";
+import { AssignRoomComponent } from "../assign-room/assign-room.component";
 import { AddMemberComponent } from "../add-member/add-member.component";
 import { RemoveMemberComponent } from "../remove-member/remove-member.component";
 import { RemoveRoomComponent } from "../remove-room/remove-room.component";
@@ -128,7 +128,7 @@ export class TeamManagerComponent implements AfterViewInit {
   }
 
   addRoom(teamInfo: TeamInfo) {
-    const dialogRef = this.dialog.open(AddRoomComponent, {
+    const dialogRef = this.dialog.open(AssignRoomComponent, {
       data: {
         teamId: teamInfo.id,
         rooms: teamInfo.rooms,

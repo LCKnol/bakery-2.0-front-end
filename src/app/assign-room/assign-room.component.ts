@@ -20,7 +20,7 @@ import {UserCollection} from "../dto/userCollection";
 import {TeamInfo} from "../dto/team.info";
 
 @Component({
-  selector: 'app-add-room',
+  selector: 'app-assign-room',
   standalone: true,
     imports: [
         FormsModule,
@@ -35,10 +35,10 @@ import {TeamInfo} from "../dto/team.info";
         NgForOf,
         ReactiveFormsModule
     ],
-  templateUrl: './add-room.component.html',
-  styleUrl: './add-room.component.css'
+  templateUrl: './assign-room.component.html',
+  styleUrl: './assign-room.component.css'
 })
-export class AddRoomComponent {
+export class AssignRoomComponent {
   addRoomForm: FormGroup = new FormGroup({
 
     room: new FormControl()
@@ -49,7 +49,7 @@ export class AddRoomComponent {
   teamId : number | undefined
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddRoomComponent>,
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AssignRoomComponent>,
                private roomService: RoomService, private router: Router, private generalService: GeneralService) {
     this.dialogRef.updateSize('40%')
     if (data) {
