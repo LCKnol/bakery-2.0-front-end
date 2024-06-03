@@ -1,21 +1,20 @@
 import {Component, Inject} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {Router} from "@angular/router";
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
-import {GeneralService} from "../services/general.service";
 import {MatOption, MatSelect} from "@angular/material/select";
-import {Team} from "../dto/team";
 import {TeamService} from "../services/team.service";
-import {NgForOf} from "@angular/common";
+import {AsyncPipe, NgForOf} from "@angular/common";
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
-import {RoomDto} from "../dto/roomDto";
 import {RoomService} from "../services/room.service";
-import {MatTableDataSource} from "@angular/material/table";
-import {TeamCollection} from "../dto/teamCollection";
+import {Team} from "../dto/team";
+import {GeneralService} from "../services/general.service";
+import {Observable} from "rxjs";
+import {map, startWith} from "rxjs/operators";
+import {MatAutocomplete, MatAutocompleteTrigger} from "@angular/material/autocomplete";
 
 @Component({
   selector: 'app-add-room',
@@ -35,27 +34,52 @@ import {TeamCollection} from "../dto/teamCollection";
     MatOption,
     NgForOf,
     MatDialogContent,
+    AsyncPipe,
+    MatAutocomplete,
+    MatAutocompleteTrigger,
   ],
   templateUrl: './delete-team-from-room.component.html',
   styleUrl: './delete-team-from-room.component.html'
 })
 export class DeleteTeamFromRoomComponent {
   roomNo: String | undefined
-  teams: TeamCollection = {teamCollection: []}
+  teams: Team[] = []
+  teamFormControl = new FormControl(null)
+  filteredOptions: Observable<Team[]> = new Observable<Team[]>();
 
   deleteTeamFromRoomForm: FormGroup = new FormGroup({
-    team: new FormControl()
+    team: this.teamFormControl
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<DeleteTeamFromRoomComponent>, private roomService: RoomService,private teamService: TeamService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<DeleteTeamFromRoomComponent>, private roomService: RoomService,private generalService: GeneralService) {
     if (this.data) {
       this.roomNo = this.data.room.roomNo
-      this.teams = this.data.room.teamCollection
+      this.teams = this.data.room.teamCollection.teamCollection
+      this.filteredOptions = this.teamFormControl.valueChanges
+        .pipe(
+          startWith<string | null>(''),
+          map(value => this._filter(value!!))
+        );
     }
   }
 
   submitDeleteTeamFromRoomForm() {
-    this.roomService.removeTeamFromRoom(this.roomNo!!,this.deleteTeamFromRoomForm.value.team).then(r =>
-      this.dialogRef.close(true))
+    this.roomService.removeTeamFromRoom(this.roomNo!!,this.deleteTeamFromRoomForm.value.team.id).then(r =>
+    {this.dialogRef.close(true)
+      this.generalService.showSnackbar("Succesfully deleted team", "OK")
+    }).catch(_ => {
+        this.dialogRef.close(true)
+        this.generalService.showSnackbar("Error while deleting team", "OK")
+      })
+  }
+
+  displayFn(team?: any): string {
+    return team ? team.name : undefined;
+  }
+
+  private _filter(value: string): Team[] {
+    const filterValue = value.toLowerCase();
+
+    return this.teams.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 }
