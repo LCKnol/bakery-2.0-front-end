@@ -33,6 +33,7 @@ import {AddTeamToRoomComponent} from "../add-team-to-room/add-team-to-room.compo
 import {User} from "../dto/user";
 import {DashboardDto} from "../dto/dashboardDto";
 import {FormsModule} from "@angular/forms";
+import {AddRoomComponent} from "../add-room/add-room.component";
 
 
 @Component({
@@ -99,7 +100,7 @@ export class RoomsComponent implements AfterViewInit {
 }
 
   openAddDialog() {
-    const dialogRef = this.dialog.open(AssignRoomComponent, {
+    const dialogRef = this.dialog.open(AddRoomComponent, {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.showAllRooms()
