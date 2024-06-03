@@ -129,6 +129,7 @@ export class EditdashboardComponent {
         this.generalService.showSnackbar("Dashboard succesfully updated", "OK", {duration: 3000})
       }).catch(_ => {
         this.generalService.showSnackbar("Error while updating dashboard", "OK")
+        this.dialogRef.close()
       })
 
     this.dialogRef.close()

@@ -4,6 +4,7 @@ import {UserCollection} from "../dto/userCollection";
 import {firstValueFrom} from "rxjs";
 import {Url} from "./api-endpoints";
 import {User} from "../dto/user";
+import {UserInfo} from "../dto/userInfo";
 
 
 @Injectable({
@@ -13,6 +14,11 @@ import {User} from "../dto/user";
 export class UserService {
 
   constructor(private generalService: GeneralService) {
+  }
+
+  async getCurrentUser(): Promise<UserInfo> {
+    const endpointUrl = Url.user
+    return  firstValueFrom(await this.generalService.get(endpointUrl));
   }
 
   async getAllUsers(): Promise<UserCollection> {

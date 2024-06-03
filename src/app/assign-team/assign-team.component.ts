@@ -65,14 +65,18 @@ export class AssignTeamComponent {
 
 
   submitAssignTeamForm() {
-    this.teamService.assignUserToTeam(this.userid!!,this.assignTeamForm.value.team.id).then(r =>
-      this.dialogRef.close(true))
-    this.generalService.showSnackbar("Succesfully added team to user", "OK")
+    this.teamService.assignUserToTeam(this.userid!!,this.assignTeamForm.value.team.id).then(r => {
+      this.dialogRef.close(true); 
+      this.generalService.showSnackbar("Succesfully added team to user", "OK")
+    }).catch(_ => {
+      this.generalService.showSnackbar("Error while assigning team", "OK")
+      this.dialogRef.close()
+    })
   }
 
   fetchTeams() {
     this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
-      this.teams = teamCollection.teamCollection.filter(team => !this.userTeams.map(team => team.name).includes(team.name))
+      this.teams = teamCollection.teamCollection.filter(item => !this.userTeams.some(user => user.id === item.id));
       this.filteredOptions = this.teamFormControl.valueChanges
         .pipe(
           startWith<string | null>(''),
