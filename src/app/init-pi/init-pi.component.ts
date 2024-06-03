@@ -96,6 +96,7 @@ export class InitPiComponent {
       this.dialogRef.close()
     }).catch(_ => {
       this.generalService.showSnackbar("Error while initializing pi", "OK");
+      this.dialogRef.close()
     })
   }
 

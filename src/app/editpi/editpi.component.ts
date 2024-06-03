@@ -108,11 +108,11 @@ export class EditpiComponent {
     const editPi: Pi = {
       id: this.pi?.id!!, // Assumes piId is non-null
       name: this.piEditForm.value.name ?? this.pi?.name,
-      roomNo: this.piEditForm.value.roomNo ?? '',
+      roomNo: this.piEditForm.value.roomNo ?? this.pi?.roomNo,
       status: this.pi?.status ?? "",
       dashboardName: this.pi?.dashboardName ?? "",
       macAddress: this.pi?.macAddress ?? "",
-      dashboardId:this.pi?.dashboardId?? -1,
+      dashboardId: this.pi?.dashboardId ?? -1,
       ipAddress: this.pi?.ipAddress!!,
     };
     // Call the service to update the Pi data
@@ -122,6 +122,7 @@ export class EditpiComponent {
         this.dialogRef.close()
       }).catch(_ => {
         this.generalService.showSnackbar('Error while updating Pi', 'OK')
+        this.dialogRef.close()
       })
   }
 
