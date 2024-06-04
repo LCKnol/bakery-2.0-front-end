@@ -121,7 +121,7 @@ export class UserManagerComponent implements AfterViewInit{
     this.dataSource.paginator = this.paginator;
   }
 
-  openAssignToTeamDialog(userid: number,teams: Team[]) {
+  openAssignToTeamDialog(userid: number, teams: Team[]) {
 
     const dialogRef = this.dialog.open(AssignTeamComponent, {
       data: {
@@ -135,11 +135,12 @@ export class UserManagerComponent implements AfterViewInit{
 
   }
 
-  openRemoveFromTeamDialog(userid: number) {
+  openRemoveFromTeamDialog(userid: number, userTeams: Team[]) {
 
     const dialogRef = this.dialog.open(RemoveUserFromTeamComponent, {
       data: {
-        userid:userid
+        userid:userid,
+        userTeams:userTeams
       }
     });
     dialogRef.afterClosed().subscribe(result => {

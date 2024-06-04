@@ -42,24 +42,15 @@ export class AddUserComponent {
     lastname: new FormControl('',[Validators.required]),
     email: new FormControl('',[Validators.required]),
     password: new FormControl('',[Validators.required]),
-    isAdmin: new FormControl('',[Validators.required]),
-    team: new FormControl()
+    isAdmin: new FormControl('',[Validators.required])
   });
 
   teams: Team[] = []
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<AddUserComponent>,private userService: UserService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
+  constructor(private dialogRef: MatDialogRef<AddUserComponent>,private userService: UserService, private teamService: TeamService, private router: Router, private generalService: GeneralService) {
     this.dialogRef.updateSize('40%')
-    this.fetchTeams()
-  }
-
-  fetchTeams() {
-    this.teamService.getAllTeams().then((teamCollection: TeamCollection) => {
-      this.teams = teamCollection.teamCollection
-    });
   }
   submitAddUserForm() {
-
     const user: User = {
       id: -1,
       firstName: this.addUserForm.value.firstname,
@@ -67,7 +58,7 @@ export class AddUserComponent {
       email: this.addUserForm.value.email,
       password: this.addUserForm.value.password,
       isAdmin: this.addUserForm.value.isAdmin,
-      teams: this.teams
+      teams: []
     };
     this.userService.addUser(user)
       .then(token => {

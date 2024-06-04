@@ -10,12 +10,15 @@ import {GeneralService} from "../services/general.service";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {Team} from "../dto/team";
 import {TeamService} from "../services/team.service";
-import {NgForOf} from "@angular/common";
+import {AsyncPipe, NgForOf} from "@angular/common";
 import {MAT_DIALOG_DATA, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 import {RoomDto} from "../dto/roomDto";
 import {RoomService} from "../services/room.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {TeamCollection} from "../dto/teamCollection";
+import {map, startWith} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {MatAutocomplete, MatAutocompleteTrigger} from "@angular/material/autocomplete";
 
 @Component({
   selector: 'app-assign-room',
@@ -35,6 +38,9 @@ import {TeamCollection} from "../dto/teamCollection";
     MatOption,
     NgForOf,
     MatDialogContent,
+    AsyncPipe,
+    MatAutocomplete,
+    MatAutocompleteTrigger,
   ],
   templateUrl: './add-team-to-room.component.html',
   styleUrl: './add-team-to-room.component.html'
@@ -42,8 +48,11 @@ import {TeamCollection} from "../dto/teamCollection";
 export class AddTeamToRoomComponent {
   roomNo: String | undefined
   teams: Team[] = []
+  teamFormControl = new FormControl(null)
+  filteredOptions: Observable<Team[]> = new Observable<Team[]>();
+
   addTeamToRoomForm: FormGroup = new FormGroup({
-    team: new FormControl()
+    team: this.teamFormControl
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,private generalService: GeneralService, private dialogRef: MatDialogRef<AddTeamToRoomComponent>, private roomService: RoomService,private teamService: TeamService) {
@@ -54,7 +63,7 @@ export class AddTeamToRoomComponent {
   }
 
   submitAddTeamToRoomForm() {
-    this.roomService.addTeamToRoom(this.roomNo!!,this.addTeamToRoomForm.value.team).then(r =>
+    this.roomService.addTeamToRoom(this.roomNo!!,this.addTeamToRoomForm.value.team.id).then(r =>
       this.dialogRef.close(true)).catch(_ => {
       this.generalService.showSnackbar("Adding team failed", "ok", {});
       this.dialogRef.close()
@@ -64,7 +73,22 @@ export class AddTeamToRoomComponent {
   fetchTeams() {
     this.teamService.getTeamsNotInRoom(this.roomNo!!).then((teamCollection: TeamCollection) => {
       this.teams = teamCollection.teamCollection
+      this.filteredOptions = this.teamFormControl.valueChanges
+        .pipe(
+          startWith<string | null>(''),
+          map(value => this._filter(value!!))
+        );
     });
+  }
+
+  displayFn(team?: any): string {
+    return team ? team.name : undefined;
+  }
+
+  private _filter(value: string): Team[] {
+    const filterValue = value.toLowerCase();
+
+    return this.teams.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 }
 
