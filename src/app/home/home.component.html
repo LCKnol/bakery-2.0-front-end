@@ -1,19 +1,29 @@
-<div class="container" ></div>
-
+<div class="homeBackground">
+<div class="container">
 <mat-card class="details-card">
-  <mat-card-header>
-    <mat-card-title>You're logged in as {{ user?.firstname + ' ' + user?.lastname }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p><b>Teams you're in:</b>
-      <ng-container *ngFor="let team of user?.teams; let isLast=last">
-        {{ team.name }}{{ isLast ? '' : ', ' }}
-      </ng-container>
-    </p>
-    <p><b>Assigned rooms:</b>
-      <ng-container *ngFor="let room of user?.rooms; let isLast=last">
-        {{ room.roomNo }}{{ isLast ? '' : ', ' }}
-      </ng-container>
-    </p>
-  </mat-card-content>
+  <mat-list>
+    <mat-card-header>
+      <mat-card-title>You're logged in as {{ user?.firstname + ' ' + user?.lastname }}</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <p><b>Teams:</b>
+        <ng-container *ngFor="let team of user?.teams; let isLast=last">
+          {{ team.name }}{{ isLast ? '' : ', ' }}
+        </ng-container>
+      </p>
+      <p><b>Rooms:</b>
+        <ng-container *ngFor="let room of user?.rooms; let isLast=last">
+          {{ room.roomNo }}{{ isLast ? '' : ', ' }}
+        </ng-container>
+      </p>
+      <div class="button-container">
+        <button mat-flat-button routerLink="/pis" color="light-blue">Pis</button>
+        <button mat-flat-button routerLink="/dashboards" color="light-blue">Dashboards</button>
+      </div>
+    </mat-card-content>
+  </mat-list>
+
 </mat-card>
+</div>
+</div>
