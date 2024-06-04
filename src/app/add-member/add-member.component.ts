@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from "@angular/material/dialog";
 import { UserService } from "../services/user.service";
 import { TeamService } from "../services/team.service";
@@ -7,11 +7,16 @@ import { GeneralService } from "../services/general.service";
 import { UserCollection } from "../dto/userCollection";
 import { User } from "../dto/user";
 import { MatFormField, MatLabel } from "@angular/material/form-field";
-import { MatOption } from "@angular/material/autocomplete";
+import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import { MatSelect } from "@angular/material/select";
 import { MatButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
-import { NgForOf } from "@angular/common";
+import {AsyncPipe, NgForOf} from "@angular/common";
+import {map, startWith} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {Team} from "../dto/team";
+import {Member} from "../dto/member";
+import {MatInput} from "@angular/material/input";
 
 @Component({
   selector: 'app-add-member',
@@ -25,15 +30,23 @@ import { NgForOf } from "@angular/common";
     MatDialogContent,
     MatIcon,
     MatLabel,
-    NgForOf
+    NgForOf,
+    AsyncPipe,
+    MatAutocomplete,
+    MatAutocompleteTrigger,
+    MatInput
   ],
   templateUrl: './add-member.component.html',
   styleUrl: './add-member.component.css'
 })
 export class AddMemberComponent {
+  userFormControl = new FormControl(null, [Validators.required]);
+  filteredOptions: Observable<User[]> = new Observable<User[]>();
+
   addMemberForm: FormGroup = new FormGroup({
-    members: new FormControl()
+    members: this.userFormControl
   });
+
 
   teamId: number | undefined;
   userCollection: User[] = [];
@@ -46,7 +59,6 @@ export class AddMemberComponent {
     private teamService: TeamService,
     private generalService: GeneralService
   ) {
-    this.dialogRef.updateSize('40%');
     if (data) {
       this.teamId = data.teamId;
      this.teamMembers = data.teamMembers;
@@ -59,6 +71,11 @@ export class AddMemberComponent {
       this.userCollection = userCollection.userCollection.filter(item =>
         !this.teamMembers.some(item2 => item.id === item2.id)
       );
+      this.filteredOptions = this.userFormControl.valueChanges
+        .pipe(
+          startWith<string | null>(''),
+          map(value => this._filter(value!!))
+        );
     });
   }
 
@@ -74,5 +91,15 @@ export class AddMemberComponent {
         this.generalService.showSnackbar("Adding Member failed", "ok", {});
         this.dialogRef.close();
       });
+  }
+
+  displayFn(member?: any): string {
+    return member ? member.firstName : undefined;
+  }
+
+  private _filter(value: string): User[] {
+    const filterValue = value.toLowerCase();
+
+    return this.userCollection.filter(option => option.firstName.toLowerCase().includes(filterValue));
   }
 }

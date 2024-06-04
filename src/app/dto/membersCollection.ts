@@ -1,8 +1,8 @@
 import {RoomDto} from "./roomDto";
-import {member} from "./member";
+import {Member} from "./member";
 
 export interface membersCollection {
-  members: member[]
+  members: Member[]
 }
 
 

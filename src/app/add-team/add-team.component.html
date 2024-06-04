@@ -10,20 +10,6 @@
       <input matInput type="text" formControlName="name">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label> Add Members</mat-label>
-      <mat-select formControlName="members">
-        <mat-option *ngFor="let user of userCollection" [value]="user">{{ user.firstName }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Assign Rooms</mat-label>
-      <mat-select formControlName="rooms">
-        <mat-option *ngFor="let room of rooms" [value]="room">{{ room.roomNo }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
 
     <button mat-flat-button type="submit" class="login-button" color="light-blue">Add Team</button>
   </mat-dialog-content>

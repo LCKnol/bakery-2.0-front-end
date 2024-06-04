@@ -5,10 +5,16 @@
       <p>Remove room from team</p>
     </div>
     <mat-form-field appearance="fill">
-      <mat-label>Rooms</mat-label>
-      <mat-select formControlName="room">
-        <mat-option *ngFor="let room of rooms" [value]="room">{{ room.roomNo }}</mat-option>
-      </mat-select>
+      <mat-label>Room</mat-label>
+      <input
+        type="text"
+        placeholder=""
+        matInput
+        [formControl]="roomFormControl"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option.roomNo }}</mat-option>
+      </mat-autocomplete>
     </mat-form-field>
     <button mat-flat-button type="submit" class="login-button" color="light-blue">Remove from team</button>
   </mat-dialog-content>

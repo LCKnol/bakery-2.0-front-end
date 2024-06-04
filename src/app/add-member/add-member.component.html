@@ -5,10 +5,16 @@
       <p>Add member</p>
     </div>
     <mat-form-field appearance="fill">
-      <mat-label>Members</mat-label>
-      <mat-select formControlName="members">
-        <mat-option *ngFor="let user of userCollection" [value]="user">{{ user.firstName }}</mat-option>
-      </mat-select>
+      <mat-label>Member</mat-label>
+      <input
+        type="text"
+        placeholder=""
+        matInput
+        [formControl]="userFormControl"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option.firstName }}</mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <button mat-flat-button type="submit" class="login-button" color="light-blue">Add Member</button>
