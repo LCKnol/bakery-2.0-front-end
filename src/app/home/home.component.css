@@ -12,7 +12,7 @@ mat-card {
 }
 
 .details-card {
-  z-index: 999;
+  opacity: unset;
   background-color: #fff;
   margin: 10% auto 2%;
   width: 25%;
