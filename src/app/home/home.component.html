@@ -1,3 +1,5 @@
+<div class="container" ></div>
+
 <mat-card class="details-card">
   <mat-card-header>
     <mat-card-title>You're logged in as {{ user?.firstname + ' ' + user?.lastname }}</mat-card-title>
@@ -15,21 +17,3 @@
     </p>
   </mat-card-content>
 </mat-card>
-
-<!-- ... existing content ... -->
-
-<mat-card class="details-card">
-  <mat-card-header>
-    <mat-card-title>My Raspberry Pi's</mat-card-title>
-  </mat-card-header>
-  <mat-card-content class="pi-cards-container">
-    <ng-container *ngFor="let pi of piCollection?.pis">
-      <app-pi-card [pi]="pi"></app-pi-card>
-    </ng-container>
-  </mat-card-content>
-</mat-card>
-
-<!-- ... -->
-
-
-

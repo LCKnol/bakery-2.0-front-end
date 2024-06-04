@@ -39,15 +39,10 @@ import {PiService} from "../services/pi.service";
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  piCollection: PiCollection = {
-    pis: []
-  };
   user: UserInfo | undefined;
-
 
   constructor(private piService: PiService) {
     this.piService.getUser().then(res => this.user = res)
-    this.piService.getPis().then(res => this.piCollection = res);
   }
 
 }
