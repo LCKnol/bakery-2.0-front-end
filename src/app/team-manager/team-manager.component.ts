@@ -34,6 +34,7 @@ import {Team} from "../dto/team";
 import {TeamInfoCollection} from "../dto/TeamInfoCollection";
 import {RoomDto} from "../dto/roomDto";
 import {User} from "../dto/user";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-team-manager',
@@ -62,7 +63,9 @@ import {User} from "../dto/user";
     MatMenuTrigger,
     NgForOf,
     MatIconButton,
-    MatHeaderCellDef
+    MatHeaderCellDef,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './team-manager.component.html',
   styleUrls: ['./team-manager.component.css']
@@ -75,7 +78,7 @@ export class TeamManagerComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
-  constructor(private router: Router, public dialog: MatDialog, private teamService: TeamService) {
+  constructor(public dialog: MatDialog, private teamService: TeamService) {
     this.showAllTeams();
   }
 

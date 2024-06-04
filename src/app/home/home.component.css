@@ -1,30 +1,49 @@
 /* home.component.css */
-mat-card {
-  width: 75%; /* Set the card width to 75% of the screen width */
-  max-width: 1200px; /* Optional: to prevent the card from being too wide on large screens */
-}
-vvv
-.details-card {
-  background-color: #fff;
-}
-.details-card{
-  margin: 5% auto 2%;
-  width: 80%;
-}
-
-.pi-cards-container {
+.container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Adjust as needed */
-  justify-content: flex-start; /* Aligns cards to the start of the container */
+  max-width: 100%;
+  height: 20%;
+}
+mat-card {
+  width: 100%; /* Set the card width to 75% of the screen width */
+  max-width: 1200px; /* Optional: to prevent the card from being too wide on large screens */
+  align-items: center;
 }
 
-app-pi-card {
-  flex: 0 0 auto; /* Do not grow, do not shrink, be auto width based on content */
-  width: 240px; /* Fixed width, adjust this to match the dashboard cards */
-  margin-bottom: 20px; /* To provide some spacing between the rows */
+.details-card {
+  z-index: 999;
+  background-color: #fff;
+  margin: 10% auto 2%;
+  width: 25%;
+}
+.homeBackground{
+  background-image: url("/assets/homeBackground.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+}
+.login-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center logo horizontally */
+  gap: 10px;
+  margin-bottom: 20px; /* Adjust space between logo and form fields */
 }
 
-app-pi-card .mat-card-content {
-  flex-grow: 1;
+.logo {
+  height: 80%; /* Adjust the logo height as necessary */
+  width: 80%;
+  padding: 10px;
+}
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 8px;
+}
+.button-container button {
+ width: 100%;
 }
