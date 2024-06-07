@@ -5,6 +5,7 @@ import {firstValueFrom} from "rxjs";
 import {Url} from "./api-endpoints";
 import {Injectable} from "@angular/core";
 import {RoomCollection} from "../dto/roomCollection";
+import {TeamInfo} from "../dto/team.info";
 import {DashboardDto} from "../dto/dashboardDto";
 import {RoomDto} from "../dto/roomDto";
 import {Team} from "../dto/team";

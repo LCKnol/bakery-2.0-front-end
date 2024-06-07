@@ -1,0 +1,25 @@
+<form [formGroup]="addRoomForm" (ngSubmit)="submitAddRoomForm()" class="login-form">
+  <mat-dialog-content>
+    <div class="piInfo">
+      <mat-icon>account_circle</mat-icon>
+      <p>Add Room</p>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Room</mat-label>
+      <input
+        type="text"
+        placeholder=""
+        matInput
+        [formControl]="roomFormControl"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option.roomNo }}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+
+    <button mat-flat-button type="submit" class="login-button" color="light-blue">Add Room</button>
+  </mat-dialog-content>
+</form>
+

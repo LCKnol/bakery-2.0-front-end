@@ -12,6 +12,8 @@ import {RoomsComponent} from "./rooms/rooms.component";
 import {CreateAccountComponent} from "./create-account/create-account.component";
 import {GoogleOauthComponent} from "./google-oauth/google-oauth.component";
 import {UserManagerComponent} from "./user-manager/user-manager.component";
+import {ViewpisComponent} from "./viewpis/viewpis.component";
+import {TeamManagerComponent} from "./team-manager/team-manager.component";
 
 export const routes: Routes = [
   {
@@ -72,6 +74,16 @@ export const routes: Routes = [
     path: 'rooms',
     component: RoomsComponent,
     title: 'rooms'
+  },
+  {
+    path: 'teamManager',  // Add the route for TeamManagerComponent
+    component: TeamManagerComponent,
+    title: 'TeamManager'
+  },
+  {
+    path: 'pis',
+    component: ViewpisComponent,
+    title: 'Pis'
   },
   {
     path: 'google-oauth',

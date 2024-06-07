@@ -129,6 +129,7 @@ export class EditdashboardComponent {
         this.generalService.showSnackbar("Dashboard succesfully updated", "OK", {duration: 3000})
       }).catch(_ => {
         this.generalService.showSnackbar("Error while updating dashboard", "OK")
+        this.dialogRef.close()
       })
 
     this.dialogRef.close()
@@ -154,15 +155,6 @@ export class EditdashboardComponent {
     const filterValue = value.toLowerCase();
 
     return this.teams.filter(option => option.name.toLowerCase().includes(filterValue));
-  }
-
-  private _getTeam(name: String, teams: Team[]): Team {
-    for (const team of teams) {
-      if (team.name === name) {
-        return team
-      }
-    }
-    return this.team!!
   }
 }
 

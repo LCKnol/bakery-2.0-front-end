@@ -12,10 +12,15 @@ import {MatButton} from "@angular/material/button";
 import {MatDivider} from "@angular/material/divider";
 import {PiCardComponent} from "../pi-card/pi-card.component";
 import {LoginResponse} from "../dto/loginResponse";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {PiCollection} from "../dto/pi-collection";
 import {UserInfo} from "../dto/userInfo";
 import {PiService} from "../services/pi.service";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
+import {RouterLink} from "@angular/router";
+import {MatList} from "@angular/material/list";
 
 @Component({
   selector: 'app-home',
@@ -33,21 +38,23 @@ import {PiService} from "../services/pi.service";
     MatDivider,
     PiCardComponent,
     NgForOf,
-    NgIf
+    NgIf,
+    NgOptimizedImage,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule,
+    RouterLink,
+    MatList
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  piCollection: PiCollection = {
-    pis: []
-  };
   user: UserInfo | undefined;
-
 
   constructor(private piService: PiService) {
     this.piService.getUser().then(res => this.user = res)
-    this.piService.getPis().then(res => this.piCollection = res);
   }
 
 }

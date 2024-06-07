@@ -6,4 +6,5 @@ export interface UserInfo {
   lastname: string;
   teams: Team[];
   rooms: RoomDto[];
+  isAdmin: boolean;
 }
